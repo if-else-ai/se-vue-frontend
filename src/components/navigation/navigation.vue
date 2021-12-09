@@ -1,6 +1,6 @@
 <template>
 	<nav>
-		<v-app-bar class="nav-bar__items" app outlined elevation="1" >
+		<v-app-bar class="nav-bar__items" app outlined elevation="1">
 			<!-- <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon> -->
 			<!-- Navigation Title -->
 			<!-- <v-toolbar-title>{{ navTitle }}</v-toolbar-title> -->
@@ -20,57 +20,36 @@
 					{{ path.title }}
 				</a>
 			</ul>
-			<!-- <v-list-item-icon>
-					<v-icon>{{ item.icon }}</v-icon>
-				</v-list-item-icon> -->
-			<!-- <v-list-item-content>
-					<v-list-item-title class="navigation-list">{{
-						item.title
-					}}</v-list-item-title>
-				</v-list-item-content> -->
 
-			<!-- <v-spacer></v-spacer> -->
-		</v-app-bar>
+			<div class="nav-icon">
 
-		<!-- <v-navigation-drawer  v-model="drawer" app>
-			<v-list-item class="py-2">
-				App Icon
-				<v-avatar size="50" color="deep-orange darken-4">
-
-				</v-avatar>
-				App Name
-				<v-list-item-content class="px-5" style="font-family: Arial">
-					<v-list-item-title class=""> MVC </v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
-
-			<v-divider></v-divider>
-
-			<v-list nav>
-				<v-list-item-group mandatory color="red darken-4">
-					display path list
-					<v-list-item
-						v-for="item in path_list"
-						:key="item.title"
-						router
-						:to="item.path"
-					>
-						path icon & name
-						<v-list-item-icon>
-							<v-icon>{{ item.icon }}</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>
-							<v-list-item-title class="navigation-list">{{
-								item.title
-							}}</v-list-item-title>
-						</v-list-item-content>
+			<v-menu transition="slide-y-transition" offset-y="true" bottom>
+				<template v-slot:activator="{ on, attrs }">
+					<v-btn v-bind="attrs" v-on="on" icon color="white">
+						<v-icon>mdi-account</v-icon>
+					</v-btn>
+				</template>
+				<!-- <v-list>
+					<v-list-item v-for="(item, i) in items" :key="i">
+						<v-list-item-title>{{ item.menu }}</v-list-item-title>
 					</v-list-item>
+				</v-list> -->
+				<v-list>
+					<v-list-item >
+						<v-list-item-title class="logout-button" @click="toProfile"> Profile </v-list-item-title>
+					</v-list-item>
+					<v-list-item >
+						<v-list-item-title class="logout-button" @click="Logout"> Logout </v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
 
-					<v-divider></v-divider>
+			<v-btn icon color="white" @click="toProductCart">
+				<v-icon>mdi-cart-outline</v-icon>
+			</v-btn>
 
-				</v-list-item-group>
-			</v-list>
-		</v-navigation-drawer> -->
+			</div>
+		</v-app-bar>
 	</nav>
 </template>
 
@@ -88,13 +67,25 @@ export default {
 			{ title: "Customize", path: "/customize" },
 			{ title: "Accesories", path: "/accesories" },
 			{ title: "Tools", path: "/tools" },
-			{ title: "Login", path: "/login" },
-			{ title: "Cart", path: "/cart" },
 		],
+		items: [{ menu: "Account", path:"/profile" }],
 	}),
 
 	props: ["navTitle"],
 
-	methods: {},
+	methods: {
+		toProfile(){
+			this.$router.push('profile')
+		},
+		toProductCart(){
+			this.$router.push('cart')
+		},
+
+		Logout(){
+			this.$store.dispatch('logout')
+		}
+
+	},
+
 };
 </script>

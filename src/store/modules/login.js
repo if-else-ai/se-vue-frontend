@@ -124,7 +124,7 @@ const actions = {
 		localStorage.removeItem("token");
 		localStorage.removeItem("userRole");
 		// localStorage.removeItem('userId')
-		router.replace("/signin");
+		router.replace("/login");
 	},
 	// Store to backend
 	// Currently unavailable

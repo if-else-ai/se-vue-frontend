@@ -56,6 +56,11 @@ const routes = [
 		name: "cart",
 		component: () => import("../views/cart.vue"),
 	},
+	{
+		path: "/profile",
+		name: "profile",
+		component: () => import("../views/profile.vue"),
+	},
 ];
 
 const router = new VueRouter({

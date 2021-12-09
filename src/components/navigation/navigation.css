@@ -60,11 +60,25 @@
 	padding: 0.5rem 1rem;
 }
 
+.logout-button{
+	cursor: pointer;
+}
+
 .nav-links:hover {
 	background-color: #cacaca;
 	color: rgb(36, 36, 36) !important;
 	border-radius: 4px;
 	transition: all 0.2s ease-out;
+}
+
+.nav-icon {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	list-style: none;
+	text-align: center;
+	justify-content: end;
+	margin-right: 4rem;
 }
 
 .fa-bars {
