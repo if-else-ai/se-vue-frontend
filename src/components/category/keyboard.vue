@@ -4,11 +4,7 @@
 	</v-container>
 </template>
 
-
-
 <style src="./style.css"></style>
-
-
 
 <script>
 export default {

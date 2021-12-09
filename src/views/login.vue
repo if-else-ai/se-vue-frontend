@@ -1,4 +1,5 @@
 <template>
+
 	<div id="signin">
 		<div class="signin-form">
 			<form @submit.prevent="onSubmit">
@@ -16,6 +17,7 @@
 			</form>
 		</div>
 	</div>
+
 </template>
 
 <script>
@@ -26,6 +28,8 @@ export default {
 			password: "",
 		};
 	},
+
+
 	methods: {
 		onSubmit() {
 			const formData = {
@@ -38,6 +42,8 @@ export default {
 			});
 		},
 	},
+
+
 };
 </script>
 

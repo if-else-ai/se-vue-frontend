@@ -23,9 +23,9 @@ export default {
 
   data: () => ({}),
 
-  created() {
-    this.$store.dispatch("getProducts");
-  },
+	created() {
+		// this.$store.dispatch("getProducts");
+	},
 
   computed: {
     // display nav route name

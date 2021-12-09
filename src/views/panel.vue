@@ -8,6 +8,7 @@
                 <h3>Total Core</h3>
                 <v-text-field class="text-field" v-model="total_core" @change="validateForm" placeholder="Number"/>
                 <h3>Statistic</h3>
+                
                 <v-row>
                     <!-- cols is length -->
                     <v-col cols="4">
@@ -21,6 +22,7 @@
                         <v-btn @click="addStat">add stat</v-btn>
                     </v-col>
                 </v-row>
+
                 <!-- validation status-->
                 <p :class="'validation-text ' + `${form_status} `"> {{ `*${stat_validation_text}` }}</p>
                 

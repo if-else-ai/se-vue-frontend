@@ -1,14 +1,18 @@
 <template>
-	<container class="home-container">
-		<Carousel />
-	</container>
+	<v-container class="home-container">
+		<Tabs/>
+		<!-- <Carousel /> -->
+		<Products />
+	</v-container>
 </template>
 
 <script>
 import Carousel from "@/components/home/carousel.vue";
+import Tabs from "@/components/tabs.vue"
+import Products from '../components/products.vue';
 
 export default {
-	components: { Carousel },
+	components: { Carousel, Tabs, Products },
 	data: () => ({
 
 	}),
@@ -17,7 +21,7 @@ export default {
 
 <style scoped>
 	.home-container{
-		background-color: aquamarine;
+		padding-top: 0;
 	}
 </style>
 

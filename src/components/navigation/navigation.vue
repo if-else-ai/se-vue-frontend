@@ -1,29 +1,34 @@
 <template>
 	<nav>
 		<v-app-bar class="nav-bar__items" app outlined elevation="1">
-			<!-- <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon> -->
 			<!-- Navigation Title -->
 			<!-- <v-toolbar-title>{{ navTitle }}</v-toolbar-title> -->
-			<a class="navbar-logo" href="/home">
-				<h1>
-					Kibby
-				</h1>
-			</a>
+			<div>
+				<ul class="nav-menu">
+					<a
+						class="nav-links mr-4"
+						v-for="(path, index) in path_list"
+						:key="index"
+						:href="path.path"
+					>
+						{{ path.title }}
+					</a>
+				</ul>
+			</div>
 
-			<ul class="nav-menu">
-				<a
-					class="nav-links mr-4"
-					v-for="(path, index) in path_list"
-					:key="index"
-					:href="path.path"
-				>
-					{{ path.title }}
+			<div>
+				<a class="navbar-logo" href="/home" >
+					<h1>
+						Kibby
+					</h1>
 				</a>
-			</ul>
+			</div>
+
+			
 
 			<div class="nav-icon">
 
-			<v-menu transition="slide-y-transition" offset-y="true" bottom>
+			<v-menu transition="slide-y-transition" offset-y bottom>
 				<template v-slot:activator="{ on, attrs }">
 					<v-btn v-bind="attrs" v-on="on" icon color="white">
 						<v-icon>mdi-account</v-icon>
@@ -54,7 +59,6 @@
 	</nav>
 </template>
 
-<style src="./navigation.css" />
 
 <script>
 export default {
@@ -65,10 +69,10 @@ export default {
 		drawer: true,
 		path_list: [
 			{ title: "Home", path: "/home" },
-			{ title: "Keyboard", path: "/keyboard" },
-			{ title: "Customize", path: "/customize" },
-			{ title: "Accesories", path: "/accesories" },
-			{ title: "Tools", path: "/tools" },
+			{ title: "Shop", path: "/keyboard" },
+			// { title: "Customize", path: "/customize" },
+			// { title: "Accesories", path: "/accesories" },
+			// { title: "Tools", path: "/tools" },
 		],
 
 		items: [{ menu: "Account", path:"/profile" }],
@@ -85,18 +89,14 @@ export default {
 		toProductCart(){
 			this.$router.push('cart')
 		},
+		
 		onLogout(){
 			this.$store.dispatch('logout')
 		}
 
 	},
 
-	computed: {
-		a(){
-			let b = x;
-		},
-	},
-
-
 };
 </script>
+
+<style src="./navigation.css" />

@@ -64,6 +64,7 @@ export default {
 </script>
 
 <style scoped>
+
 .profile-container {
 	display: flex;
 	flex-direction: columns;
@@ -82,4 +83,6 @@ export default {
 .profile__item:hover {
 	color: black;
 }
+
+
 </style>
