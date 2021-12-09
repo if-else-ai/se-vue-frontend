@@ -1,20 +1,17 @@
 <template>
 	<v-app>
 		<Navigation
+			v-if="currentRouteName !== 'login'"
 			:navTitle="currentRouteName"
 		/>
 		<v-main>
-			<v-container fluid style="height: 100vh">
-				<router-view></router-view>
-			</v-container>
+			<router-view></router-view>
 		</v-main>
 	</v-app>
 </template>
 
-
 <script>
-import Navigation from "@/components/navigation.vue";
-
+import Navigation from "@/components/navigation/navigation.vue";
 // views handle app interface / ui
 // can handle some form validation work before sending data to back-end
 export default {
@@ -24,12 +21,10 @@ export default {
 		Navigation,
 	},
 
-	data: () => ({
-		
-	}),
+	data: () => ({}),
 
 	created() {
-		this.$store.dispatch('getProducts')
+		this.$store.dispatch("getProducts");
 	},
 
 	computed: {
@@ -42,7 +37,8 @@ export default {
 </script>
 
 <style>
-	*{
-		font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	}
+* {
+	font-family: "Prompt", sans-serif;
+}
+
 </style>

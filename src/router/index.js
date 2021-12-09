@@ -9,26 +9,59 @@ Vue.use(VueRouter);
 const routes = [
 	{
 		path: "/",
-		redirect: "/panel",
+		redirect: "/home",
 	},
 	{
-		path: "/panel",
-		name: "panel",
-		component: () => import("../views/panel.vue"),
+		path: "/home",
+		name: "Home",
+		component: () => import("../views/home.vue"),
+	},
+	// {
+	// 	path: "/panel",
+	// 	name: "panel",
+	// 	component: () => import("../views/panel.vue"),
+	// },
+	// {
+	// 	path: "/summary",
+	// 	name: "summary",
+	// 	component: () => import("../views/summary.vue"),
+	// },
+	{
+		path: "/keyboard",
+		name: "keyboard",
+		component: () => import("../views/keyboard.vue"),
 	},
 	{
-		path: "/summary",
-		name: "summary",
-		component: () => import("../views/summary.vue")
-	}
-	
-]
-
+		path: "/customize",
+		name: "customize",
+		component: () => import("../views/customize.vue"),
+	},
+	{
+		path: "/accesories",
+		name: "accesories",
+		component: () => import("../views/accesories.vue"),
+	},
+	{
+		path: "/tools",
+		name: "tools",
+		component: () => import("../views/tools.vue"),
+	},
+	{
+		path: "/login",
+		name: "login",
+		component: () => import("../views/login.vue"),
+	},
+	{
+		path: "/cart",
+		name: "cart",
+		component: () => import("../views/cart.vue"),
+	},
+];
 
 const router = new VueRouter({
 	// using 'stack'
-	mode: 'history',
-	routes
+	mode: "history",
+	routes,
 });
 
 export default router;
