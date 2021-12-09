@@ -35,20 +35,21 @@
 					</v-list-item>
 				</v-list> -->
 				<v-list>
-					<v-list-item >
-						<v-list-item-title class="logout-button" @click="toProfile"> Profile </v-list-item-title>
+					<v-list-item class="menu-link mx-4" @click="toProfile">
+						<v-list-item-title  > Profile </v-list-item-title>
 					</v-list-item>
-					<v-list-item >
-						<v-list-item-title class="logout-button" @click="Logout"> Logout </v-list-item-title>
+					<v-list-item class="menu-link mx-4" @click="onLogout">
+						<v-list-item-title  > Logout </v-list-item-title>
 					</v-list-item>
 				</v-list>
 			</v-menu>
 
-			<v-btn icon color="white" @click="toProductCart">
-				<v-icon>mdi-cart-outline</v-icon>
-			</v-btn>
-
-			</div>
+			<v-badge dot color="red" overlap offset-x="18" offset-y="16">
+				<v-btn icon color="white" @click="toProductCart">
+					<v-icon>mdi-cart-outline</v-icon>
+				</v-btn>
+			</v-badge>
+			</div>	
 		</v-app-bar>
 	</nav>
 </template>
@@ -60,6 +61,7 @@ export default {
 	name: "navigation",
 
 	data: () => ({
+
 		drawer: true,
 		path_list: [
 			{ title: "Home", path: "/home" },
@@ -68,7 +70,10 @@ export default {
 			{ title: "Accesories", path: "/accesories" },
 			{ title: "Tools", path: "/tools" },
 		],
+
 		items: [{ menu: "Account", path:"/profile" }],
+
+
 	}),
 
 	props: ["navTitle"],
@@ -80,12 +85,18 @@ export default {
 		toProductCart(){
 			this.$router.push('cart')
 		},
-
-		Logout(){
+		onLogout(){
 			this.$store.dispatch('logout')
 		}
 
 	},
+
+	computed: {
+		a(){
+			let b = x;
+		},
+	},
+
 
 };
 </script>

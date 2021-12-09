@@ -30,6 +30,7 @@ export default {
 	computed: {
 		// display nav route name
 		currentRouteName() {
+			
 			return this.$route.name;
 		},
 	},
