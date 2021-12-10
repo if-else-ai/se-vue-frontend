@@ -8,8 +8,8 @@
 		</h1>
 
 		<v-divider class="my-4"></v-divider>
-		<section class="flex-container" >
-			<Product
+		<section class="flex-container" v-if="products.length > 0">
+			<Product 
 				v-for="product in products"
 				:key="product.productID"
 				:product="product"
@@ -21,7 +21,7 @@
 <script>
 import Carousel from "@/components/home/carousel.vue";
 import Tabs from "@/components/tabs.vue";
-import Product from "../components/Product.vue";
+import Product from "../components/product-card.vue";
 
 export default {
 	components: { Carousel, Tabs, Product },
@@ -30,11 +30,11 @@ export default {
 	}),
 
 	computed: {
-		products(){
-			console.log('lol',this.$store.getters.products)
-			return this.$store.getters.products
-		}
-	}
+		products() {
+			console.log("lol", this.$store.getters.products);
+			return this.$store.getters.products;
+		},
+	},
 };
 </script>
 
