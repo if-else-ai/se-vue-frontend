@@ -24,7 +24,7 @@ export default {
   data: () => ({}),
 
 	created() {
-		// this.$store.dispatch("getProducts");
+		this.$store.dispatch("getProducts");
 	},
 
   computed: {

@@ -22,20 +22,21 @@
 	justify-content: space-between;
 }
 
-
-
-.navbar-logo {
-	color: #FFF !important;
+.nav-logo__container {
+	position: relative;
+	/* Changing Logo Position */
+	left: -94px;
 	justify-self: center;
 	text-decoration: none;
 	cursor: pointer;
 	font-weight: bold;
 }
 
-.navbar-logo h1:first-letter {
-	color: rgb(250, 250, 250);
+
+.nav-logo__container a h1:first-letter {
 	font-style: italic;
 }
+
 
 .nav-menu {
 	display: flex;
@@ -47,37 +48,29 @@
 	justify-content: end;
 }
 
-
-.nav-links {
-    color: white;
-	text-decoration: none;
+.v-application ul, .v-application ol {
+    padding-left: 0 !important;
 }
 
-.nav-links {
-    color: #FFF !important;
+.v-application a {
+	color: white !important;
 	text-decoration: none;
 }
-
-.nav-links:hover {
-	color: rgb(150, 150, 150) !important;
-	border-radius: 4px;
+.v-application a:hover {
+	color: rgb(151, 151, 151) !important;
+	text-decoration: none;
 	transition: background-color 0.4s ease-out, color 0.3s ease-out;
 }
 
 .menu-link{
 	cursor: pointer;
-	border-radius: 3px;
 }
 
 .menu-link:hover{
 	color: #FFF;
 	background-color: #e0e0e0;
 	cursor: pointer;
-	border-radius: 3px;
 }
-
-
-
 .nav-icon {
 	display: flex;
 	flex-direction: row;
@@ -85,7 +78,6 @@
 	list-style: none;
 	text-align: center;
 	justify-content: end;
-	margin-right: 4rem;
 }
 
 .fa-bars {

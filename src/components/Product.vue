@@ -1,50 +1,67 @@
 <template>
-  <v-card class="product-card" max-width="374">
-    <v-img height="250px" :src="product.src" class="image" />
-    <v-card-title>{{ product.title }}</v-card-title>
-
-    <v-card-text class="description">
-      <p>{{ product.detail }}</p>
-    </v-card-text>
-
-    <v-divider></v-divider>
-
-    <v-card>
-      <v-row>
-        <v-col cols="auto" class="mr-auto price">
-          <p>฿{{ product.price }}</p>
-        </v-col>
-        <v-col cols="auto" class="selled">
-          <p>ขายแล้ว {{ product.selled }} ชิ้น</p>
-        </v-col>
-      </v-row>
-    </v-card>
-  </v-card>
+	<v-card class="products__container" max-width="374" flat outlined>
+		<v-img class="product__image" height="250px" :src="product.product_image[0]"  />
+		<v-card-title class="product__title">{{ product.productName }}</v-card-title>
+		<!-- <v-card-text class="description">
+			<p>{{ product.detail }}</p>
+		</v-card-text> -->
+		<v-divider></v-divider>
+			<v-row>
+				<v-col cols="auto" class="mr-auto price">
+					<p>฿{{ product.productPricePerUnit }}</p>
+				</v-col>
+				<v-col cols="auto" class="selled">
+					<p>ขายแล้ว {{ product.productPricePerUnit }} ชิ้น</p>
+				</v-col>
+			</v-row>
+	</v-card>
 </template>
 
 <script>
 export default {
-  name: "product",
-  props: ["product"],
+	name: "product",
+	props: ["product"],
+
+	created(){
+		console.log(product)
+	}
+
+
+
 };
+
+
 </script>
 
 <style>
-.product-card {
-  margin: 20px;
+.v-card__title {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.0125em;
+    line-height: 2rem;
+    word-break: break-all;
+    padding: 16px;
+}
+
+.products__container {
+	margin: 20px;
 }
 .description p {
-  color: rgb(36, 36, 36);
-  height: 60px;
+	color: rgb(36, 36, 36);
+	height: 60px;
 }
 .price p {
-  color: rgb(0, 162, 255);
-  padding-top: 10px;
-  padding-left: 15px;
+	color: rgb(0, 162, 255);
+	padding-top: 10px;
+	padding-left: 15px;
 }
 .selled p {
-  color: rgb(206, 206, 206);
-  padding-top: 10px;
-  padding-right: 15px;
+	color: rgb(206, 206, 206);
+	padding-top: 10px;
+	padding-right: 15px;
 }
 </style>

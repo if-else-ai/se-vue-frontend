@@ -1,5 +1,7 @@
 import axios from '../../api/axios.js'
 
+import products from '../../assets/products.json'
+
 // state data
 const state = {
 	products: [],
@@ -16,20 +18,21 @@ const mutations = {
 const actions = {
     // get assignemnt => GET
 	getProducts({ commit }) {
-		axios.get('/products').then(res => {
-			// store products in State
-			commit('setProducts', res.data)
-		})
+		commit('setProducts', products.products)
+		// axios.get('/products').then(res => {
+		// 	// store products in State
+		// 	commit('setProducts', res.data)
+		// })
 	},
 	// add assignment => POST
-	addProduct({ commit, dispatch }, formData) {
-		axios.post('/add-product', formData )
-			.then(res => {
-				alert('product added')
-				// refetch to update data
-				dispatch('getProducts')
-			})
-	},
+	// addProduct({ commit, dispatch }, formData) {
+	// 	axios.post('/add-product', formData )
+	// 		.then(res => {
+	// 			alert('product added')
+	// 			// refetch to update data
+	// 			dispatch('getProducts')
+	// 		})
+	// },
 };
 
 // getters return requested data
