@@ -51,8 +51,8 @@ import EmptyCart from "./EmptyCart.vue";
 export default {
 	data: () => ({
 		menuList: [
-			{ title: "Account", icon: "mdi-account" },
-			{ title: "Order History", icon: "mdi-account" },
+			{ title: "add", icon: "mdi-plus" },
+			{ title: "remove", icon: "mdi-minus" },
 		],
 	}),
 
