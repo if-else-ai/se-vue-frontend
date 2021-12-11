@@ -11,13 +11,13 @@
     <v-parallax v-if="category !== 'ALL'" dark :src="categoryImage">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="text-h3 font-weight-bold mb-4">
+          <h1 class="font-weight-bold mb-4">
             {{ category }}
           </h1>
         </v-col>
       </v-row>
     </v-parallax>
-    <h1 v-if="category === 'ALL'" class="text-h3 font-weight-bold mb-4">
+    <h1 v-if="category === 'ALL'" class="font-weight-bold mb-4">
       {{ category }}
     </h1>
 
