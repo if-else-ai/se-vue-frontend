@@ -21,11 +21,11 @@ const routes = [
 		name: "product",
 		component: () => import("../views/product.vue"),
 	},
-	// {
-	// 	path: "/summary",
-	// 	name: "summary",
-	// 	component: () => import("../views/summary.vue"),
-	// },
+	{
+		path: "/home",
+		name: "home",
+		component: () => import("../views/home.vue"),
+	},
 	// {
 	// 	path: "/keyboard",
 	// 	name: "keyboard",
