@@ -1,7 +1,7 @@
 <template>
   <transition appear>
     <v-card class="product__container" width="374" flat outlined>
-      <!-- image start -->
+      <!-- Image Effect -->
       <div
         class="hovereffect"
         @click="
@@ -21,12 +21,14 @@
         </div>
         <div class="overlay"></div>
       </div>
-      <!-- image end -->
+      <!-- end Image Effect -->
 
+      <!-- Product Name -->
       <v-card-title class="product__title">{{
         product.productName
       }}</v-card-title>
       <v-divider></v-divider>
+      <!-- Product Price / Sold product -->
       <v-row>
         <v-col cols="auto" class="mr-auto price">
           <p>฿{{ product.productPricePerUnit }}</p>

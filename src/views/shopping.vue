@@ -1,24 +1,19 @@
 <template>
   <v-container class="shopping__container">
-    <Tabs
-      @changeCategory="category = $event"
-      @changeCategorImage="categoryImage = $event"
-      @changeSubCategory="category = $event"
-      @changeSubCategorImage="categoryImage = $event"
-    />
+    <Tabs/>
 	<v-divider class="mb-4"></v-divider>
     <!-- <Carousel /> -->
-    <v-parallax v-if="category !== 'ALL'" dark :src="categoryImage">
+    <v-parallax v-if="query !== 'ALL'" dark :src="image">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="font-weight-bold mb-4">
-            {{ category }}
+            {{ query }}
           </h1>
         </v-col>
       </v-row>
     </v-parallax>
-    <h1 v-if="category === 'ALL'" class="font-weight-bold mb-4">
-      {{ category }}
+    <h1 v-if="query === 'ALL'" class="font-weight-bold mb-4">
+      {{ query }}
     </h1>
 
     <v-divider class="my-4"></v-divider>
@@ -92,7 +87,6 @@ import Product from "../components/product-card.vue";
 export default {
   components: { Tabs, Product },
   data: () => ({
-    category: "ALL",
     categoryImage:
       "https://cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_x600.jpg?v=1611981271%20600w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_800x.jpg?v=1611981271%20800w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1200x.jpg?v=1611981271%201200w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1400x.jpg?v=1611981271%201400w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1600x.jpg?v=1611981271%201600w",
     filterItem: ["ราคามาก -> น้อย", "ราคาน้อย -> มาก"],
@@ -100,21 +94,21 @@ export default {
   }),
 
   computed: {
-    // selectedCategory(){
-    // 	return
-    // },
+    query(){
+      return this.$route.query.category
+    },
+    image(){
+      return this.$route.query.src
+    },
 
     products() {
-      if (this.category === "ALL") {
-        console.log("ALL Object");
-      } else {
-        console.log("Log Filter");
-      }
+      // filter here
 
       return this.$store.getters.products;
     },
 
     productList() {
+      // get product name and id
       let products = this.$store.getters.products;
       products = products.map((product) => {
         return {

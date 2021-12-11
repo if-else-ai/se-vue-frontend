@@ -88,7 +88,6 @@ export default {
 		toProductCart(){
 			this.$router.push('/cart')
 		},
-		
 		onLogout(){
 			this.$store.dispatch('logout')
 		}

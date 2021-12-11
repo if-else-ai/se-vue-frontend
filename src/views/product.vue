@@ -1,6 +1,7 @@
 <template>
 	<v-container class="shopping__container">
 		<Tabs />
+		<v-divider class="mb-4"></v-divider>
 		<div class="product-container pt-4">
 			<v-card class="product__images" width="800" height="600" flat>
 				<v-item-group class="product__sub-image mr-2">
@@ -39,7 +40,7 @@
 					<h2>{{ product.productName }}</h2></v-card-title
 				>
 				<v-card-subtitle class="product__price">
-					<h2>$ {{ product.productPricePerUnit }}</h2>
+					<h2>$ {{ price }}</h2>
 				</v-card-subtitle>
 				<v-divider class="mx-6"></v-divider>
 
@@ -71,7 +72,11 @@
 					<v-btn icon @click="decrement">
 						<v-icon>mdi-minus</v-icon>
 					</v-btn>
-					<input class="quantity-input" type="text" v-model="quantity" >
+					<input
+						class="quantity-input"
+						type="text"
+						v-model="quantity"
+					/>
 					<v-btn icon @click="increment">
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
@@ -105,8 +110,10 @@ export default {
 		],
 		currentImage: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
 		productOption: [],
+		tempProduct: null,
 		selectedOption: null,
 		quantity: 1,
+		computedPrice: 0,
 	}),
 
 	created() {
@@ -116,55 +123,89 @@ export default {
 	},
 
 	methods: {
-
+		// trigger on pick option
 		getSelectedOption(optionIndex, selectedOptionIndex) {
-			// let optionName = this.product.option[optionIndex].option_name;
+			// get SelectedOption => name of selectedOption
 			let selectedOption = this.product.option[optionIndex].option_list[
 				selectedOptionIndex
 			];
+			// get selected option price
+			let priceAdded = this.product.option[optionIndex]
+				.option_price_added[selectedOptionIndex];
+
+			// set seleceted option name
 			this.productOption.productOption[
 				optionIndex
 			].option_selected = selectedOption;
+
+			// set selected option priceAdded
+			this.productOption.productOption[
+				optionIndex
+			].option_price_added = priceAdded;
+
 		},
 
 		changeImage(index) {
 			this.currentImage = this.images[index];
 		},
-
-		increment(){
-			this.quantity += 1
+		
+		// add product
+		increment() {
+			this.quantity += 1;
 		},
-		decrement(){
-			if(this.quantity > 1){
-				this.quantity -= 1
+		// decrease product
+		decrement() {
+			if (this.quantity > 1) {
+				this.quantity -= 1;
 			}
 		},
 
+		// add to cart
 		addToCart() {
-			this.productOption.totalPrice = this.quantity * this.productOption
+			let formData = {
+				productID: this.productOption.productID,
+				productName: this.productOption.productName,
+				productPrice: this.productOption.productPrice,
+				productQuantity: this.quantity,
+				productOption: this.productOption.productOption,
+				totalPrice: this.computedPrice
+			};
+			console.log(formData);
 		},
 	},
 
 	computed: {
+		price(){
+			let addedPrice = 0;
+			this.productOption.productOption.map((option) => {
+				addedPrice += option.option_price_added;
+			});
+			// Price = (BasePrice + AddedPrice) * Quantity
+			this.computedPrice = (this.productOption.productPrice + addedPrice) * this.quantity
+			return (this.productOption.productPrice + addedPrice) * this.quantity
+		},
+
 		product() {
+			// Initialize Product
 			if (this.productOption.length === 0) {
 				let product = this.$store.getters.product;
+				this.tempProduct = this.$store.getters.product;
 				this.productOption = {
+					productID: product.productID,
 					productName: "Keychron K8",
-					productPrice: product.productName,
+					productPrice: product.productPricePerUnit,
 					productOption: product.option.map((option) => {
 						return {
 							option_name: option.option_name,
 							option_selected: option.option_list[0],
+							option_price_added: option.option_price_added[0],
 						};
 					}),
 				};
-				console.log(this.productOption);
 			}
+
 			return this.$store.getters.product;
 		},
-
-		optionSelection() {},
 	},
 };
 </script>

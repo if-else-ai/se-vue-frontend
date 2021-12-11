@@ -47,6 +47,7 @@
 					{{ new Date().getFullYear() }} — <strong>Kibby</strong>
 				</v-card-text>
 			</v-card>
+			
 		</v-footer>
 	</v-app>
 </template>
@@ -67,12 +68,13 @@ export default {
 	}),
 
 	created() {
+		// Initialize App Variable
 		this.$store.dispatch("getProducts");
 		this.$store.dispatch("getCart");
 	},
 
 	computed: {
-		// display nav route name
+		// save route name for checking route
 		currentRouteName() {
 			return this.$route.name;
 		},

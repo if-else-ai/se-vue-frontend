@@ -240,7 +240,6 @@ export default {
       },
     },
 	created(){
-		
 		this.oldUserInfo={
 			name:"John",
 			gender:"ชาย",
