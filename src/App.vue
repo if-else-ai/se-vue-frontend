@@ -7,7 +7,7 @@
 		<v-main>
 			<router-view></router-view>
 		</v-main>
-		<v-footer padless>
+		<v-footer v-if="currentRouteName !== 'login'" padless>
 			<v-card
 				flat
 				tile
