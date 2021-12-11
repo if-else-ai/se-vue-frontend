@@ -31,6 +31,7 @@
 								class="category__item"
 								v-for="(item, index) in keyboardList"
 								:key="index"
+								@click="onChangeSubCategory(item)"
 							>
 								<li class="py-3">
 									{{ item }}
@@ -45,6 +46,7 @@
 								class="category__item"
 								v-for="(item, index) in switchList"
 								:key="index"
+								@click="onChangeSubCategory(item)"
 							>
 								<li class="py-3">
 									{{ item }}
@@ -59,6 +61,7 @@
 								class="category__item"
 								v-for="(item, index) in keycapList"
 								:key="index"
+								@click="onChangeSubCategory(item)"
 							>
 								<li class="py-3">
 									{{ item }}
@@ -73,6 +76,7 @@
 								class="category__item"
 								v-for="(item, index) in accesoriesList"
 								:key="index"
+								@click="onChangeSubCategory(item)"
 							>
 								<li class="py-3">
 									{{ item }}
@@ -87,6 +91,7 @@
 								class="category__item"
 								v-for="(item, index) in toolList"
 								:key="index"
+								@click="onChangeSubCategory(item)"
 							>
 								<li class="py-3">
 									{{ item }}
@@ -125,6 +130,10 @@ export default {
 		onChangeCategory() {
 			console.log(this.tabsItem[this.selectedTab]);
 			this.$emit("changeCategory", this.tabsItem[this.selectedTab]);
+		},
+		onChangeSubCategory(category) {
+			console.log(this.tabsItem[this.selectedTab]);
+			this.$emit("changeSubCategory", category);
 		},
 	},
 };

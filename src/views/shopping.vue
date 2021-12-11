@@ -1,6 +1,6 @@
 <template>
 	<v-container class="shopping__container">
-		<Tabs @changeCategory="category = $event" />
+		<Tabs @changeCategory="category = $event" @changeSubCategory="category = $event" />
 		<!-- <Carousel /> -->
 
 		<h1>
