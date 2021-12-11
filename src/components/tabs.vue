@@ -183,6 +183,7 @@ export default {
 
 .category__container {
   padding-top: 0;
+  padding-bottom: 0;
 }
 
 .category__items {

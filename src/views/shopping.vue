@@ -6,6 +6,7 @@
       @changeSubCategory="category = $event"
       @changeSubCategorImage="categoryImage = $event"
     />
+	<v-divider class="mb-4"></v-divider>
     <!-- <Carousel /> -->
     <v-parallax v-if="category !== 'ALL'" dark :src="categoryImage">
       <v-row align="center" justify="center">
