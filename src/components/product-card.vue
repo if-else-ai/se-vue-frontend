@@ -117,7 +117,7 @@ export default {
   /* filter: alpha(opacity=100); */
 }
 
-img {
+.image-wrapper img {
   height: 250px;
 }
 
