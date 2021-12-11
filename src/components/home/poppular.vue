@@ -9,9 +9,7 @@
         :product="product"
       />
     </section>
-    <!-- <div class="btn_wrap"> -->
     <v-btn depressed color="error" large> VIEW ALL PRODUCTS </v-btn>
-    <!-- </div> -->
   </div>
 </template>
 
