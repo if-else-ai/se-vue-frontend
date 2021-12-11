@@ -1,7 +1,7 @@
 <template>
   <v-carousel
     cycle
-    height="600"
+    height="800px"
     hide-delimiter
     delimiter-icon="mdi-checkbox-blank-circle-outline"
     hide-delimiter-background
