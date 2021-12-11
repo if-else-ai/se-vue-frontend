@@ -1,6 +1,5 @@
 <template>
 	<v-container>
-		<transition appear>
 			<div class="profile-container pt-4">
 				<v-card class="profile-menu" width="400" max-height="400" elevation="8">
 					<v-list>
@@ -37,7 +36,7 @@
 						</v-list>
 					</v-list>
 				</v-card>
-
+				
 				<v-card elevation="0">
 					<v-card class="pl-4" elevation="8" width="1100" min-height="600"> 
 						<v-card-title class="mb"> จัดการบัญชีผู้ใช้</v-card-title>
@@ -49,7 +48,6 @@
 					</v-card>
 				</v-card>
 			</div>
-		</transition>
 	</v-container>
 </template>
 

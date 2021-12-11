@@ -1,6 +1,6 @@
 <template>
 	<transition appear>
-		<v-card class="products__container" max-width="374" flat outlined>
+		<v-card class="product__container" max-width="374" flat outlined>
 			<v-img
 				class="product__image"
 				height="250px"
@@ -56,7 +56,7 @@ export default {
 	padding: 16px;
 }
 
-.products__container {
+.product__container {
 	margin: 20px;
 }
 .description p {

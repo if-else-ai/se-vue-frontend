@@ -28,7 +28,7 @@
 
 			<!-- Icon  -->
 			<div class="nav-icon__container">
-				<v-menu transition="slide-y-transition" offset-y bottom>
+				<v-menu transition="slide-y-transition" offset-y bottom open-on-hover>
 					<template v-slot:activator="{ on, attrs }">
 						<v-btn v-bind="attrs" v-on="on" icon color="white">
 							<v-icon>mdi-account</v-icon>

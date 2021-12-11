@@ -8,7 +8,7 @@
 		</h1>
 
 		<v-divider class="my-4"></v-divider>
-		<section class="flex-container" v-if="products.length > 0">
+		<section class="products__container" v-if="products.length > 0">
 			<Product 
 				v-for="product in products"
 				:key="product.productID"
@@ -47,10 +47,13 @@ export default {
 	text-align: center;
 }
 
-.flex-container {
+.products__container {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	border-width: 1px;
+	border-style: dashed;
+	border-color: rgb(218, 218, 218);
 }
 </style>
