@@ -8,6 +8,18 @@
 		</h1>
 
 		<v-divider class="my-4"></v-divider>
+
+		<div class="product-filter">
+			<v-combobox class="filter" prepend-icon="mdi-filter-outline" :items="filterItem" v-model="selectedFilter">
+
+			</v-combobox>
+
+
+			<v-autocomplete :items="productList" class="search" label="Search" prepend-icon="mdi-magnify">
+
+			</v-autocomplete>
+		</div>
+		
 		<section class="products__container" v-if="products.length > 0">
 			<Product 
 				v-for="product in products"
@@ -17,26 +29,6 @@
 		</section>
 	</v-container>
 </template>
-
-<script>
-import Carousel from "@/components/home/carousel.vue";
-import Tabs from "@/components/tabs.vue";
-import Product from "../components/product-card.vue";
-
-export default {
-	components: { Carousel, Tabs, Product },
-	data: () => ({
-		category: "ALL",
-	}),
-
-	computed: {
-		products() {
-			console.log("lol", this.$store.getters.products);
-			return this.$store.getters.products;
-		},
-	},
-};
-</script>
 
 <style scoped>
 .shopping__container {
@@ -56,4 +48,55 @@ export default {
 	border-style: dashed;
 	border-color: rgb(218, 218, 218);
 }
+
+.product-filter{
+	display: flex;
+	flex-direction: row;
+}
+
+.product-filter .v-input.search{
+	max-width: 300px;
+}
+
+.product-filter .v-input.filter{
+	max-width: 250px;
+}
 </style>
+
+
+<script>
+import Carousel from "@/components/home/carousel.vue";
+import Tabs from "@/components/tabs.vue";
+import Product from "../components/product-card.vue";
+
+export default {
+	components: { Carousel, Tabs, Product },
+	data: () => ({
+		category: "ALL",
+		filterItem: ["ราคามาก -> น้อย", "ราคาน้อย -> มาก"],
+		selectedFilter: "ราคาน้อย -> มาก"
+	}),
+
+	computed: {
+		products() {
+			console.log("lol", this.$store.getters.products);
+			return this.$store.getters.products;
+		},
+		
+		productList() {
+			let products = this.$store.getters.products;
+			products = products.map(product => {
+				return {
+					text: product.productName,
+					id: product.productID
+				}
+			})
+			console.log(products)
+			return products
+		}
+
+	},
+};
+</script>
+
+

@@ -5,10 +5,10 @@
 			<!-- Path Navigation -->
 			<div class="nav-menu__container">
 				<ul class="nav-menu">
-					<a class="nal-links mr-4" href="/home">
+					<a class="nal-links mr-6" href="/home">
 						Home
 					</a>
-					<a class="nal-links mr-4" href="/shopping">
+					<a class="nal-links mr-6" href="/shopping">
 						Shopping
 					</a>
 					<a class="nal-links mr-4" href="/customize">
