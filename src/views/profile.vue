@@ -49,7 +49,7 @@
 							</v-col>
 							<v-col class="ml-6" md="4">
 								<form>
-									<input type="text" id="name" name="name" placeholder="ชื่อ">
+									<input type="text" id="name" name="name" placeholder="ชื่อ" v-model="name">
 								</form>
 							</v-col>
 							
@@ -64,6 +64,8 @@
 									:items="items"
 									dense
 									outlined
+									v-model="gender"
+									
 								></v-select>
 							</v-col>
 						</v-row>
@@ -113,6 +115,7 @@
 										solo
 										name="input-7-4"
 										label="Address"
+										v-model="address"
 									></v-textarea>
 								</v-col>
 							</v-row>
@@ -124,7 +127,7 @@
 								</v-col>
 								<v-col class="ml-5" md="4">
 									<form class="email-field">
-										<input type="text" id="email" name="email" placeholder="Email" value="">		
+										<input type="text" id="email" name="email" placeholder="Email" v-model="email">		
 									</form>				
 								</v-col>	
 							</v-row>
@@ -132,7 +135,10 @@
 							<v-row>
 								<v-col cols="2"></v-col>
 								<v-col class="ml-5" cols="2">
-									<v-btn color="primary">
+									<v-btn 
+										color="blue"
+										dark
+									>
 										บันทึก
 									</v-btn>
 								</v-col>
@@ -150,7 +156,7 @@
 							</v-col>
 							<v-col class="ml-5" md="4">
 								<form class="email-field">
-									<input type="text" id="password" name="passwprd" placeholder="รหัสผ่านเก่า" value="">		
+									<input type="text" id="password" name="passwprd" placeholder="รหัสผ่านเก่า" v-model="password">		
 								</form>				
 							</v-col>					
 						</v-row>
@@ -161,7 +167,7 @@
 							</v-col>
 							<v-col class="ml-5" md="4">
 								<form class="email-field">
-									<input type="text" id="new-password" name="new-password" placeholder="รหัสผ่านใหม่" value="">		
+									<input type="text" id="new-password" name="new-password" placeholder="รหัสผ่านใหม่" v-model="newPassword">		
 								</form>				
 							</v-col>	
 						</v-row>
@@ -172,7 +178,7 @@
 							</v-col>
 							<v-col class="ml-5" md="4">
 								<form class="email-field">
-									<input type="text" id="confirm-password" name="confirm-password" placeholder="ยืนยันรหัสผ่านใหม่" value="">		
+									<input type="text" id="confirm-password" name="confirm-password" placeholder="ยืนยันรหัสผ่านใหม่" v-model="confirmPassword">		
 								</form>				
 							</v-col>	
 						</v-row>
@@ -180,7 +186,8 @@
 						<v-row>
 							<v-col cols="2"></v-col>
 							<v-col class="ml-5" cols="2">
-								<v-btn color="primary">
+								<v-btn >				
+		
 									บันทึก
 								</v-btn>
 							</v-col>
@@ -205,6 +212,12 @@ export default {
 		activePicker: null,
       	date: null,
      	menu: false,
+		name: "",
+		gender:"",
+		address:"",
+		password:"",
+		newPassword:"",
+		confirmPassword:""
 	}),
 	watch: {
       menu (val) {
