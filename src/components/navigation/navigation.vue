@@ -1,60 +1,65 @@
 <template>
 	<nav>
-		<v-app-bar class="nav-bar__items" app outlined elevation="1">
-			<!-- <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon> -->
-			<!-- Navigation Title -->
-			<!-- <v-toolbar-title>{{ navTitle }}</v-toolbar-title> -->
-			<a class="navbar-logo" href="/home">
-				<h1>
-					Kibby
-				</h1>
-			</a>
+		<v-app-bar class="nav-bar__items px-6" app outlined elevation="1">
 
-			<ul class="nav-menu">
-				<a
-					class="nav-links mr-4"
-					v-for="(path, index) in path_list"
-					:key="index"
-					:href="path.path"
-				>
-					{{ path.title }}
+			<!-- Path Navigation -->
+			<div class="nav-menu__container">
+				<ul class="nav-menu">
+					<a class="nal-links mr-6" href="/home">
+						Home
+					</a>
+					<a class="nal-links mr-6" href="/shopping">
+						Shopping
+					</a>
+					<a class="nal-links mr-4" href="/customize">
+						Customize
+					</a>
+				</ul>
+			</div>
+
+			<!-- Website Logo -->
+			<div class="nav-logo__container">
+				<a href="/home" >
+					<h1>
+						Kibby
+					</h1>
 				</a>
-			</ul>
+			</div>
 
-			<div class="nav-icon">
+			<!-- Icon  -->
+			<div class="nav-icon__container">
+				<v-menu transition="slide-y-transition" offset-y bottom open-on-hover>
+					<template v-slot:activator="{ on, attrs }">
+						<v-btn v-bind="attrs" v-on="on" icon color="white">
+							<v-icon>mdi-account</v-icon>
+						</v-btn>
+					</template>
+					<!-- <v-list>
+						<v-list-item v-for="(item, i) in items" :key="i">
+							<v-list-item-title>{{ item.menu }}</v-list-item-title>
+						</v-list-item>
+					</v-list> -->
+					<v-list>
+						<v-list-item class="menu-link mx-4" @click="toProfile">
+							<v-list-item-title  > Profile </v-list-item-title>
+						</v-list-item>
+						<v-list-item class="menu-link mx-4" @click="onLogout">
+							<v-list-item-title  > Logout </v-list-item-title>
+						</v-list-item>
+					</v-list>
+				</v-menu>
 
-			<v-menu transition="slide-y-transition" offset-y="true" bottom>
-				<template v-slot:activator="{ on, attrs }">
-					<v-btn v-bind="attrs" v-on="on" icon color="white">
-						<v-icon>mdi-account</v-icon>
+				<v-badge dot color="red" overlap offset-x="18" offset-y="16">
+					<v-btn icon color="white" @click="toProductCart">
+						<v-icon>mdi-cart-outline</v-icon>
 					</v-btn>
-				</template>
-				<!-- <v-list>
-					<v-list-item v-for="(item, i) in items" :key="i">
-						<v-list-item-title>{{ item.menu }}</v-list-item-title>
-					</v-list-item>
-				</v-list> -->
-				<v-list>
-					<v-list-item class="menu-link mx-4" @click="toProfile">
-						<v-list-item-title  > Profile </v-list-item-title>
-					</v-list-item>
-					<v-list-item class="menu-link mx-4" @click="onLogout">
-						<v-list-item-title  > Logout </v-list-item-title>
-					</v-list-item>
-				</v-list>
-			</v-menu>
-
-			<v-badge dot color="red" overlap offset-x="18" offset-y="16">
-				<v-btn icon color="white" @click="toProductCart">
-					<v-icon>mdi-cart-outline</v-icon>
-				</v-btn>
-			</v-badge>
+				</v-badge>
 			</div>	
+
 		</v-app-bar>
 	</nav>
 </template>
 
-<style src="./navigation.css" />
 
 <script>
 export default {
@@ -63,13 +68,11 @@ export default {
 	data: () => ({
 
 		drawer: true,
-		path_list: [
-			{ title: "Home", path: "/home" },
-			{ title: "Keyboard", path: "/keyboard" },
-			{ title: "Customize", path: "/customize" },
-			{ title: "Accesories", path: "/accesories" },
-			{ title: "Tools", path: "/tools" },
-		],
+		// path_list: [
+		// 	{ title: "Home", path: "/shopping" },
+		// 	{ title: "Shop", path: "/keyboard" },
+		// 	{ title: "Customize", path: "/keyboard" },
+		// ],
 
 		items: [{ menu: "Account", path:"/profile" }],
 
@@ -85,18 +88,14 @@ export default {
 		toProductCart(){
 			this.$router.push('cart')
 		},
+		
 		onLogout(){
 			this.$store.dispatch('logout')
 		}
 
 	},
 
-	computed: {
-		a(){
-			let b = x;
-		},
-	},
-
-
 };
 </script>
+
+<style src="./navigation.css" />

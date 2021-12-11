@@ -12,40 +12,40 @@ const routes = [
 		redirect: "/home",
 	},
 	{
-		path: "/home",
-		name: "Home",
-		component: () => import("../views/home.vue"),
+		path: "/shopping",
+		name: "shopping",
+		component: () => import("../views/shopping.vue"),
 	},
-	// {
-	// 	path: "/panel",
-	// 	name: "panel",
-	// 	component: () => import("../views/panel.vue"),
-	// },
+	{
+		path: "/shopping/product",
+		name: "product",
+		component: () => import("../views/product.vue"),
+	},
 	// {
 	// 	path: "/summary",
 	// 	name: "summary",
 	// 	component: () => import("../views/summary.vue"),
 	// },
-	{
-		path: "/keyboard",
-		name: "keyboard",
-		component: () => import("../views/keyboard.vue"),
-	},
+	// {
+	// 	path: "/keyboard",
+	// 	name: "keyboard",
+	// 	component: () => import("../views/keyboard.vue"),
+	// },
 	{
 		path: "/customize",
 		name: "customize",
 		component: () => import("../views/customize.vue"),
 	},
-	{
-		path: "/accesories",
-		name: "accesories",
-		component: () => import("../views/accesories.vue"),
-	},
-	{
-		path: "/tools",
-		name: "tools",
-		component: () => import("../views/tools.vue"),
-	},
+	// {
+	// 	path: "/accesories",
+	// 	name: "accesories",
+	// 	component: () => import("../views/accesories.vue"),
+	// },
+	// {
+	// 	path: "/tools",
+	// 	name: "tools",
+	// 	component: () => import("../views/tools.vue"),
+	// },
 	{
 		path: "/login",
 		name: "login",

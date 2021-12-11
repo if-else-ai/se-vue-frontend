@@ -19,9 +19,9 @@
 										<img src="items.url" width="50px" height="50px" style="border-radius: 50%"/>
 										<h6 class="mt-15">{{items.name}}</h6>
 										<div class="d-flex mt-10">
-											<button v-on:click="remove(items)" class="remove" type="button"></button>
+											<button v-on:click="remove(items)" class="removeItems" type="button"></button>
 											<span class="cart-quantity">{{items.quantity}}</span>
-											<button v-on:click="add(items)" class="add" type="button"></button>
+											<button v-on:click="add(items)" class="addItems" type="button"></button>
 										</div>
 										<h6 class="mt-15">{{items.price}}</h6>
 									    </div>
@@ -46,9 +46,16 @@
 <script>
 import SummaryCart from "./SummaryCart.vue";
 import EmptyCart from "./EmptyCart.vue";
-import swal from "sweetalert";
+//import swal from "sweetalert";
 
 export default {
+	data: () => ({
+		menuList: [
+			{ title: "Account", icon: "mdi-account" },
+			{ title: "Order History", icon: "mdi-account" },
+		],
+	}),
+
 	name: "Cart",
 	components: {
 		SummaryCart,
