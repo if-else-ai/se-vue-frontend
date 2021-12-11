@@ -49,13 +49,13 @@
 							</v-col>
 							<v-col class="ml-6" md="4">
 								<form>
-									<input type="text" id="name" name="name" placeholder="ชื่อ" v-model="name">
+									<input type="text" id="name" name="name" placeholder="ชื่อ" v-model="userInfo.name">
 								</form>
 							</v-col>
 							
 						</v-row>
 						
-						<v-row align="" class="my-0">
+						<v-row  class="my-0">
 							<v-col cols="2" align="right">
 								<div class="gender mt-2">เพศ</div>
 							</v-col>
@@ -64,7 +64,7 @@
 									:items="items"
 									dense
 									outlined
-									v-model="gender"
+									v-model="userInfo.gender"
 									
 								></v-select>
 							</v-col>
@@ -85,7 +85,7 @@
 									>
 									<template v-slot:activator="{ on, attrs }">
 										<v-text-field
-											v-model="date"
+											v-model="userInfo.date"
 											label=""
 											append-icon="mdi-calendar"
 											readonly
@@ -94,7 +94,7 @@
 										></v-text-field>
 									</template>
 									<v-date-picker
-										v-model="date"
+										v-model="userInfo.date"
 										:active-picker.sync="activePicker"
 										:max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
 										min="1950-01-01"
@@ -110,12 +110,12 @@
 									<div class="py-2">ที่อยู่</div>
 								</v-col>
 
-								 <v-col class="ml-6" md="4">
+								 <v-col class="ml-6 pb-0 pt-6" md="4">
 									<v-textarea
 										solo
 										name="input-7-4"
 										label="Address"
-										v-model="address"
+										v-model="userInfo.address"
 									></v-textarea>
 								</v-col>
 							</v-row>
@@ -127,7 +127,7 @@
 								</v-col>
 								<v-col class="ml-5" md="4">
 									<form class="email-field">
-										<input type="text" id="email" name="email" placeholder="Email" v-model="email">		
+										<input type="text" id="email" name="email" placeholder="Email" v-model="userInfo.email">		
 									</form>				
 								</v-col>	
 							</v-row>
@@ -137,7 +137,9 @@
 								<v-col class="ml-5" cols="2">
 									<v-btn 
 										color="blue"
-										dark
+										class="white--text"
+										:disabled="checkAccount"
+										
 									>
 										บันทึก
 									</v-btn>
@@ -155,8 +157,8 @@
 									รหัสผ่านเก่า
 							</v-col>
 							<v-col class="ml-5" md="4">
-								<form class="email-field">
-									<input type="text" id="password" name="passwprd" placeholder="รหัสผ่านเก่า" v-model="password">		
+								<form class="">
+									<input type="password" id="password" name="passwprd" placeholder="รหัสผ่านเก่า" v-model="password">		
 								</form>				
 							</v-col>					
 						</v-row>
@@ -166,8 +168,8 @@
 									รหัสผ่านใหม่
 							</v-col>
 							<v-col class="ml-5" md="4">
-								<form class="email-field">
-									<input type="text" id="new-password" name="new-password" placeholder="รหัสผ่านใหม่" v-model="newPassword">		
+								<form class="">
+									<input type="password" id="new-password" name="new-password" placeholder="รหัสผ่านใหม่" v-model="newPassword">		
 								</form>				
 							</v-col>	
 						</v-row>
@@ -177,8 +179,8 @@
 									ยืนยันรหัสผ่านใหม่
 							</v-col>
 							<v-col class="ml-5" md="4">
-								<form class="email-field">
-									<input type="text" id="confirm-password" name="confirm-password" placeholder="ยืนยันรหัสผ่านใหม่" v-model="confirmPassword">		
+								<form class="">
+									<input type="password" id="confirm-password" name="confirm-password" placeholder="ยืนยันรหัสผ่านใหม่" v-model="confirmPassword">		
 								</form>				
 							</v-col>	
 						</v-row>
@@ -186,8 +188,11 @@
 						<v-row>
 							<v-col cols="2"></v-col>
 							<v-col class="ml-5" cols="2">
-								<v-btn >				
-		
+								<v-btn 
+									color="blue"
+									class="white--text"
+									:disabled="checkPassword"	
+								>
 									บันทึก
 								</v-btn>
 							</v-col>
@@ -202,6 +207,7 @@
 </template>
 
 <script>
+import { createLogger } from 'vuex';
 export default {
 	data: () => ({
 		menuList: [
@@ -210,14 +216,18 @@ export default {
 		],
 		items: ['ชาย','หญิง'],
 		activePicker: null,
-      	date: null,
+      	
      	menu: false,
-		name: "",
-		gender:"",
-		address:"",
+		userInfo:{
+			name: "",
+			gender:"",
+			date: null,
+			address:"",
+			email:""
+		},
 		password:"",
 		newPassword:"",
-		confirmPassword:""
+		confirmPassword:"",
 	}),
 	watch: {
       menu (val) {
@@ -229,12 +239,62 @@ export default {
         this.$refs.menu.save(date)
       },
     },
+	created(){
+		
+		this.oldUserInfo={
+			name:"John",
+			gender:"ชาย",
+			date:"2021-02-03",
+			address:"1234",
+			email:"john@email.com"
+		}
+		this.userInfo={
+			name: this.oldUserInfo.name,
+			gender: this.oldUserInfo.gender,
+			date: this.oldUserInfo.date,
+			address: this.oldUserInfo.address,
+			email: this.oldUserInfo.email
+		}
+
+	},
+
+	computed: {
+		checkPassword(){
+			if(this.password.length > 0 && this.newPassword.length > 0 && this.confirmPassword.length > 0){
+				return false
+			}
+			return true
+		},
+		checkAccount(){
+			if(
+				this.userInfo.name !== this.oldUserInfo.name || 
+				this.userInfo.gender !== this.oldUserInfo.gender ||
+				this.userInfo.date !== this.oldUserInfo.date ||
+				this.userInfo.address !== this.oldUserInfo.address ||
+				this.userInfo.email !== this.oldUserInfo.email 
+			  ){
+				return false
+			}
+			return true
+		}
+		
+
+	},
 };
 </script>
 
 <style scoped>
 
 input[type=text] {
+	width: 100%;
+	padding: 5px 10px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+input[type=password] {
 	width: 100%;
 	padding: 5px 10px;
 	margin: 8px 0;
