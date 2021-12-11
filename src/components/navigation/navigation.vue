@@ -5,25 +5,25 @@
 			<!-- Path Navigation -->
 			<div class="nav-menu__container">
 				<ul class="nav-menu">
-					<a class="nal-links mr-6" href="/home">
+					<router-link class="nal-links mr-6" to="/home">
 						Home
-					</a>
-					<a class="nal-links mr-6" href="/shopping">
+					</router-link>
+					<router-link class="nal-links mr-6" to="/shopping">
 						Shopping
-					</a>
-					<a class="nal-links mr-4" href="/customize">
+					</router-link>
+					<router-link class="nal-links mr-4" to="/customize">
 						Customize
-					</a>
+					</router-link>
 				</ul>
 			</div>
 
 			<!-- Website Logo -->
 			<div class="nav-logo__container">
-				<a href="/home" >
+				<router-link to="/home" >
 					<h1>
 						Kibby
 					</h1>
-				</a>
+				</router-link>
 			</div>
 
 			<!-- Icon  -->
@@ -83,14 +83,14 @@ export default {
 
 	methods: {
 		toProfile(){
-			this.$router.push('profile')
+			this.$router.push('/profile')
 		},
 		toProductCart(){
-			this.$router.push('cart')
+			this.$router.push('/cart')
 		},
 		
 		onLogout(){
-			this.$store.dispatch('logout')
+			this.$store.dispatch('/logout')
 		}
 
 	},
