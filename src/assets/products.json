@@ -29,7 +29,9 @@
 				}
 			],
 			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10"]
+			"product_image": [
+				"https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10",
+				"https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
 		},
 		{
 			"productID": "ax67s45asssdd6uaxv92323698",
@@ -60,9 +62,11 @@
 				}
 			],
 			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10"]
-		},
-		{
+			"product_image": [
+				"https://cdn.shopify.com/s/files/1/0054/0878/4458/products/pc_thumb_5c6d9117-0608-4398-acb3-1e2c7cb6b8ab_800x.png?v=1603825315"
+				,"https://cdn.shopify.com/s/files/1/0054/0878/4458/products/black_thumb_0737699f-bd0f-4ee7-a0ee-311b56ae8195_800x.png?v=1603825315"
+				]
+			},{
 			"productID": "ax67s45d6uaxv923asd23asd698",
 			"productName": "Keychron K6",
 			"productCategory": "Keyboard",
@@ -91,7 +95,7 @@
 				}
 			],
 			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10"]
+			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10","https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
 		},
 		{
 			"productID": "ax67s45d6uaxv9232asd3asd698",
@@ -122,7 +126,7 @@
 				}
 			],
 			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10"]
+			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10","https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
 		},
 		{
 			"productID": "ax67s4asd5d6uaxv923236asd98",
@@ -153,7 +157,7 @@
 				}
 			],
 			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10"]
+			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10","https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
 		}
 	]
 }

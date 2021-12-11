@@ -85,12 +85,11 @@
 
 
 <script>
-import Carousel from "@/components/home/carousel.vue";
 import Tabs from "@/components/tabs.vue";
 import Product from "../components/product-card.vue";
 
 export default {
-  components: { Carousel, Tabs, Product },
+  components: { Tabs, Product },
   data: () => ({
     category: "ALL",
     categoryImage:
