@@ -129,8 +129,11 @@ img {
 }
 .image-hover {
   position: absolute;
+  margin-left: auto;
+  margin-right: auto;
   top: 0;
   left: 0;
+  right: 0;
   opacity: 0;
   transition: opacity 0.5s ease-out;
 }

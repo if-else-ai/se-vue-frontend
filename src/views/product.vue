@@ -1,21 +1,19 @@
 <template>
-	<v-container>
+	<v-container class="shopping__container">
+		<Tabs/>
 		<div class="product-container pt-4">
 			<v-card class="product__images" width="800" height="600" flat>
 				<v-item-group class="product__sub-image mr-2">
 					<v-card flat>
 						<div v-for="(image, index) in images" :key="index">
-							<v-item v-slot="{ active, toggle }">
-								<v-img
-									:class="`${active} my-2`"
-									:color="active ? 'primary' : ''"
-									:src="image"
-									width="80"
-									height="80"
-									contain
-									@click="toggle"
-								/>
-							</v-item>
+							<v-img
+								class="product-small-image"
+								:src="image"
+								width="80"
+								height="80"
+								contain
+								@click="changeImage(index)"
+							/>
 						</div>
 					</v-card>
 				</v-item-group>
@@ -25,17 +23,17 @@
 						max-width="600"
 						height="600"
 						contain
-						:src="images[0]"
+						:src="currentImage"
 					/>
 				</v-card>
 			</v-card>
 
 			<v-card
-				class="product-menu"
+				class="product__detail pa-2"
 				width="800"
 				min-height="400"
 				outlined
-				elevation="4"
+				elevation="1"
 			>
 				<v-card-title class="product__name">
 					<h2>{{ product.productName }}</h2></v-card-title
@@ -45,25 +43,42 @@
 				</v-card-subtitle>
 				<v-divider class="mx-6"></v-divider>
 
-				<v-row
-					class="product__option ml-4"
-					v-for="(option, optionIndex) in product.option"
-					:key="optionIndex"
-				>
-					<v-card class="pa-2 mr-4" flat>
-						{{ option.option_name }}
-					</v-card>
+				<div class="product__selection">
+					<v-row
+						class="product__option"
+						v-for="(option, optionIndex) in product.option"
+						:key="optionIndex"
+					>
+						<v-card class="mr-4" flat>
+							{{ option.option_name }}
+						</v-card>
 
-					<v-btn-toggle class="product__choice" mandatory>
-						<v-btn
-							v-for="(list, index) in option.option_list"
-							:key="index"
-							@click="getSelectOption(optionIndex, index)"
-						>
-							{{ list }}
-						</v-btn>
-					</v-btn-toggle>
-				</v-row>
+						<v-btn-toggle class="product__choice" mandatory>
+							<v-btn
+								v-for="(list, index) in option.option_list"
+								:key="index"
+								@click="getSelectOption(optionIndex, index)"
+							>
+								{{ list }}
+							</v-btn>
+						</v-btn-toggle>
+					</v-row>
+				</div>
+				<div>
+					<v-btn icon>
+						<v-icon>mdi-plus</v-icon>
+						
+					</v-btn>
+					<v-text-field full-width="30px" outlined>
+					</v-text-field>
+					<v-btn icon>
+						<v-icon>mdi-plus</v-icon>
+					</v-btn>
+				</div>
+				<v-btn class="product__button mb-4" block outlined @click="addToCart">
+					เพิ่มลงตะกร้า
+				</v-btn>
+				
 			</v-card>
 		</div>
 	</v-container>
@@ -72,13 +87,18 @@
 <style src="./style.css"></style>
 
 <script>
+import Tabs from "@/components/tabs.vue";
+
 export default {
+	components:{
+			Tabs
+		},
 	data: () => ({
 		images: [
 			"https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-			"https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+			"https://i.imgur.com/YazpFQt.jpg",
 		],
-
+		currentImage: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
 		productOption: [],
 		selectedOption: null,
 	}),
@@ -95,9 +115,17 @@ export default {
 			let selectedOption = this.product.option[optionIndex].option_list[
 				selectedOptionIndex
 			];
-			this.productOption.productOption[optionIndex].option_selected = selectedOption
-			console.log(this.productOption)
+			this.productOption.productOption[
+				optionIndex
+			].option_selected = selectedOption;
 		},
+		changeImage(index) {
+			this.currentImage = this.images[index];
+		},
+
+		addToCart(){
+			console.log(this.productOption)
+		}
 	},
 
 	computed: {
@@ -107,18 +135,15 @@ export default {
 				this.productOption = {
 					productName: "Keychron K8",
 					productPrice: product.productName,
-					productOption: product.option.map(
-						option => {
-							return {
-								option_name: option.option_name,
-								option_selected: option.option_list[0],
-							}
-						}
-					)
+					productOption: product.option.map((option) => {
+						return {
+							option_name: option.option_name,
+							option_selected: option.option_list[0],
+						};
+					}),
 				};
-				console.log(this.productOption)
+				console.log(this.productOption);
 			}
-
 
 			return this.$store.getters.product;
 		},
@@ -129,6 +154,18 @@ export default {
 </script>
 
 <style scoped>
+.product__main-image img {
+	transition: all 0.5s;
+}
+.product__main-image img {
+	transition: all 0.5s;
+}
+
+.shopping__container {
+  padding-top: 0;
+  padding: 0;
+}
+
 .product__name {
 	margin-top: 0.5rem;
 }
@@ -136,6 +173,25 @@ export default {
 	height: 36px;
 	margin: 0 2px;
 	border: 1px solid black;
+}
+
+.product-small-image {
+	cursor: pointer;
+}
+
+.product__selection {
+	margin-left: 16px;
+}
+
+.product__button.v-btn--block {
+	margin-top: auto;
+	align-self: center;
+	bottom: 0;
+	display: flex;
+    flex: none;
+	height: 48px;
+    min-width: 80% !important;
+    max-width: 80%;
 }
 
 /* .theme--light.v-btn--active:hover::before, .theme--light.v-btn--active::before {
@@ -185,8 +241,9 @@ export default {
 	justify-content: center;
 }
 
-.product-menu {
-	margin-right: 8rem;
+.product__detail {
+	display: flex;
+	flex-direction: column;
 }
 
 .product__item {

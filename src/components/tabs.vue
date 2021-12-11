@@ -120,9 +120,9 @@ export default {
     keyboardImage: [
       "https://www.keyboardco.com/blog/wp-content/uploads/2017/08/t9pxhBg.jpg",
       "https://i.imgur.com/YazpFQt.jpg",
-      "http://i2.hdslb.com/bfs/archive/ce3159eeb323bd037cd7e63be3621e22e7609c06.png",
-      "//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_x600.jpg?v=1611981271 600w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_800x.jpg?v=1611981271 800w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1200x.jpg?v=1611981271 1200w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1400x.jpg?v=1611981271 1400w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1600x.jpg?v=1611981271 1600w",
-      "//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_x600.jpg?v=1611981271 600w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_800x.jpg?v=1611981271 800w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1200x.jpg?v=1611981271 1200w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1400x.jpg?v=1611981271 1400w, //cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1600x.jpg?v=1611981271 1600w",
+      "http://static1.squarespace.com/static/5ea2a09b27b7cf28a788029d/5ea424ac3459dd34b66ce173/5ea515712fec9937a4639f91/1587877868485/IMG_8030.jpg?format=1500w",
+      "http://static1.squarespace.com/static/5ea2a09b27b7cf28a788029d/5ea424ac3459dd34b66ce173/613e06970e308a445d6a0897/1631455013827/P1037184.jpg?format=1500w",
+      "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/11/Mechanical-Keyboard-Buying-Guide-Gear-Patrol-lead-full.jpg",
     ],
     switchList: ["Linear", "Tactile", "Clicky"],
     switchImage: [
