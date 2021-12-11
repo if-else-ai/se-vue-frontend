@@ -90,7 +90,7 @@ export default {
 		},
 		
 		onLogout(){
-			this.$store.dispatch('/logout')
+			this.$store.dispatch('logout')
 		}
 
 	},

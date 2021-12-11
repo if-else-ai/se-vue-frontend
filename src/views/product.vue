@@ -1,6 +1,6 @@
 <template>
 	<v-container class="shopping__container">
-		<Tabs/>
+		<Tabs />
 		<div class="product-container pt-4">
 			<v-card class="product__images" width="800" height="600" flat>
 				<v-item-group class="product__sub-image mr-2">
@@ -57,28 +57,33 @@
 							<v-btn
 								v-for="(list, index) in option.option_list"
 								:key="index"
-								@click="getSelectOption(optionIndex, index)"
+								@click="getSelectedOption(optionIndex, index)"
 							>
 								{{ list }}
 							</v-btn>
 						</v-btn-toggle>
 					</v-row>
 				</div>
-				<div>
-					<v-btn icon>
-						<v-icon>mdi-plus</v-icon>
-						
+				<div class="product__add">
+					<v-card class="ml-4 mr-4" flat>
+						Quantity
+					</v-card>
+					<v-btn icon @click="decrement">
+						<v-icon>mdi-minus</v-icon>
 					</v-btn>
-					<v-text-field full-width="30px" outlined>
-					</v-text-field>
-					<v-btn icon>
+					<input class="quantity-input" type="text" v-model="quantity" >
+					<v-btn icon @click="increment">
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
 				</div>
-				<v-btn class="product__button mb-4" block outlined @click="addToCart">
+				<v-btn
+					class="product__button mb-4"
+					block
+					outlined
+					@click="addToCart"
+				>
 					เพิ่มลงตะกร้า
 				</v-btn>
-				
 			</v-card>
 		</div>
 	</v-container>
@@ -90,9 +95,9 @@
 import Tabs from "@/components/tabs.vue";
 
 export default {
-	components:{
-			Tabs
-		},
+	components: {
+		Tabs,
+	},
 	data: () => ({
 		images: [
 			"https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
@@ -101,6 +106,7 @@ export default {
 		currentImage: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
 		productOption: [],
 		selectedOption: null,
+		quantity: 1,
 	}),
 
 	created() {
@@ -110,7 +116,8 @@ export default {
 	},
 
 	methods: {
-		getSelectOption(optionIndex, selectedOptionIndex) {
+
+		getSelectedOption(optionIndex, selectedOptionIndex) {
 			// let optionName = this.product.option[optionIndex].option_name;
 			let selectedOption = this.product.option[optionIndex].option_list[
 				selectedOptionIndex
@@ -119,13 +126,23 @@ export default {
 				optionIndex
 			].option_selected = selectedOption;
 		},
+
 		changeImage(index) {
 			this.currentImage = this.images[index];
 		},
 
-		addToCart(){
-			console.log(this.productOption)
-		}
+		increment(){
+			this.quantity += 1
+		},
+		decrement(){
+			if(this.quantity > 1){
+				this.quantity -= 1
+			}
+		},
+
+		addToCart() {
+			this.productOption.totalPrice = this.quantity * this.productOption
+		},
 	},
 
 	computed: {
@@ -144,7 +161,6 @@ export default {
 				};
 				console.log(this.productOption);
 			}
-
 			return this.$store.getters.product;
 		},
 
@@ -154,6 +170,25 @@ export default {
 </script>
 
 <style scoped>
+.product__add {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 200px;
+}
+
+.quantity-input {
+	width: 40px;
+	height: 40px;
+	border: 1px solid black;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.number-input {
+	border: 1px solid black;
+}
+
 .product__main-image img {
 	transition: all 0.5s;
 }
@@ -162,8 +197,8 @@ export default {
 }
 
 .shopping__container {
-  padding-top: 0;
-  padding: 0;
+	padding-top: 0;
+	padding: 0;
 }
 
 .product__name {
@@ -188,10 +223,10 @@ export default {
 	align-self: center;
 	bottom: 0;
 	display: flex;
-    flex: none;
+	flex: none;
 	height: 48px;
-    min-width: 80% !important;
-    max-width: 80%;
+	min-width: 80% !important;
+	max-width: 80%;
 }
 
 /* .theme--light.v-btn--active:hover::before, .theme--light.v-btn--active::before {
