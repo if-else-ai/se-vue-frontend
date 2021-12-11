@@ -78,8 +78,17 @@ export default {
 	}),
 
 	computed: {
+		// selectedCategory(){
+		// 	return
+		// },
+
 		products() {
-			console.log("lol", this.$store.getters.products);
+			if(this.category === 'ALL'){
+				console.log('ALL Object')
+			} else {
+				console.log('Log Filter')
+			}
+
 			return this.$store.getters.products;
 		},
 		
@@ -91,10 +100,8 @@ export default {
 					id: product.productID
 				}
 			})
-			console.log(products)
 			return products
 		}
-
 	},
 };
 </script>

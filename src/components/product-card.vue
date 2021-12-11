@@ -35,6 +35,7 @@
 export default {
 	name: "product",
 	props: ["product"],
+
 };
 </script>
 
@@ -43,7 +44,7 @@ export default {
 	cursor: pointer;
 }
 
-.v-card__title {
+.v-card__title.product__container {
 	align-items: center;
 	justify-content: center;
 	display: flex;
