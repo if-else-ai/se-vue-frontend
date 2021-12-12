@@ -11,6 +11,7 @@
 					</v-list-item>
 					<v-divider class="mx-6"></v-divider>
 
+					<v-card class="menu-list" flat>
 					<v-list nav>
 						<v-list-item-group mandatory color="red darken-4">
 							<v-list-item
@@ -30,6 +31,7 @@
 							</v-list-item>
 						</v-list-item-group>
 					</v-list>
+					</v-card>
 				</v-list>
 			</v-card>
 
@@ -331,5 +333,9 @@ input[type=password] {
 
 .profile__item:hover {
 	color: black;
+}
+
+.menu-list {
+	border-left: 1px solid rgb(196, 196, 196);
 }
 </style>
