@@ -8,7 +8,7 @@
 					<router-link class="nal-links mr-6" to="/home">
 						Home
 					</router-link>
-					<router-link class="nal-links mr-6" to="/shopping">
+					<router-link class="nal-links mr-6" :to="{ path: '/shopping', query: { category: 'ALL'} }">
 						Shopping
 					</router-link>
 					<router-link class="nal-links mr-4" to="/customize">

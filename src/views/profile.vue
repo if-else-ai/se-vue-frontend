@@ -1,7 +1,7 @@
 <template>
 	<v-container>
 		<div class="profile-container pt-4">
-			<v-card class="profile-menu" width="300" max-height="400" elevation="8">
+			<v-card class="profile-menu" width="300" max-height="200" elevation="0">
 				<v-list>
 					<v-list-item class="py-1">
 						<v-icon class="mr-6">mdi-account</v-icon>
@@ -14,11 +14,9 @@
 					<v-list nav>
 						<v-list-item-group mandatory color="red darken-4">
 							<v-list-item
-								v-for="item in menuList"
-								:key="item.title"
-								:class="item.class"
-								router
-								:to="item.path"
+								v-for="(item, index) in menuList"
+								:key="index"
+								@click="changeMenu(item.title)"
 							>
 								<!-- icon & name-->
 								<v-list-item-icon>
@@ -30,15 +28,14 @@
 									}}</v-list-item-title>
 								</v-list-item-content>
 							</v-list-item>
-
-							
 						</v-list-item-group>
 					</v-list>
 				</v-list>
 			</v-card>
 
-			<v-card elevation="0">
-				<v-card class="pl-4 " elevation="8" width="1100" > 
+			<!-- righty -->
+			<v-card v-if="this.selectedMenu === 'Account'" elevation="0">
+				<v-card class="pl-4 " elevation="4" width="1100" > 
 					<v-card-title class="ml-2"> จัดการบัญชีผู้ใช้</v-card-title>
 					<v-divider class="mx-4"></v-divider>
 
@@ -201,6 +198,15 @@
 
 				</v-card>
 			</v-card>
+
+			<v-card v-if="selectedMenu ==='Order History'" width="1100" elevation="0" >
+				<v-card class="pl-4" elevation="4" width="1100" height="400"> 
+					<v-card-title class="ml-2"> ประวัติการสั่งซื้อ</v-card-title>
+					<v-divider class="mx-4 "></v-divider>
+
+				</v-card>
+				
+			</v-card>
 		</div>
 
 	</v-container>
@@ -211,11 +217,11 @@ export default {
 	data: () => ({
 		menuList: [
 			{ title: "Account", icon: "mdi-account" },
-			{ title: "Order History", icon: "mdi-account" },
+			{ title: "Order History", icon: "mdi-history" },
 		],
 		items: ['ชาย','หญิง'],
 		activePicker: null,
-      	
+		selectedMenu: 'Account',
      	menu: false,
 		userInfo:{
 			name: "",
@@ -237,7 +243,13 @@ export default {
       save (date) {
         this.$refs.menu.save(date)
       },
+
+	  changeMenu(title){
+		  this.selectedMenu = title
+		  console.log(this.selectedMenu)
+	  },
     },
+
 	created(){
 		this.oldUserInfo={
 			name:"John",

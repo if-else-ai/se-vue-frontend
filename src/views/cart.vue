@@ -32,6 +32,7 @@
 							<div v-for="(option, index) in item.option" :key="index">
 								{{ `${option.option_name}: ${option.option_selected}` }}
 							</div>
+							
 							<div class="d-flex flex-row">
 								<v-btn icon @click="decrement(itemIndex)">
 									<v-icon>mdi-minus</v-icon>
@@ -44,6 +45,9 @@
 								<v-btn icon @click="increment(itemIndex)">
 									<v-icon>mdi-plus</v-icon>
 								</v-btn>
+							</div>
+							<div class="cart__price">
+								{{  `$ ${item.totalPrice}` }}
 							</div>
 							<v-btn class="align-self-center"
 								><v-icon>mdi-cart</v-icon> checkout</v-btn
@@ -85,6 +89,11 @@
 	border-radius: 4px;
 	text-align: center;
 }
+
+.cart__price {
+	color: rgb(46, 146, 33);
+}
+
 </style>
 
 <script>
