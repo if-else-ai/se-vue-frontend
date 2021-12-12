@@ -17,7 +17,7 @@
 					</v-tab>
 				</v-tabs>
 				<v-card v-if="selectedTab === 0 && this.selectedKeyboard" class="product__images" flat>
-					<div v-if="this.selectedKeyboard" class="product__sub-image">
+					<div class="product__sub-image">
 						<v-item-group>
 							<v-card outlined >
 								<div
@@ -207,26 +207,6 @@ export default {
 	},
 
 	methods: {
-		// trigger on pick option
-		getSelectedOption(optionIndex, selectedOptionIndex) {
-			// get SelectedOption => name of selectedOption
-			let selectedOption = this.product.option[optionIndex].option_list[
-				selectedOptionIndex
-			];
-			// get selected option price
-			let priceAdded = this.product.option[optionIndex]
-				.option_price_added[selectedOptionIndex];
-
-			// set seleceted option name
-			this.productOption.productOption[
-				optionIndex
-			].option_selected = selectedOption;
-
-			// set selected option priceAdded
-			this.productOption.productOption[
-				optionIndex
-			].option_price_added = priceAdded;
-		},
 
 		changeImage(currentTab, imageIndex) {
 			switch(currentTab){
@@ -239,6 +219,8 @@ export default {
 				case 2:
 				this.currentImage = this.selectedKeycap.detail.product_image[imageIndex]
 				break;
+				default:
+					null
 			}
 			// this.toggleActive(index);
 		},
@@ -305,6 +287,8 @@ export default {
 					}
 				)
 				console.log(this.selectedKeyboard)
+				this.currentImage = this.selectedKeyboard.detail.product_image[0]
+				this.selectedTab = 0
 			}
 
 			if(this.selectedSwitch){
@@ -318,6 +302,8 @@ export default {
 					}
 				)
 				console.log(this.selectedSwitch)
+				this.currentImage = this.selectedSwitch.detail.product_image[0]
+				this.selectedTab = 1
 			}
 			
 			if(this.selectedKeycap){
@@ -331,7 +317,8 @@ export default {
 					}
 				)
 				console.log(this.selectedKeycap)
-
+				this.currentImage = this.selectedKeycap.detail.product_image[0]
+				this.selectedTab = 2
 			}
 
 			price =
