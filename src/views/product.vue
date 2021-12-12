@@ -3,13 +3,13 @@
 		<Tabs />
 		<v-divider class="mb-4"></v-divider>
 		<div class="product-container pt-4">
-			<v-card class="product__images" width="800" height="600" flat>
-				<v-item-group class="product__sub-image mr-2">
-					<v-card flat>
+			<v-card class="product__images" width="800" height="600" outlined>
+				<v-item-group class="product__sub-image">
+					<v-card outlined>
 						<div v-for="(image, index) in images" :key="index">
 							<v-img
-								class="product-small-image"
-								:src="image"
+								:class="{ active: image.active, side: side}"
+								:src="image.src"
 								width="80"
 								height="80"
 								contain
@@ -19,13 +19,8 @@
 					</v-card>
 				</v-item-group>
 
-				<v-card flat class="product__main-image">
-					<v-img
-						max-width="600"
-						height="600"
-						contain
-						:src="currentImage"
-					/>
+				<v-card outlined class="product__main-image">
+					<v-img height="600" contain :src="currentImage" />
 				</v-card>
 			</v-card>
 
@@ -56,6 +51,7 @@
 
 						<v-btn-toggle class="product__choice" mandatory>
 							<v-btn
+								class="product__choice-button"
 								v-for="(list, index) in option.option_list"
 								:key="index"
 								@click="getSelectedOption(optionIndex, index)"
@@ -65,6 +61,7 @@
 						</v-btn-toggle>
 					</v-row>
 				</div>
+
 				<div class="product__add">
 					<v-card class="ml-4 mr-4" flat>
 						Quantity
@@ -105,8 +102,8 @@ export default {
 	},
 	data: () => ({
 		images: [
-			"https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-			"https://i.imgur.com/YazpFQt.jpg",
+			{ src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg", active: true },
+			{ src: "https://i.imgur.com/YazpFQt.jpg", active: false },
 		],
 		currentImage: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
 		productOption: [],
@@ -114,6 +111,7 @@ export default {
 		selectedOption: null,
 		quantity: 1,
 		computedPrice: 0,
+		side: "side"
 	}),
 
 	created() {
@@ -142,13 +140,32 @@ export default {
 			this.productOption.productOption[
 				optionIndex
 			].option_price_added = priceAdded;
-
 		},
 
 		changeImage(index) {
 			this.currentImage = this.images[index];
+			this.toggleActive(index);
 		},
-		
+
+		toggleActive(index) {
+			let item = this.images[index];
+
+			this.images = this.images.map(
+				item => {
+					return {
+						src: item.src,
+						active: false
+					}
+				}
+			)
+
+			if(item.active === false){
+				item.active = !item.active;
+			}
+
+			this.$set(this.images, index, item);
+		},
+
 		// add product
 		increment() {
 			this.quantity += 1;
@@ -168,21 +185,24 @@ export default {
 				productPrice: this.productOption.productPrice,
 				productQuantity: this.quantity,
 				productOption: this.productOption.productOption,
-				totalPrice: this.computedPrice
+				totalPrice: this.computedPrice,
 			};
 			console.log(formData);
 		},
 	},
 
 	computed: {
-		price(){
+		price() {
 			let addedPrice = 0;
 			this.productOption.productOption.map((option) => {
 				addedPrice += option.option_price_added;
 			});
 			// Price = (BasePrice + AddedPrice) * Quantity
-			this.computedPrice = (this.productOption.productPrice + addedPrice) * this.quantity
-			return (this.productOption.productPrice + addedPrice) * this.quantity
+			this.computedPrice =
+				(this.productOption.productPrice + addedPrice) * this.quantity;
+			return (
+				(this.productOption.productPrice + addedPrice) * this.quantity
+			);
 		},
 
 		product() {
@@ -211,6 +231,15 @@ export default {
 </script>
 
 <style scoped>
+.active {
+	border: 1px solid black;
+	transition: all 0.4s;
+}
+
+.side {
+	cursor: pointer;
+}
+
 .product__add {
 	display: flex;
 	flex-direction: row;
@@ -230,8 +259,11 @@ export default {
 	border: 1px solid black;
 }
 
-.product__main-image img {
-	transition: all 0.5s;
+.product__main-image {
+	border-right: none;
+	border-top: none;
+	border-bottom: none;
+	overflow: hidden;
 }
 .product__main-image img {
 	transition: all 0.5s;
@@ -246,7 +278,7 @@ export default {
 	margin-top: 0.5rem;
 }
 .v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default {
-	height: 36px;
+	height: 40px;
 	margin: 0 2px;
 	border: 1px solid black;
 }
@@ -271,7 +303,6 @@ export default {
 }
 
 /* .theme--light.v-btn--active:hover::before, .theme--light.v-btn--active::before {
-	background-color: rgb(165, 165, 165);
 	opacity: 1;
 } */
 
@@ -279,8 +310,10 @@ export default {
 	background-color: rgb(255, 172, 77);
 }
 
-.product__price {
-	margin-top: 2px;
+.product__price > h2 {
+	font-family: Helvetica;
+	margin-top: 1rem;
+	color: rgb(0, 141, 35);
 }
 .product__option {
 	display: flex;
@@ -293,6 +326,10 @@ export default {
 	padding: 0.5rem;
 	margin-right: 16px;
 }
+.product__choice button.product__choice-button {
+	height: 32px;
+}
+
 
 .product__images {
 	display: flex;

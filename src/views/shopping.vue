@@ -3,17 +3,17 @@
     <Tabs/>
 	<v-divider class="mb-4"></v-divider>
     <!-- <Carousel /> -->
-    <v-parallax v-if="query !== 'ALL'" dark :src="image">
+    <v-parallax v-if="categoryQuery !== 'ALL'" dark :src="image">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
           <h1 class="font-weight-bold mb-4">
-            {{ query }}
+            {{ categoryQuery }}
           </h1>
         </v-col>
       </v-row>
     </v-parallax>
-    <h1 v-if="query === 'ALL'" class="font-weight-bold mb-4">
-      {{ query }}
+    <h1 v-if="categoryQuery === 'ALL'" class="font-weight-bold mb-4">
+      {{ categoryQuery }}
     </h1>
 
     <v-divider class="my-4"></v-divider>
@@ -94,7 +94,7 @@ export default {
   }),
 
   computed: {
-    query(){
+    categoryQuery(){
       return this.$route.query.category
     },
     image(){
