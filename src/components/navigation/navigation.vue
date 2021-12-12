@@ -49,11 +49,15 @@
 					</v-list>
 				</v-menu>
 
-				<v-badge dot color="red" overlap offset-x="18" offset-y="16">
+				<v-badge v-if="carts.length > 0"  dot color="red" overlap offset-x="18" offset-y="16">
 					<v-btn icon color="white" @click="toProductCart">
 						<v-icon>mdi-cart-outline</v-icon>
 					</v-btn>
 				</v-badge>
+
+				<v-btn v-else icon color="white" @click="toProductCart">
+					<v-icon>mdi-cart-outline</v-icon>
+				</v-btn>
 			</div>	
 
 		</v-app-bar>
@@ -93,6 +97,12 @@ export default {
 		}
 
 	},
+
+	computed: {
+		carts(){
+			return this.$store.getters.carts
+		}
+	}
 
 };
 </script>
