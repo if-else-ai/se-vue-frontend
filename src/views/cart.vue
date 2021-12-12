@@ -7,7 +7,7 @@
 				v-if="carts.length !== 0"
 				flat
 			>
-				<h1>My cart</h1>
+				<h1>Carts</h1>
 				<div
 					class="d-flex my-3"
 					style="justify-content: space-between;"
@@ -121,7 +121,9 @@ export default {
 
 		// add product
 		increment(productIndex) {
+			console.log(this.cartItem[productIndex])
 			this.cartItem[productIndex].productQuantity += 1
+			this.cartItem[productIndex].totalPrice = (this.cartItem.totalPrice[productIndex] / this.cartItem.productQuantity) * this.cartItem[productIndex].productQuantity
 		},
 		// decrease product
 		decrement(productIndex) {
@@ -129,7 +131,6 @@ export default {
 				this.cartItem[productIndex].productQuantity -= 1
 			}
 		},
-
 
 		// addItem(items){
 		// 	this.$store.dispatch("addToCart",items);
@@ -148,6 +149,19 @@ export default {
 			}
 			return this.$store.getters.carts;
 		},
+
+		// price() {
+		// 	let addedPrice = 0;
+		// 	this.productOption.productOption.map((option) => {
+		// 		addedPrice += option.option_price_added;
+		// 	});
+		// 	// Price = (BasePrice + AddedPrice) * Quantity
+		// 	this.computedPrice =
+		// 		(this.productOption.productPrice + addedPrice) * this.quantity;
+		// 	return (
+		// 		(this.productOption.productPrice + addedPrice) * this.quantity
+		// 	);
+		// },
 	},
 };
 </script>

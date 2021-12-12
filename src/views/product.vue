@@ -8,7 +8,7 @@
 					<v-card outlined>
 						<div v-for="(image, index) in images" :key="index">
 							<v-img
-								:class="{ active: image.active, side: side}"
+								:class="{ active: image.active}"
 								:src="image.src"
 								width="80"
 								height="80"
@@ -111,7 +111,6 @@ export default {
 		selectedOption: null,
 		quantity: 1,
 		computedPrice: 0,
-		side: "side"
 	}),
 
 	created() {
@@ -234,10 +233,6 @@ export default {
 .active {
 	border: 1px solid black;
 	transition: all 0.4s;
-}
-
-.side {
-	cursor: pointer;
 }
 
 .product__add {

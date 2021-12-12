@@ -1,10 +1,10 @@
 {
 	"products": [
 		{
-			"productID": "ax6asd7s45d6uaxv92asd323698",
+			"productID": "123a456",
 			"productName": "Keychron K4",
 			"productCategory": "Keyboard",
-			"productPricePerUnit": 6590,
+			"productPricePerUnit": 4200,
 			"productDescription": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 			"quantityOnHand": 40,
 			"option": [
@@ -34,130 +34,31 @@
 				"https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
 		},
 		{
-			"productID": "ax67s45asssdd6uaxv92323698",
-			"productName": "Keychron K2",
-			"productCategory": "Keyboard",
-			"productPricePerUnit": 6590,
+			"productID": "123b456",
+			"productName": "GMK Tako",
+			"productCategory": "Keycap",
+			"productPricePerUnit": 3600,
 			"productDescription": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 			"quantityOnHand": 40,
-			"option": [
-				{
-					"option_name": "Color",
-					"option_list": ["white", "black"],
-					"option_price_added": [200, -200]
-				},
-				{
-					"option_name": "Switch",
-					"option_list": [
-						"Gateron Phantom Red",
-						"Gateron Phantom Brown",
-						"Gateron Phantom Blue"
-					],
-					"option_price_added": [100, 200, 0]
-				},
-				{
-					"option_name": "Keycap Language",
-					"option_list": ["Thai", "English"],
-					"option_price_added": [100, 200, 0]
-				}
-			],
-			"tags": ["75%", "RGB", "Hot-Swappable"],
+			"option": [],
+			"tags": ["Cherry Profile"],
 			"product_image": [
-				"https://cdn.shopify.com/s/files/1/0054/0878/4458/products/pc_thumb_5c6d9117-0608-4398-acb3-1e2c7cb6b8ab_800x.png?v=1603825315"
-				,"https://cdn.shopify.com/s/files/1/0054/0878/4458/products/black_thumb_0737699f-bd0f-4ee7-a0ee-311b56ae8195_800x.png?v=1603825315"
-				]
-			},{
-			"productID": "ax67s45d6uaxv923asd23asd698",
-			"productName": "Keychron K6",
-			"productCategory": "Keyboard",
-			"productPricePerUnit": 6590,
-			"productDescription": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-			"quantityOnHand": 40,
-			"option": [
-				{
-					"option_name": "Color",
-					"option_list": ["white", "black"],
-					"option_price_added": [200, -200]
-				},
-				{
-					"option_name": "Switch",
-					"option_list": [
-						"Gateron Phantom Red",
-						"Gateron Phantom Brown",
-						"Gateron Phantom Blue"
-					],
-					"option_price_added": [100, 200, 0]
-				},
-				{
-					"option_name": "Keycap Language",
-					"option_list": ["Thai", "English"],
-					"option_price_added": [100, 200, 0]
-				}
-			],
-			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10","https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
+				"https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897",
+				"https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10"]
 		},
 		{
-			"productID": "ax67s45d6uaxv9232asd3asd698",
-			"productName": "Keychron K8",
-			"productCategory": "Keyboard",
-			"productPricePerUnit": 6590,
+			"productID": "123b456",
+			"productName": "Gazzew Boba U4T",
+			"productCategory": "Switch",
+			"productPricePerUnit": 36,
 			"productDescription": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-			"quantityOnHand": 40,
-			"option": [
-				{
-					"option_name": "Color",
-					"option_list": ["white", "black"],
-					"option_price_added": [200, -200]
-				},
-				{
-					"option_name": "Switch",
-					"option_list": [
-						"Gateron Phantom Red",
-						"Gateron Phantom Brown",
-						"Gateron Phantom Blue"
-					],
-					"option_price_added": [100, 200, 0]
-				},
-				{
-					"option_name": "Keycap Language",
-					"option_list": ["Thai", "English"],
-					"option_price_added": [100, 200, 0]
-				}
-			],
-			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10","https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
-		},
-		{
-			"productID": "ax67s4asd5d6uaxv923236asd98",
-			"productName": "Keychron K8",
-			"productCategory": "Keyboard",
-			"productPricePerUnit": 6590,
-			"productDescription": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-			"quantityOnHand": 40,
-			"option": [
-				{
-					"option_name": "Color",
-					"option_list": ["white", "black"],
-					"option_price_added": [200, -200]
-				},
-				{
-					"option_name": "Switch",
-					"option_list": [
-						"Gateron Phantom Red",
-						"Gateron Phantom Brown",
-						"Gateron Phantom Blue"
-					],
-					"option_price_added": [100, 200, 0]
-				},
-				{
-					"option_name": "Keycap Language",
-					"option_list": ["Thai", "English"],
-					"option_price_added": [100, 200, 0]
-				}
-			],
-			"tags": ["75%", "RGB", "Hot-Swappable"],
-			"product_image": ["https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10","https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
+			"quantityOnHand": 700,
+			"option": [],
+			"tags": ["Tactile"],
+			"product_image": [
+				"https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897",
+				"https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10",
+				"https://cdn.shopify.com/s/files/1/0865/5368/products/Jk3MJPZ_2400x1350.jpg?v=1631573897"]
 		}
 	]
 }

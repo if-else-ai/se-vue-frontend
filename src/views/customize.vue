@@ -2,67 +2,104 @@
 	<v-container class="shopping__container">
 		<v-divider class="mb-4"></v-divider>
 		<div class="product-container pt-4">
-			<!-- รูป -->
-			<v-card class="product__images" width="800" height="600" outlined>
-				<v-item-group class="product__sub-image">
-					<v-card outlined>
-						<div v-for="(image, index) in images" :key="index">
-							<v-img
-								:class="{ active: image.active, side: side}"
-								:src="image.src"
-								width="80"
-								height="80"
-								contain
-								@click="changeImage(index)"
-							/>
-						</div>
-					</v-card>
-				</v-item-group>
-
-				<v-card outlined class="product__main-image">
-					<!-- main tap -->
-					<v-tabs
-						v-model="selectedTab"
-						class="tabs__container mb-6"
-						centered
-						fixed-tabs
-						v-bind="attrs"
-						v-on="on"
-						optional
-					>
+			<v-card outlined class="mr-4" width="800" height="600">
+				<v-tabs
+					v-model="selectedTab"
+					class="tabs__container"
+					centered
+					fixed-tabs
+				>
 					<v-tab
 						v-for="(tab, index) in tabsItem"
 						:key="index"
-						v-bind="attrs"
-						v-on="on"
-						@change="onChangeCategory(tab, tabsImage[index])"
 					>
-					{{ tab }}
+						{{ tab }}
 					</v-tab>
-					</v-tabs>
-
-					<!-- sub tap -->
-					<v-card class="category__items" flat>
-					<ul
-						class="category__item"
-						v-for="(item, index) in keyboardList"
-						:key="index"
-						@click="onChangeSubCategory(item, keyboardImage[index])"
-					>
-					<li class="py-3">
-						{{ item }}
-					</li>
-					</ul>
-					</v-card>
-
-					<v-img height="600" contain :src="currentImage" />
+				</v-tabs>
+				<v-card v-if="selectedTab === 0 && this.selectedKeyboard" class="product__images" flat>
+					<div v-if="this.selectedKeyboard" class="product__sub-image">
+						<v-item-group>
+							<v-card outlined >
+								<div
+									v-for="(image, index) in selectedKeyboard.detail.images"
+									:key="index"
+								>
+									<v-img
+										:class="{
+											active: image.active,
+										}"
+										:src="image.src"
+										width="80"
+										height="80"
+										contain
+										@click="changeImage(selectedTab, index)"
+									/>
+								</div>
+							</v-card>
+						</v-item-group>
+					</div>
+					<div outlined class="product__main-image">
+						<v-img height="600" contain :src="currentImage" />
+					</div>
 				</v-card>
+				<v-card v-if="selectedTab === 1 && this.selectedSwitch" class="product__images" flat>
+					<div class="product__sub-image">
+						<v-item-group>
+							<v-card outlined>
+								<div
+									v-for="(image, index) in selectedSwitch.detail.images"
+									:key="index"
+								>
+									<v-img
+										:class="{
+											active: image.active,
+										}"
+										:src="image.src"
+										width="80"
+										height="80"
+										contain
+										@click="changeImage(selectedTab, index)"
+									/>
+								</div>
+							</v-card>
+						</v-item-group>
+					</div>
+					<div outlined class="product__main-image">
+						<v-img height="600" contain :src="currentImage" />
+					</div>
+				</v-card>
+				<v-card v-if="selectedTab === 2 && this.selectedKeycap" class="product__images" flat>
+					<div class="product__sub-image">
+						<v-item-group>
+							<v-card outlined>
+								<div
+									v-for="(image, index) in selectedKeycap.detail.images"
+									:key="index"
+								>
+									<v-img
+										:class="{
+											active: image.active,
+										}"
+										:src="image.src"
+										width="80"
+										height="80"
+										contain
+										@click="changeImage(selectedTab, index)"
+									/>
+								</div>
+							</v-card>
+						</v-item-group>
+					</div>
+					<div outlined class="product__main-image">
+						<v-img height="600" contain :src="currentImage" />
+					</div>
+				</v-card>
+				
 			</v-card>
-
 			<v-card
-				class="product__detail pa-2"
+				class="product__detail pa-4"
 				width="800"
-				min-height="400"
+				min-height="600"
 				outlined
 				elevation="1"
 			>
@@ -70,33 +107,49 @@
 					<h2>Customize</h2></v-card-title
 				>
 				<v-card-subtitle class="product__price">
-					<!-- <h2>$ {{ price }}</h2> -->
+					<h2>$ {{ price }}</h2>
 				</v-card-subtitle>
-				<v-divider class="mx-6"></v-divider>
 
-			<v-autocomplete
-				:items="ModelList"
-				label="Model"
-				prepend-icon="mdi-magnify"
-			>
-			</v-autocomplete>
+				<div class="custom-input__container">
+					<div>เลือก Keyboard:</div>
+					<v-autocomplete
+						:items="keyboardList"
+						label="Model"
+						prepend-icon="mdi-magnify"
+						return-object
+						v-model="selectedKeyboard"
+					>
+					</v-autocomplete>
+				</div>
 
-			<v-autocomplete
-				:items="SwitchList"
-				label="Switch"
-				prepend-icon="mdi-magnify"
-			>
-			</v-autocomplete>
+				<v-divider class="custom-input__bar"></v-divider>
 
-			<v-autocomplete
-				:items="KeycapList"
-				label="Keycap"
-				prepend-icon="mdi-magnify"
-			>
-			</v-autocomplete>
+				<div class="custom-input__container">
+					<div>เลือก Switch:</div>
+					<v-autocomplete
+						:items="switchList"
+						label="Switch"
+						prepend-icon="mdi-magnify"
+						return-object
+						v-model="selectedSwitch"
+					>
+					</v-autocomplete>
+				</div>
 
-				<div class="product__add">
-					<v-card class="ml-4 mr-4" flat>
+				<div class="custom-input__container">
+					<div>เลือก Keycap:</div>
+					<v-autocomplete
+						:items="keycapList"
+						label="Keycap"
+						prepend-icon="mdi-magnify"
+						return-object
+						v-model="selectedKeycap"
+					>
+					</v-autocomplete>
+				</div>
+
+				<div class="product__add mt-3">
+					<v-card class="mr-4" flat>
 						Quantity
 					</v-card>
 					<v-btn icon @click="decrement">
@@ -111,8 +164,9 @@
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
 				</div>
+
 				<v-btn
-					class="product__button mb-4"
+					class="product__button mb-4 mt-4"
 					block
 					outlined
 					@click="addToCart"
@@ -127,43 +181,23 @@
 <style src="./style.css"></style>
 
 <script>
-// image assets
-import accessoriesImage from "../assets/image/accessoriesImage.js"
-import keyboardImage from "../assets/image/keyboardImage.js"
-import switchImage from "../assets/image/switchImage.js"
-import tabsImage from "../assets/image/tabsImage.js"
-import keycapImage from "../assets/image/keycapImage.js"
-import toolsImage from "../assets/image/toolsImage.js"
-
 export default {
 	data: () => ({
 		images: [
-			{ src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg", active: true },
+			{
+				src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+				active: true,
+			},
 			{ src: "https://i.imgur.com/YazpFQt.jpg", active: false },
 		],
 		currentImage: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-		productOption: [],
-		tempProduct: null,
-		selectedOption: null,
-		quantity: 1,
-		computedPrice: 0,
-		side: "side",
-
 		tabsItem: ["Model", "Switch", "Keycap"],
-		tabsImage: tabsImage,
-		keyboardList: ["Full-Size", "TKL", "75%", "65%", "60%"],
-		keyboardImage: keyboardImage,
-		switchList: ["Linear", "Tactile", "Clicky"],
-		switchImage: switchImage,
-		keycapList: ["OEM Profile", "Cherry Profile", "XDA Profile"],
-		keycapImage: keycapImage,
-		accesoriesList: ["Deskmat", "Palm Rest", "Keyboard Pouch", "Aviator Cable"],
-		accessoriesImage: accessoriesImage,
-		toolList: ["Keycap Puller", "Lubricant", "other"],
-		toolImage: toolsImage,
-
-		selectedTab: "",
-
+		selectedTab: 0,
+		quantity: 1,
+		selectedKeyboard: "",
+		selectedSwitch: "",
+		selectedKeycap: "",
+		
 	}),
 
 	created() {
@@ -194,24 +228,32 @@ export default {
 			].option_price_added = priceAdded;
 		},
 
-		changeImage(index) {
-			this.currentImage = this.images[index];
-			this.toggleActive(index);
+		changeImage(currentTab, imageIndex) {
+			switch(currentTab){
+				case 0:
+				this.currentImage = this.selectedKeyboard.detail.product_image[imageIndex]
+				break;
+				case 1:
+				this.currentImage = this.selectedSwitch.detail.product_image[imageIndex]
+				break;
+				case 2:
+				this.currentImage = this.selectedKeycap.detail.product_image[imageIndex]
+				break;
+			}
+			// this.toggleActive(index);
 		},
 
 		toggleActive(index) {
 			let item = this.images[index];
 
-			this.images = this.images.map(
-				item => {
-					return {
-						src: item.src,
-						active: false
-					}
-				}
-			)
+			this.images = this.images.map((item) => {
+				return {
+					src: item.src,
+					active: false,
+				};
+			});
 
-			if(item.active === false){
+			if (item.active === false) {
 				item.active = !item.active;
 			}
 
@@ -231,79 +273,157 @@ export default {
 
 		// add to cart
 		addToCart() {
-			let formData = {
-				productID: this.productOption.productID,
-				productName: this.productOption.productName,
-				productPrice: this.productOption.productPrice,
-				productQuantity: this.quantity,
-				productOption: this.productOption.productOption,
-				totalPrice: this.computedPrice,
-			};
-			console.log(formData);
+			// let formData = {
+			// 	productID: this.productOption.productID,
+			// 	productName: this.productOption.productName,
+			// 	productPrice: this.productOption.productPrice,
+			// 	productQuantity: this.quantity,
+			// 	productOption: this.productOption.productOption,
+			// 	totalPrice: this.computedPrice,
+			// };
+			// console.log(formData);
+		},
+		onChangeCategory(tab) {
 		},
 	},
 
 	computed: {
 		price() {
-			let addedPrice = 0;
-			this.productOption.productOption.map((option) => {
-				addedPrice += option.option_price_added;
-			});
-			// Price = (BasePrice + AddedPrice) * Quantity
-			// this.computedPrice =
-			// 	(this.productOption.productPrice + addedPrice) * this.quantity;
-			return (
-				(this.productOption.productPrice + addedPrice) * this.quantity
-			);
+			let price = 0;
+			let keyboardPrice = 0
+			let keycapPrice = 0
+			let switchPrice = 0
+
+			if(this.selectedKeyboard){
+				keyboardPrice = this.selectedKeyboard.detail.productPricePerUnit
+				this.selectedKeyboard.detail.images = this.selectedKeyboard.detail.product_image.map(
+					(product, index) => {
+						return {
+							src: product,
+							active: index === 0 ? true : false
+						}
+					}
+				)
+				console.log(this.selectedKeyboard)
+			}
+
+			if(this.selectedSwitch){
+				switchPrice = this.selectedSwitch.detail.productPricePerUnit
+				this.selectedSwitch.detail.images = this.selectedSwitch.detail.product_image.map(
+					(product, index) => {
+						return {
+							src: product,
+							active: index === 0 ? true : false
+						}
+					}
+				)
+				console.log(this.selectedSwitch)
+			}
+			
+			if(this.selectedKeycap){
+				keycapPrice = this.selectedKeycap.detail.productPricePerUnit
+				this.selectedKeycap.detail.images = this.selectedKeycap.detail.product_image.map(
+					(product, index) => {
+						return {
+							src: product,
+							active: index === 0 ? true : false
+						}
+					}
+				)
+				console.log(this.selectedKeycap)
+
+			}
+
+			price =
+				(keyboardPrice + switchPrice * 80 + keycapPrice) *
+				this.quantity;
+			return price;
 		},
 
 		product() {
 			// Initialize Product
 			if (this.productOption.length === 0) {
-				// let product = this.$store.getters.product;
-				// this.tempProduct = this.$store.getters.product;
-				// this.productOption = {
-				// 	productID: product.productID,
-				// 	productName: "Keychron K8",
-				// 	productPrice: product.productPricePerUnit,
-				// 	productOption: product.option.map((option) => {
-				// 		return {
-				// 			option_name: option.option_name,
-				// 			option_selected: option.option_list[0],
-				// 			option_price_added: option.option_price_added[0],
-				// 		};
-				// 	}),
-				// };
+				let product = this.$store.getters.product;
+				this.tempProduct = this.$store.getters.product;
+				this.productOption = {
+					productID: product.productID,
+					productName: "Keychron K8",
+					productPrice: product.productPricePerUnit,
+					productOption: product.option.map((option) => {
+						return {
+							option_name: option.option_name,
+							option_selected: option.option_list[0],
+							option_price_added: option.option_price_added[0],
+						};
+					}),
+				};
 			}
 
 			return this.$store.getters.product;
 		},
 
-		// KeycapList() {
-		// 	// get Keycap name and id
-		// 	let keycap = this.$store.getters.Keycap;
-		// 	keycap = keycap.map((keycap) => {
-		// 		return {
-		// 			text: keycap.keycapName,
-		// 			id: keycap.keycapID,
-		// 		};
-		// 	});
-		// return keycap;
-		// },
+		keyboardList() {
+			let products = this.$store.getters.products;
+			let keyboardList = products.filter(
+				(product) => product.productCategory === "Keyboard"
+			);
+			keyboardList = keyboardList.map((product) => {
+				return {
+					text: product.productName,
+					detail: product,
+				};
+			});
+			return keyboardList;
+		},
 
+		switchList() {
+			let products = this.$store.getters.products;
+			let switchList = products.filter(
+				(product) => product.productCategory === "Switch"
+			);
+			switchList = switchList.map((product) => {
+				return {
+					text: product.productName,
+					detail: product,
+				};
+			});
+
+			return switchList;
+		},
+
+		keycapList() {
+			let products = this.$store.getters.products;
+			let keycapList = products.filter(
+				(product) => product.productCategory === "Keycap"
+			);
+			keycapList = keycapList.map((product) => {
+				return {
+					text: product.productName,
+					detail: product,
+				};
+			});
+
+			return keycapList;
+		},
 
 	},
 };
 </script>
 
 <style scoped>
+.custom-input__container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.custom-input__container > div {
+	margin-right: 2rem;
+}
+
 .active {
 	border: 1px solid black;
 	transition: all 0.4s;
-}
-
-.side {
-	cursor: pointer;
 }
 
 .product__add {
@@ -330,9 +450,7 @@ export default {
 	border-top: none;
 	border-bottom: none;
 	overflow: hidden;
-}
-.product__main-image img {
-	transition: all 0.5s;
+	flex-grow: 1;
 }
 
 .shopping__container {
@@ -340,9 +458,6 @@ export default {
 	padding: 0;
 }
 
-.product__name {
-	margin-top: 0.5rem;
-}
 .v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default {
 	height: 40px;
 	margin: 0 2px;
@@ -358,7 +473,7 @@ export default {
 }
 
 .product__button.v-btn--block {
-	margin-top: auto;
+	margin-top: auto !important;
 	align-self: center;
 	bottom: 0;
 	display: flex;
@@ -396,11 +511,14 @@ export default {
 	height: 32px;
 }
 
-
 .product__images {
 	display: flex;
 	flex-direction: row;
-	margin-right: 3rem;
+}
+
+.product__images img {
+	max-width: 100%;
+	max-height: 100%;
 }
 .product__sub-image {
 	display: flex;
@@ -418,11 +536,13 @@ export default {
 	display: flex;
 	flex-direction: columns;
 	justify-content: center;
+	align-items: flex-start;
 }
 
 .product__detail {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 }
 
 .product__item {
@@ -435,16 +555,13 @@ export default {
 }
 
 .category__items > .category__item {
-  padding: 0;
+	padding: 0;
 }
 
 .category__items {
-  display: flex;
-  flex-direction: column;
-  justify-items: flex-start;
-  padding-top: 0.2rem;
+	display: flex;
+	flex-direction: column;
+	justify-items: flex-start;
+	padding-top: 0.2rem;
 }
-
 </style>
-
-
