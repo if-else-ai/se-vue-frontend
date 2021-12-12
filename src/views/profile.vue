@@ -1,7 +1,7 @@
 <template>
 	<v-container>
 		<div class="profile-container pt-4">
-			<v-card class="profile-menu" width="400" max-height="400" elevation="8">
+			<v-card class="profile-menu" width="300" max-height="400" elevation="8">
 				<v-list>
 					<v-list-item class="py-1">
 						<v-icon class="mr-6">mdi-account</v-icon>
@@ -38,8 +38,8 @@
 			</v-card>
 
 			<v-card elevation="0">
-				<v-card class="pl-4 py-4" elevation="8" width="1100" > 
-					<v-card-title class="mb"> จัดการบัญชีผู้ใช้</v-card-title>
+				<v-card class="pl-4 " elevation="8" width="1100" > 
+					<v-card-title class="ml-2"> จัดการบัญชีผู้ใช้</v-card-title>
 					<v-divider class="mx-4"></v-divider>
 
 					<div class="account-detail my-6">
@@ -147,8 +147,8 @@
 							</v-row>				
 					</div>
 				</v-card>
-				<v-card class="mt-6 pl-4" elevation="8" width="1100" height="400"> 
-					<v-card-title> จัดการรหัสผ่าน</v-card-title>
+				<v-card elevation="8" width="1100" height="400"> 
+					<v-card-title class="ml-4"> จัดการรหัสผ่าน</v-card-title>
 					<v-divider class="mx-4 "></v-divider>
 
 					<div class="manage-password my-6">
@@ -207,7 +207,6 @@
 </template>
 
 <script>
-import { createLogger } from 'vuex';
 export default {
 	data: () => ({
 		menuList: [
@@ -310,7 +309,7 @@ input[type=password] {
 }
 
 .profile-menu {
-	margin-right: 8rem;
+	margin-right: 4rem;
 }
 
 .profile__item {
