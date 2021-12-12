@@ -1,17 +1,17 @@
 import axios from '../../api/axios.js'
 
 // import products from '../../assets/products.json'
-import cart from '../../assets/cart.json'
+import carts from '../../assets/cart.json'
 
 // state data
 const state = {
-	cart: [],
+	carts: [],
 };
 
 // mutate state
 const mutations = {
-	setCart(state, products) {
-		state.products = products;
+	setCart(state, item) {
+		state.carts = item;
 	},
 	// setProduct(state, product) {
 	// 	state.product = product;
@@ -22,8 +22,8 @@ const mutations = {
 const actions = {
     // get assignemnt => GET
 	getCart({ commit }) {
-        console.log(cart.cart)
-		commit('setCart', cart.cart )
+		let cart = carts.carts
+		commit('setCart', cart)
 		// axios.get('/products').then(res => {
 		// 	// store products in State
 		// 	commit('setProducts', res.data)
@@ -35,8 +35,8 @@ const actions = {
 // getters return requested data
 const getters = {
 	// get all cart item
-	cart(state){
-		return state.products
+	carts(state){
+		return state.carts
 	},
 };
 
