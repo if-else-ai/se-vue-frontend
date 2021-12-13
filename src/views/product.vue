@@ -81,6 +81,215 @@
 				{{ product.description}}
 			</v-card-text>
 		</v-card>
+
+		<!-- สินค้าแนะนำ -->
+		<v-card-text
+            class="pa-0 pt-4"
+            tile
+            outlined
+          >
+            <p class="subtitle-1 font-weight-light pt-3 text-center">YOU MIGHT ALSO LIKE</p>
+            <v-divider></v-divider>
+            <div class="row text-center">
+              <div class="col-md-2 col-sm-4 col-xs-12 text-center">
+                <v-hover
+                  v-slot:default="{ hover }"
+                  open-delay="200"
+                >
+                  <v-card
+                  >
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      src= 'https://i.imgur.com/YazpFQt.jpg'
+                    >
+                      <v-card-title> Keyboard 1 </v-card-title>
+                    </v-img>
+
+                    <v-card-text class="text--primary text-center">
+                      <div>line 1 sssssssssssss</div>
+                      <div>line 2 dddddddddddd</div>
+                    </v-card-text>
+
+                    <div class="text-center">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="info"
+                      >
+                        Explore
+                      </v-btn>
+                    </div>
+                  </v-card>
+                </v-hover>
+              </div>
+              <div class="col-md-2 col-sm-4 col-xs-12 text-center" >
+                <v-hover
+                  v-slot:default="{ hover }"
+                  open-delay="200"
+                >
+                  <v-card
+                    :elevation="hover ? 16 : 2"
+                  >
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      src= 'https://i.imgur.com/YazpFQt.jpg'
+                    >
+                      <v-card-title> Keyboard 2 </v-card-title>
+                    </v-img>
+
+                    <v-card-text class="text--primary text-center">
+                      <div>line 1</div>
+                      <div>line 2222</div>
+                    </v-card-text>
+
+                    <div class="text-center">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="info"
+                      >
+                        Explore
+                      </v-btn>
+                    </div>
+                  </v-card>
+                </v-hover>
+              </div>
+              <div class="col-md-2 col-sm-4 col-xs-12 text-center" >
+                <v-hover
+                  v-slot:default="{ hover }"
+                  open-delay="200"
+                >
+                  <v-card
+                    :elevation="hover ? 16 : 2"
+                  >
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      src= 'https://i.imgur.com/YazpFQt.jpg'
+                    >
+                      <v-card-title>Keyboard 3 </v-card-title>
+                    </v-img>
+
+                    <v-card-text class="text--primary text-center">
+                      <div>Upto 60% + Extra 10%</div>
+                      <div>Jack & Jones, Levis</div>
+                    </v-card-text>
+
+                    <div class="text-center">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="info"
+                      >
+                        Explore
+                      </v-btn>
+                    </div>
+                  </v-card>
+                </v-hover>
+              </div>
+              <div class="col-md-2 col-sm-4 col-xs-12 text-center" >
+                <v-hover
+                  v-slot:default="{ hover }"
+                  open-delay="200"
+                >
+                  <v-card
+                    :elevation="hover ? 16 : 2"
+                  >
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      src= 'https://i.imgur.com/YazpFQt.jpg'
+                    >
+                      <v-card-title>Keyboard 4 </v-card-title>
+                    </v-img>
+
+                    <v-card-text class="text--primary text-center">
+                      <div>Upto 60% + Extra 10%</div>
+                      <div>Nike, Adidas, Puma</div>
+                    </v-card-text>
+
+                    <div class="text-center">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="info"
+                      >
+                        Explore
+                      </v-btn>
+                    </div>
+                  </v-card>
+                </v-hover>
+              </div>
+              <div class="col-md-2 col-sm-4 col-xs-12 text-center" >
+                <v-hover
+                  v-slot:default="{ hover }"
+                  open-delay="200"
+                >
+                  <v-card
+                    :elevation="hover ? 16 : 2"
+                  >
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      src= 'https://i.imgur.com/YazpFQt.jpg'
+                    >
+                      <v-card-title>Keyboard 5</v-card-title>
+                    </v-img>
+
+                    <v-card-text class="text--primary text-center">
+                      <div>Upto 60% + Extra 10%</div>
+                      <div>Nike, Adidas, Puma</div>
+                    </v-card-text>
+
+                    <div class="text-center">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="info"
+                      >
+                        Explore
+                      </v-btn>
+                    </div>
+                  </v-card>
+                </v-hover>
+              </div>
+              <div class="col-md-2 col-sm-4 col-xs-12 text-center" >
+                <v-hover
+                  v-slot:default="{ hover }"
+                  open-delay="200"
+                >
+                  <v-card
+                    :elevation="hover ? 16 : 2"
+                  >
+                    <v-img
+                      class="white--text align-end"
+                      height="200px"
+                      src= 'https://i.imgur.com/YazpFQt.jpg'
+                    >
+                      <v-card-title>Keyboard 6</v-card-title>
+                    </v-img>
+
+                    <v-card-text class="text--primary text-center">
+                      <div>Upto 60% + Extra 10%</div>
+                      <div>Nike, Adidas, Puma</div>
+                    </v-card-text>
+
+                    <div class="text-center">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="info"
+                      >
+                        Explore
+                      </v-btn>
+                    </div>
+                  </v-card>
+                </v-hover>
+              </div>
+            </div>
+          </v-card-text>
 	</v-container>
 </template>
 
