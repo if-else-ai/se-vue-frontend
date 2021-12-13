@@ -81,6 +81,8 @@ export default {
 
 .header-overly .header-overlay__container h1 {
   margin: 30px 0;
+  padding: 0 60px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .typing {
@@ -89,16 +91,16 @@ export default {
   border-right: 0.15em solid rgb(0, 153, 255);
   white-space: nowrap;
   letter-spacing: 0.15em;
-  animation: typing 3.5s steps(30, end) infinite,
+  animation: typing 4.5s steps(36, end) infinite,
     cursor-blink 0.75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from {
-    width: 0;
+  0% {
+    width: 0%;
   }
-  to {
+  60% {
     width: 100%;
   }
 }

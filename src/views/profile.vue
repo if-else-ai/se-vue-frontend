@@ -219,6 +219,7 @@
         </v-card>
       </v-card>
 
+      <!-- ประวัติการสั่งซื้อ -->
       <v-card
         v-if="selectedMenu === 'Order History'"
         width="1100"
@@ -227,6 +228,7 @@
         <v-card class="pl-4" elevation="4" width="1100" height="400">
           <v-card-title class="ml-2"> ประวัติการสั่งซื้อ</v-card-title>
           <v-divider class="mx-4"></v-divider>
+          <v-card> </v-card>
         </v-card>
       </v-card>
     </div>
