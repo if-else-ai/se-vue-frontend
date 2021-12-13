@@ -140,6 +140,7 @@ export default {
 		selectedKeyboard: "",
 		selectedSwitch: "",
 		selectedKeycap: "",
+		computedPrice: 0,
 	}),
 
 	created() {
@@ -162,15 +163,22 @@ export default {
 
 		// add to cart
 		addToCart() {
-			// let formData = {
-			// 	productID: this.productOption.productID,
-			// 	name: this.productOption.name,
-			// 	productPrice: this.productOption.productPrice,
-			// 	productQuantity: this.quantity,
-			// 	productOption: this.productOption.productOption,
-			// 	totalPrice: this.computedPrice,
-			// };
-			// console.log(formData);
+			let keyboard = this.selectedKeyboard.detail
+			let keycap = this.selectedKeycap.detail
+			let switches = this.selectedSwitch.detail
+			
+			let formData = {
+				name: keyboard.name,
+				caetegory: 'Customize',
+				quantity: this.quantity,
+				totalPrice: this.computedPrice,
+				custom: {
+					keyboard: keyboard,
+					keycap: keycap,
+					switch: switches
+				},
+			}
+			console.log(formData)
 		},
 
 		onChangeTab(tab) {
@@ -247,6 +255,7 @@ export default {
 			price =
 				(keyboardPrice + switchPrice * 80 + keycapPrice) *
 				this.quantity;
+			this.computedPrice = price
 			return price;
 		},
 

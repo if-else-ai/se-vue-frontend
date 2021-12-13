@@ -6,8 +6,9 @@
 		/>
 		<v-main>
 			<router-view></router-view>
+			<Footer v-if="currentRouteName !== 'login'" />
 		</v-main>
-		<v-footer v-if="currentRouteName !== 'login'" padless>
+		<!-- <v-footer v-if="currentRouteName !== 'login'" padless>
 			<v-card
 				flat
 				tile
@@ -48,12 +49,13 @@
 				</v-card-text>
 			</v-card>
 			
-		</v-footer>
+		</v-footer> -->
 	</v-app>
 </template>
 
 <script>
 import Navigation from "@/components/navigation/navigation.vue";
+import Footer from "@/components/footer.vue";
 // views handle app interface / ui
 // can handle some form validation work before sending data to back-end
 export default {
@@ -61,6 +63,7 @@ export default {
 
 	components: {
 		Navigation,
+		Footer
 	},
 
 	data: () => ({
@@ -83,10 +86,11 @@ export default {
 </script>
 
 <style>
+
 .term-of-service {
-  font-weight: normal;
+  	font-weight: normal;
 	cursor: pointer;
-  margin: 10px 0;
+  	margin: 10px 0;
 }
 
 * {
