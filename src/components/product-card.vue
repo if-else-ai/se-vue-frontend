@@ -13,20 +13,14 @@
       >
         <div class="image-wrapper">
           <img :src="product.image[0]" class="image" alt="normal" />
-          <img
-            :src="product.image[1]"
-            class="image-hover"
-            alt="hover"
-          />
+          <img :src="product.image[1]" class="image-hover" alt="hover" />
         </div>
         <div class="overlay"></div>
       </div>
       <!-- end Image Effect -->
 
       <!-- Product Name -->
-      <v-card-title class="product__title">{{
-        product.name
-      }}</v-card-title>
+      <v-card-title class="product__title">{{ product.name }}</v-card-title>
       <v-divider></v-divider>
       <!-- Product Price / Sold product -->
       <v-row>
@@ -34,7 +28,7 @@
           <p>฿{{ product.pricePerUnit }}</p>
         </v-col>
         <v-col cols="auto" class="selled">
-          <p>ขายแล้ว {{ product.pricePerUnit }} ชิ้น</p>
+          <p>Sold {{ product.pricePerUnit }}</p>
         </v-col>
       </v-row>
     </v-card>

@@ -1,5 +1,6 @@
 <template>
   <div class="home_container">
+    <!-- Carousel & text  -->
     <div class="header-overly">
       <div class="header-overlay__container">
         <h1 class="typing">customize keyboard</h1>
@@ -20,6 +21,8 @@
       </div>
       <Carousel />
     </div>
+
+    <!-- click to scroll -->
     <div id="popular"></div>
     <a href="#popular">
       <v-btn class="scroll_container" fab dark medium color="dark">
@@ -27,10 +30,13 @@
       </v-btn>
     </a>
 
+    <!-- Poppular Product -->
     <Poppular />
     <v-divider></v-divider>
     <Poppular />
     <v-divider></v-divider>
+
+    <!-- shop -->
     <div class="shop_container d-flex">
       <Shop v-for="(shop, index) in shopdata" :key="index" :web="shop" />
     </div>
