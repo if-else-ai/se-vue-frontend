@@ -36,10 +36,10 @@
 			</v-autocomplete>
 		</div>
 
-		<section class="products__container" v-if="products.length > 0">
+		<section class="products__container" v-if="filteredProduct.length > 0">
 			<Product
-				v-for="product in products"
-				:key="product.productID"
+				v-for="(product, index) in filteredProduct"
+				:key="index"
 				:product="product"
 			/>
 		</section>
@@ -97,8 +97,6 @@ import Product from "../components/product-card.vue";
 export default {
 	components: { Tabs, Product },
 	data: () => ({
-		categoryImage:
-			"https://cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_x600.jpg?v=1611981271%20600w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_800x.jpg?v=1611981271%20800w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1200x.jpg?v=1611981271%201200w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1400x.jpg?v=1611981271%201400w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1600x.jpg?v=1611981271%201600w",
 		filterItem: [
 			{
 				text: "ราคามาก -> น้อย",
@@ -109,36 +107,54 @@ export default {
 				option: "ascending",
 			},
 		],
-		selectedFilter: "ราคาน้อย -> มาก"
+		selectedFilter: "ราคาน้อย -> มาก",
+		filteredProduct: [],
 	}),
 
-	computed: {
-		categoryQuery() {
-			this.category = this.$route.query.category;
-			return this.$route.query.category;
-		},
-		image() {
-			return this.$route.query.src;
-		},
+	methods: {},
 
+	computed: {
 		products() {
 			// filter here
 			let filteredProduct = this.$store.getters.products;
+			console.log(filteredProduct);
 
 			if (this.category === "ALL") {
 				return this.$store.getters.products;
 			}
+
 			filteredProduct = filteredProduct.filter((product) => {
 				return (
 					product.category === this.category ||
 					product.tags.includes(this.category)
 				);
 			});
-			console.log(filteredProduct);
+			this.filteredProduct = filteredProduct;
 
 			return filteredProduct;
 		},
+		categoryQuery() {
+			this.category = this.$route.query.category;
+			let filteredProduct = this.$store.getters.products;
+			console.log(filteredProduct);
 
+			if (this.category === "ALL") {
+				return this.$store.getters.products;
+			}
+
+			filteredProduct = filteredProduct.filter((product) => {
+				return (
+					product.category === this.category ||
+					product.tags.includes(this.category)
+				);
+			});
+			this.filteredProduct = filteredProduct;
+			
+			return this.$route.query.category;
+		},
+		image() {
+			return this.$route.query.src;
+		},
 		productList() {
 			// get product name and id
 			let products = this.$store.getters.products;
