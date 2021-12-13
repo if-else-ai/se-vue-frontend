@@ -94,8 +94,7 @@ export default {
 		login() {
 			const { username } = this;
 			this.$router.replace({
-				name: "dashboard",
-				params: { username: username },
+				path: '/home',
 			});
 		},
 		register() {

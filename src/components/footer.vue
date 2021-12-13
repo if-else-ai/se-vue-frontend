@@ -1,9 +1,9 @@
 <template>
-	<v-footer v-if="currentRouteName !== 'login'" padless>
+	<v-footer padless>
 		<v-card
 			flat
 			tile
-			class="primary mt-6 lighten-1 white--text text-center"
+			class="primary lighten-1 white--text text-center"
 		>
 			<v-row justify="center" no-gutters>
 				<v-btn
