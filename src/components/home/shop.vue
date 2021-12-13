@@ -6,7 +6,19 @@
     <div class="text_wrapper">
       <h6>SHOP</h6>
       <h2>{{ web.name }}</h2>
-      <v-btn depressed color="white" large> VIEW PRODUCTS </v-btn>
+      <v-btn
+        depressed
+        color="white"
+        large
+        @click="
+          $router.push({
+            path: web.src,
+            query: { category: web.query, src:"https://cf.shopee.co.th/file/0c23a97033d06f29c45e94a4637f9ecf" }
+          })
+        "
+      >
+        VIEW PRODUCTS
+      </v-btn>
     </div>
   </div>
 </template>

@@ -9,7 +9,19 @@
         :product="product"
       />
     </section>
-    <v-btn depressed color="error" large> VIEW ALL PRODUCTS </v-btn>
+    <v-btn
+      depressed
+      color="error"
+      large
+      @click="
+        $router.push({
+          path: `/shopping`,
+          query: { category: 'ALL' },
+        })
+      "
+    >
+      VIEW ALL PRODUCTS
+    </v-btn>
   </div>
 </template>
 
