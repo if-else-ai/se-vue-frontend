@@ -109,13 +109,12 @@
 
 <script>
 // image assets
-import accessoriesImage from "../assets/image/accessoriesImage.js"
-import keyboardImage from "../assets/image/keyboardImage.js"
-import switchImage from "../assets/image/switchImage.js"
-import tabsImage from "../assets/image/tabsImage.js"
-import keycapImage from "../assets/image/keycapImage.js"
-import toolsImage from "../assets/image/toolsImage.js"
-
+import accessoriesImage from "../assets/image/accessoriesImage.js";
+import keyboardImage from "../assets/image/keyboardImage.js";
+import switchImage from "../assets/image/switchImage.js";
+import tabsImage from "../assets/image/tabsImage.js";
+import keycapImage from "../assets/image/keycapImage.js";
+import toolsImage from "../assets/image/toolsImage.js";
 
 export default {
   data: () => ({
@@ -138,11 +137,17 @@ export default {
   methods: {
     // to shopping page / change category
     onChangeCategory(tab, src) {
-        this.$router.push({path: '/shopping', query: {category: tab, src: src} })
+      this.$router.push({
+        path: "/shopping",
+        query: { category: tab, src: src },
+      });
     },
     // to shopping page / change category
     onChangeSubCategory(category, src) {
-        this.$router.push({path: '/shopping', query: {category: category, src: src} })
+      this.$router.push({
+        path: "/shopping",
+        query: { category: category, src: src },
+      });
     },
   },
 };

@@ -12,7 +12,9 @@
     <v-divider></v-divider>
     <Poppular />
     <v-divider></v-divider>
-    <Shop />
+    <div class="shop_container d-flex">
+      <Shop v-for="(shop, index) in shopdata" :key="index" :web="shop" />
+    </div>
   </div>
 </template>
 
@@ -22,10 +24,13 @@
 import Carousel from "@/components/home/carousel.vue";
 import Poppular from "../components/home/poppular.vue";
 import Shop from "../components/home/shop.vue";
+import shopdata from "../assets/shop";
 
 export default {
   components: { Carousel, Poppular, Shop },
-  data: () => ({}),
+  data: () => ({
+    shopdata: shopdata,
+  }),
 };
 </script>
 
@@ -42,5 +47,9 @@ export default {
   position: relative;
   top: -15px;
   margin: auto;
+}
+
+.shop_container {
+  padding: 80px 40px 80px 40px;
 }
 </style>

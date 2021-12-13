@@ -1,92 +1,73 @@
 <template>
-  <div class="shop_container">
-    <div id="prod_main">
-      <div id="product_content">
-        <li class="prod_img prod_img1" id="prod_img1">
-          <div class="protransparentbg">
-            <h4 class="">FIBER FLOOR MAT</h4>
-          </div>
-        </li>
-      </div>
+  <div class="shop_wrapper">
+    <div class="image_wrapper">
+      <img :src="web.img" class="image" />
+    </div>
+    <div class="text_wrapper">
+      <h6>SHOP</h6>
+      <h2>{{ web.name }}</h2>
+      <v-btn depressed color="white" large> VIEW PRODUCTS </v-btn>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["web"],
   data() {
-    return {
-      webs: [
-        {
-          name: "KEYBOARD",
-          img: "https://cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_750x960_crop_center.jpg?v=1592023134%20750w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_1000x.jpg?v=1592023134%201000w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_1500x.jpg?v=1592023134%201500w",
-          src: "/shopping",
-        },
-        {
-          name: "KEYBOARD",
-          img: "https://cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_750x960_crop_center.jpg?v=1592023134%20750w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_1000x.jpg?v=1592023134%201000w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_1500x.jpg?v=1592023134%201500w",
-          src: "/shopping",
-        },
-        {
-          name: "KEYBOARD",
-          img: "https://cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_750x960_crop_center.jpg?v=1592023134%20750w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_1000x.jpg?v=1592023134%201000w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/Meka_Mat_1799x1119_6b565110-77e2-4564-bf22-a05657f9c98c_1500x.jpg?v=1592023134%201500w",
-          src: "/shopping",
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>
 
 <style scoped>
-.shop_container {
-  padding-top: 80px;
-  padding-bottom: 40px;
-  margin-left: 100px;
-  margin-right: 100px;
-  overflow: hidden;
-}
-.prod_img {
-  transition: all 2s ease-in-out;
+.shop_wrapper {
+  margin: 15px;
+  width: 580px;
   height: 500px;
-  width: 550px;
-  position: relative;
   overflow: hidden;
+  position: relative;
+  border-radius: 5px;
 }
 
-.prod_img:before {
-  content: " ";
-  position: absolute;
-  top: 0px;
-  left: 0px;
+.shop_wrapper .image_wrapper .image {
   width: 100%;
   height: 100%;
-  background-image: url(http://images.all-free-download.com/images/graphicthumb/beautiful_landscape_picture_02_hd_pictures_166284.jpg);
-  background-size: cover;
-  background-position: center center;
+  transition: all 4s;
 }
 
-.protransparentbg {
-  position: absolute;
-  left: 20px;
-  background: rgba(51, 51, 51, 0.8);
+.shop_wrapper .image_wrapper .image:hover {
+  transform: scale(1.1);
 }
 
-.prod_img:hover:before {
-  transform: scale(1.3);
-  transition: all 5s ease-in-out;
-}
-.content_wrap {
+.shop_wrapper .text_wrapper {
   position: absolute;
-  top: 72%;
-  right: 0;
-  width: 500px;
-  transform: none;
-}
-.content_wrap h3 {
+  line-height: 1.65;
+  top: 310px;
+  left: 50px;
   color: white;
-  margin-bottom: 20px;
 }
-.content_wrap > button {
+
+.shop_wrapper .text_wrapper h6 {
+  margin-top: -0.325em;
+  font-size: 13px;
+  font-family: interstate, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.2em;
+}
+
+.shop_wrapper .text_wrapper h2 {
+  margin-top: 16px;
+  font-size: 24px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: interstate, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 </style>
