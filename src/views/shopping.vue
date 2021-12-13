@@ -38,14 +38,14 @@
 
 		<section class="products__container" v-if="filteredProduct.length > 0">
 			<Product
-				v-for="(product, index) in filteredProduct"
-				:key="index"
+				v-for="product in filteredProduct"
+				:key="product.id"
 				:product="product"
 			/>
 		</section>
 		<section v-else class="products__container">
 			<v-card
-				class="product__container d-flex justify-content-mid align-center"
+				class="product__container no-product d-flex justify-center align-center flex-grow"
 				width="374"
 				height="367"
 				flat
@@ -58,6 +58,10 @@
 </template>
 
 <style scoped>
+.no-product {
+	flex: 0 0 100%; /* flex-grow, flex-shrink, flex-basis */
+}
+
 .shopping__container {
 	padding-top: 0;
 	padding: 0;
@@ -115,41 +119,24 @@ export default {
 
 	computed: {
 		products() {
-			// filter here
-			let filteredProduct = this.$store.getters.products;
-			console.log(filteredProduct);
-
-			if (this.category === "ALL") {
-				return this.$store.getters.products;
-			}
-
-			filteredProduct = filteredProduct.filter((product) => {
-				return (
-					product.category === this.category ||
-					product.tags.includes(this.category)
-				);
-			});
-			this.filteredProduct = filteredProduct;
-
-			return filteredProduct;
+			return this.filteredProduct;
 		},
 		categoryQuery() {
 			this.category = this.$route.query.category;
-			let filteredProduct = this.$store.getters.products;
-			console.log(filteredProduct);
 
+			let filteredProduct = this.$store.getters.products;
 			if (this.category === "ALL") {
-				return this.$store.getters.products;
+				this.filteredProduct = filteredProduct;
+			} else {
+				filteredProduct = filteredProduct.filter((product) => {
+					return (
+						product.category === this.category ||
+						product.tags.includes(this.category)
+					);
+				});
+				this.filteredProduct = filteredProduct;
 			}
 
-			filteredProduct = filteredProduct.filter((product) => {
-				return (
-					product.category === this.category ||
-					product.tags.includes(this.category)
-				);
-			});
-			this.filteredProduct = filteredProduct;
-			
 			return this.$route.query.category;
 		},
 		image() {
