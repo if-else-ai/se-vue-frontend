@@ -8,14 +8,15 @@
 				flat
 			>
 				<h1>Carts</h1>
-				<div
-					class="d-flex my-3"
-					style="justify-content: space-between;"
-				>
+				<div class="d-flex my-3">
 					<h4 class="fw-600">SUMMARY</h4>
 				</div>
 				<!-- Cart Item -->
-				<div v-for="(item, itemIndex) in cartItem" :key="itemIndex" class="mb-6">
+				<div
+					v-for="(item, itemIndex) in cartItem"
+					:key="itemIndex"
+					class="mb-6"
+				>
 					<v-card>
 						<v-card-title>
 							{{ item.productName }}
@@ -24,34 +25,44 @@
 						<v-card class="cart__content" flat>
 							<v-img
 								class="cart__image"
-								:src="item.product_image[0]"
+								:src="item.image[0]"
 								contain
 								max-width="300px"
 								min-height="200px"
 							/>
-							<div v-for="(option, index) in item.option" :key="index">
-								{{ `${option.option_name}: ${option.option_selected}` }}
-							</div>
-							
-							<div class="d-flex flex-row">
-								<v-btn icon @click="decrement(itemIndex)">
-									<v-icon>mdi-minus</v-icon>
-								</v-btn>
-								<input
-									class="item__quantity"
-									type="text"
-									v-model="item.productQuantity"
-								/>
-								<v-btn icon @click="increment(itemIndex)">
-									<v-icon>mdi-plus</v-icon>
-								</v-btn>
-							</div>
-							<div class="cart__price">
-								{{  `$ ${item.totalPrice}` }}
-							</div>
-							<v-btn class="align-self-center"
-								><v-icon>mdi-cart</v-icon> checkout</v-btn
+							<div>
+							<div
+								v-for="(option, index) in item.option"
+								:key="index"
 							>
+								<p>
+								{{
+									`${option.name}: ${option.select}`
+								}}
+								</p>
+							</div>
+							</div>
+							<div class="action-button d-flex align-center">
+								<div class="d-flex flex-row">
+									<v-btn icon @click="decrement(itemIndex)">
+										<v-icon>mdi-minus</v-icon>
+									</v-btn>
+									<input
+										class="item__quantity"
+										type="text"
+										v-model="item.quantity"
+									/>
+									<v-btn icon @click="increment(itemIndex)">
+										<v-icon>mdi-plus</v-icon>
+									</v-btn>
+								</div>
+								<div class="cart__price mx-2">
+									{{ `$ ${item.totalPrice}` }}
+								</div>
+								<v-btn class="align-self-center mx-4"
+									><v-icon>mdi-cart</v-icon> checkout</v-btn
+								>
+							</div>
 						</v-card>
 					</v-card>
 				</div>
@@ -65,6 +76,9 @@
 </template>
 
 <style scoped>
+.action-button {
+	margin-left: auto;
+}
 .carts__container {
 	display: flex;
 	width: 1200px;
@@ -80,7 +94,7 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: flex-start;
 }
 
 .item__quantity {
@@ -93,7 +107,6 @@
 .cart__price {
 	color: rgb(46, 146, 33);
 }
-
 </style>
 
 <script>
@@ -112,23 +125,29 @@ export default {
 			{ title: "add", icon: "mdi-plus" },
 			{ title: "remove", icon: "mdi-minus" },
 		],
-		cartItem: []
+		cartItem: [],
 	}),
 
 	created() {},
 
 	methods: {
-
 		// add product
-		increment(productIndex) {
-			console.log(this.cartItem[productIndex])
-			this.cartItem[productIndex].productQuantity += 1
-			this.cartItem[productIndex].totalPrice = (this.cartItem.totalPrice[productIndex] / this.cartItem.productQuantity) * this.cartItem[productIndex].productQuantity
+		increment(index) {
+			// this.cartItem[index].totalPrice =
+			// 	(this.cartItem[index].totalPrice /
+			// 		this.cartItem[index].quantity) *
+			// 	this.cartItem[index].quantity;
+			
+			this.cartItem[index].quantity += 1;
+			let quantity = this.cartItem[index].quantity;
+			let totalPrice = this.cartItem[index].totalPrice
+			let PricePerUnit = totalPrice / quantity
+			console.log(PricePerUnit)
 		},
 		// decrease product
-		decrement(productIndex) {
-			if(this.cartItem[productIndex].productQuantity > 1){
-				this.cartItem[productIndex].productQuantity -= 1
+		decrement(index) {
+			if (this.cartItem[index].quantity > 1) {
+				this.cartItem[index].quantity -= 1;
 			}
 		},
 
@@ -145,8 +164,15 @@ export default {
 	computed: {
 		carts() {
 			if(this.cartItem.length === 0){
-				this.cartItem = this.$store.getters.carts
+				let data = this.$store.getters.carts
+				data = data.map(item => {
+					return {
+						...item,pricePerUnit: item.totalPrice / item.quantity
+					}
+				})
+				console.log(data)
 			}
+			this.cartItem = this.$store.getters.carts;
 			return this.$store.getters.carts;
 		},
 

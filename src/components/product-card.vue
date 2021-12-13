@@ -7,14 +7,14 @@
         @click="
           $router.push({
             path: `/shopping/product`,
-            query: { productID: product.productID },
+            query: { productID: product.id },
           })
         "
       >
         <div class="image-wrapper">
-          <img :src="product.product_image[0]" class="image" alt="normal" />
+          <img :src="product.image[0]" class="image" alt="normal" />
           <img
-            :src="product.product_image[1]"
+            :src="product.image[1]"
             class="image-hover"
             alt="hover"
           />
@@ -25,16 +25,16 @@
 
       <!-- Product Name -->
       <v-card-title class="product__title">{{
-        product.productName
+        product.name
       }}</v-card-title>
       <v-divider></v-divider>
       <!-- Product Price / Sold product -->
       <v-row>
         <v-col cols="auto" class="mr-auto price">
-          <p>฿{{ product.productPricePerUnit }}</p>
+          <p>฿{{ product.pricePerUnit }}</p>
         </v-col>
         <v-col cols="auto" class="selled">
-          <p>ขายแล้ว {{ product.productPricePerUnit }} ชิ้น</p>
+          <p>ขายแล้ว {{ product.pricePerUnit }} ชิ้น</p>
         </v-col>
       </v-row>
     </v-card>

@@ -1,14 +1,14 @@
 <template>
-	<v-container class="shopping__container">
+	<v-container class="shopping__container d-flex flex-column align-center">
 		<Tabs />
 		<v-divider class="mb-4"></v-divider>
 		<div class="product-container pt-4">
 			<v-card width="800">
 				<ProductImage
-					:images="productOption.productImages"
+					:images="option.image"
 					:currentImage="currentImage"
 					@setImage="currentImage = $event"
-					@setImageSet="productOption.productImages = $event"
+					@setImageSet="option.image = $event"
 				/>
 			</v-card>
 			<v-card
@@ -19,7 +19,7 @@
 				elevation="1"
 			>
 				<v-card-title class="product__name">
-					<h2>{{ product.productName }}</h2></v-card-title
+					<h2>{{ product.name }}</h2></v-card-title
 				>
 				<v-card-subtitle class="product__price">
 					<h2>$ {{ price }}</h2>
@@ -33,13 +33,13 @@
 						:key="optionIndex"
 					>
 						<v-card class="mr-4" flat>
-							{{ option.option_name }}
+							{{ option.name }}
 						</v-card>
 
 						<v-btn-toggle class="product__choice" mandatory>
 							<v-btn
 								class="product__choice-button"
-								v-for="(list, index) in option.option_list"
+								v-for="(list, index) in option.list"
 								:key="index"
 								@click="getSelectedOption(optionIndex, index)"
 							>
@@ -49,7 +49,7 @@
 					</v-row>
 				</div>
 
-				<div class="product__add">
+				<div class="product__add my-4">
 					<v-card class="ml-4 mr-4" flat>
 						Quantity
 					</v-card>
@@ -75,6 +75,12 @@
 				</v-btn>
 			</v-card>
 		</div>
+		<v-card class="product-description__container mt-4" elevation="2" >
+			<v-card-title>Description</v-card-title>
+			<v-card-text>
+				{{ product.description}}
+			</v-card-text>
+		</v-card>
 	</v-container>
 </template>
 
@@ -91,14 +97,14 @@ export default {
 	},
 	data: () => ({
 		images: [
-			{
-				src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-				active: true,
-			},
-			{ src: "https://i.imgur.com/YazpFQt.jpg", active: false },
+			// {
+			// 	src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+			// 	active: true,
+			// },
+			// { src: "https://i.imgur.com/YazpFQt.jpg", active: false },
 		],
 		currentImage: "",
-		productOption: [],
+		option: [],
 		tempProduct: null,
 		selectedOption: null,
 		quantity: 1,
@@ -115,22 +121,22 @@ export default {
 		// trigger on pick option
 		getSelectedOption(optionIndex, selectedOptionIndex) {
 			// get SelectedOption => name of selectedOption
-			let selectedOption = this.product.option[optionIndex].option_list[
+			let selectedOption = this.product.option[optionIndex].list[
 				selectedOptionIndex
 			];
 			// get selected option price
 			let priceAdded = this.product.option[optionIndex]
-				.option_price_added[selectedOptionIndex];
+				.priceAdded[selectedOptionIndex];
 
 			// set seleceted option name
-			this.productOption.productOption[
+			this.option.option[
 				optionIndex
 			].option_selected = selectedOption;
 
 			// set selected option priceAdded
-			this.productOption.productOption[
+			this.option.option[
 				optionIndex
-			].option_price_added = priceAdded;
+			].priceAdded = priceAdded;
 		},
 
 		changeImage(index) {
@@ -169,11 +175,11 @@ export default {
 		// add to cart
 		addToCart() {
 			let formData = {
-				productID: this.productOption.productID,
-				productName: this.productOption.productName,
-				productPrice: this.productOption.productPrice,
+				productID: this.option.productID,
+				productName: this.option.productName,
+				productPrice: this.option.productPrice,
 				productQuantity: this.quantity,
-				productOption: this.productOption.productOption,
+				option: this.option.option,
 				totalPrice: this.computedPrice,
 			};
 			console.log(formData);
@@ -183,43 +189,44 @@ export default {
 	computed: {
 		price() {
 			let addedPrice = 0;
-			this.productOption.productOption.map((option) => {
-				addedPrice += option.option_price_added;
+			console.log(this.option)
+			this.option.option.map((option) => {
+				addedPrice += option.priceAdded;
 			});
 			// Price = (BasePrice + AddedPrice) * Quantity
 			this.computedPrice =
-				(this.productOption.productPrice + addedPrice) * this.quantity;
+				(this.option.price + addedPrice) * this.quantity;
 			return (
-				(this.productOption.productPrice + addedPrice) * this.quantity
+				(this.option.price + addedPrice) * this.quantity
 			);
 		},
 
 		product() {
 			// Initialize Product
-			if (this.productOption.length === 0) {
+			if (this.option.length === 0) {
 				console.log('init')
 				let product = this.$store.getters.product;
 				this.tempProduct = this.$store.getters.product;
-				this.productOption = {
-					productID: product.productID,
-					productName: "Keychron K8",
-					productPrice: product.productPricePerUnit,
-					productOption: product.option.map((option) => {
+				console.log(product)
+				this.option = {
+					id: product.id,
+					name: "Keychron K8",
+					price: product.pricePerUnit,
+					option: product.option.map((option) => {
 						return {
-							option_name: option.option_name,
-							option_selected: option.option_list[0],
-							option_price_added: option.option_price_added[0],
+							name: option.name,
+							select: option.list[0],
+							priceAdded: option.priceAdded[0],
 						};
 					}),
-					productImages: product.product_image.map((image, index) => {
+					image: product.image.map((image, index) => {
 						return {
 							src: image,
 							active: index === 0 ? true : false,
 						};
 					}),
 				};
-				this.currentImage = this.productOption.productImages[0].src
-				// this.currentImage = this.tempProduct.product_image[0]
+				this.currentImage = this.option.image[0].src
 			}
 
 			return this.$store.getters.product;

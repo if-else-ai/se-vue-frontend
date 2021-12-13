@@ -16,24 +16,24 @@
 				</v-tabs>
 				<ProductImage
 					v-if="selectedTab === 0 && selectedKeyboard"
-					:images="selectedKeyboard.detail.images"
+					:images="selectedKeyboard.detail.imageList"
 					:currentImage="currentImage"
 					@setImage="currentImage = $event"
-					@setImageSet="selectedKeyboard.detail.images = $event"
+					@setImageSet="selectedKeyboard.detail.imageList = $event"
 				/>
 				<ProductImage
 					v-if="selectedTab === 1 && selectedSwitch"
-					:images="selectedSwitch.detail.images"
+					:images="selectedSwitch.detail.imageList"
 					:currentImage="currentImage"
 					@setImage="currentImage = $event"
-					@setImageSet="selectedSwitch.detail.images = $event"
+					@setImageSet="selectedSwitch.detail.imageList = $event"
 				/>
 				<ProductImage
 					v-if="selectedTab === 2 && selectedKeycap"
-					:images="selectedKeycap.detail.images"
+					:images="selectedKeycap.detail.imageList"
 					:currentImage="currentImage"
 					@setImage="currentImage = $event"
-					@setImageSet="selectedKeycap.detail.images = $event"
+					@setImageSet="selectedKeycap.detail.imageList = $event"
 				/>
 			</v-card>
 			<v-card
@@ -143,9 +143,9 @@ export default {
 	}),
 
 	created() {
-		this.$store.dispatch("getProduct", {
-			productID: this.$route.query.productID,
-		});
+		// this.$store.dispatch("getProduct", {
+		// 	productID: this.$route.query.productID,
+		// });
 	},
 
 	methods: {
@@ -164,7 +164,7 @@ export default {
 		addToCart() {
 			// let formData = {
 			// 	productID: this.productOption.productID,
-			// 	productName: this.productOption.productName,
+			// 	name: this.productOption.name,
 			// 	productPrice: this.productOption.productPrice,
 			// 	productQuantity: this.quantity,
 			// 	productOption: this.productOption.productOption,
@@ -177,17 +177,17 @@ export default {
 			switch (tab) {
 				case 0:
 					this.selectedKeyboard
-						? (this.currentImage = this.selectedKeyboard.detail.product_image[0])
+						? (this.currentImage = this.selectedKeyboard.detail.image[0])
 						: null;
 					break;
 				case 1:
 					this.selectedSwitch
-						? (this.currentImage = this.selectedSwitch.detail.product_image[0])
+						? (this.currentImage = this.selectedSwitch.detail.image[0])
 						: null;
 					break;
 				case 2:
 					this.selectedKeycap
-						? (this.currentImage = this.selectedKeycap.detail.product_image[0])
+						? (this.currentImage = this.selectedKeycap.detail.image[0])
 						: null;
 					break;
 				default:
@@ -203,9 +203,8 @@ export default {
 			let switchPrice = 0;
 
 			if (this.selectedKeyboard) {
-				keyboardPrice = this.selectedKeyboard.detail
-					.productPricePerUnit;
-				this.selectedKeyboard.detail.images = this.selectedKeyboard.detail.product_image.map(
+				keyboardPrice = this.selectedKeyboard.detail.pricePerUnit;
+				this.selectedKeyboard.detail.imageList = this.selectedKeyboard.detail.image.map(
 					(product, index) => {
 						return {
 							src: product,
@@ -213,13 +212,13 @@ export default {
 						};
 					}
 				);
-				this.currentImage = this.selectedKeyboard.detail.product_image[0];
+				this.currentImage = this.selectedKeyboard.detail.image[0];
 				this.selectedTab = 0;
 			}
 
 			if (this.selectedSwitch) {
-				switchPrice = this.selectedSwitch.detail.productPricePerUnit;
-				this.selectedSwitch.detail.images = this.selectedSwitch.detail.product_image.map(
+				switchPrice = this.selectedSwitch.detail.pricePerUnit;
+				this.selectedSwitch.detail.imageList = this.selectedSwitch.detail.image.map(
 					(product, index) => {
 						return {
 							src: product,
@@ -227,13 +226,13 @@ export default {
 						};
 					}
 				);
-				this.currentImage = this.selectedSwitch.detail.product_image[0];
+				this.currentImage = this.selectedSwitch.detail.image[0];
 				this.selectedTab = 1;
 			}
 
 			if (this.selectedKeycap) {
-				keycapPrice = this.selectedKeycap.detail.productPricePerUnit;
-				this.selectedKeycap.detail.images = this.selectedKeycap.detail.product_image.map(
+				keycapPrice = this.selectedKeycap.detail.pricePerUnit;
+				this.selectedKeycap.detail.imageList = this.selectedKeycap.detail.image.map(
 					(product, index) => {
 						return {
 							src: product,
@@ -241,7 +240,7 @@ export default {
 						};
 					}
 				);
-				this.currentImage = this.selectedKeycap.detail.product_image[0];
+				this.currentImage = this.selectedKeycap.detail.image[0];
 				this.selectedTab = 2;
 			}
 
@@ -258,13 +257,13 @@ export default {
 				this.tempProduct = this.$store.getters.product;
 				this.productOption = {
 					productID: product.productID,
-					productName: "Keychron K8",
-					productPrice: product.productPricePerUnit,
+					name: "Keychron K8",
+					productPrice: product.pr,
 					productOption: product.option.map((option) => {
 						return {
-							option_name: option.option_name,
-							option_selected: option.option_list[0],
-							option_price_added: option.option_price_added[0],
+							name: option.name,
+							select: option.list[0],
+							priceAdded: option.priceAdded[0],
 						};
 					}),
 				};
@@ -276,11 +275,11 @@ export default {
 		keyboardList() {
 			let products = this.$store.getters.products;
 			let keyboardList = products.filter(
-				(product) => product.productCategory === "Keyboard"
+				(product) => product.category === "Keyboard"
 			);
 			keyboardList = keyboardList.map((product) => {
 				return {
-					text: product.productName,
+					text: product.name,
 					detail: product,
 				};
 			});
@@ -290,11 +289,11 @@ export default {
 		switchList() {
 			let products = this.$store.getters.products;
 			let switchList = products.filter(
-				(product) => product.productCategory === "Switch"
+				(product) => product.category === "Switch"
 			);
 			switchList = switchList.map((product) => {
 				return {
-					text: product.productName,
+					text: product.name,
 					detail: product,
 				};
 			});
@@ -305,11 +304,11 @@ export default {
 		keycapList() {
 			let products = this.$store.getters.products;
 			let keycapList = products.filter(
-				(product) => product.productCategory === "Keycap"
+				(product) => product.category === "Keycap"
 			);
 			keycapList = keycapList.map((product) => {
 				return {
-					text: product.productName,
+					text: product.name,
 					detail: product,
 				};
 			});
