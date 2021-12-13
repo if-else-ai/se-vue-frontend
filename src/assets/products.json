@@ -1,7 +1,7 @@
 {
 	"products": [
 		{
-			"productID": "123a456",
+			"productID": "123a4526",
 			"productName": "Keychron K4",
 			"productCategory": "Keyboard",
 			"productPricePerUnit": 4200,
@@ -47,7 +47,7 @@
 				"https://external-preview.redd.it/NM4s5l1oPe6iE2nD2HGueHhV9xTCmpDrGVqtveo2xNA.jpg?auto=webp&s=a3c3e52fc8e7da8fa9293847e1e5a61f56cabb10"]
 		},
 		{
-			"productID": "123b456",
+			"productID": "123b4567",
 			"productName": "Gazzew Boba U4T",
 			"productCategory": "Switch",
 			"productPricePerUnit": 36,

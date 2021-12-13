@@ -8,93 +8,15 @@
 					class="tabs__container"
 					centered
 					fixed-tabs
+					@change="changeImage(selectedTab)"
 				>
-					<v-tab
-						v-for="(tab, index) in tabsItem"
-						:key="index"
-					>
+					<v-tab v-for="(tab, index) in tabsItem" :key="index">
 						{{ tab }}
 					</v-tab>
 				</v-tabs>
-				<v-card v-if="selectedTab === 0 && this.selectedKeyboard" class="product__images" flat>
-					<div class="product__sub-image">
-						<v-item-group>
-							<v-card outlined >
-								<div
-									v-for="(image, index) in selectedKeyboard.detail.images"
-									:key="index"
-								>
-									<v-img
-										:class="{
-											active: image.active,
-										}"
-										:src="image.src"
-										width="80"
-										height="80"
-										contain
-										@click="changeImage(selectedTab, index)"
-									/>
-								</div>
-							</v-card>
-						</v-item-group>
-					</div>
-					<div outlined class="product__main-image">
-						<v-img height="600" contain :src="currentImage" />
-					</div>
-				</v-card>
-				<v-card v-if="selectedTab === 1 && this.selectedSwitch" class="product__images" flat>
-					<div class="product__sub-image">
-						<v-item-group>
-							<v-card outlined>
-								<div
-									v-for="(image, index) in selectedSwitch.detail.images"
-									:key="index"
-								>
-									<v-img
-										:class="{
-											active: image.active,
-										}"
-										:src="image.src"
-										width="80"
-										height="80"
-										contain
-										@click="changeImage(selectedTab, index)"
-									/>
-								</div>
-							</v-card>
-						</v-item-group>
-					</div>
-					<div outlined class="product__main-image">
-						<v-img height="600" contain :src="currentImage" />
-					</div>
-				</v-card>
-				<v-card v-if="selectedTab === 2 && this.selectedKeycap" class="product__images" flat>
-					<div class="product__sub-image">
-						<v-item-group>
-							<v-card outlined>
-								<div
-									v-for="(image, index) in selectedKeycap.detail.images"
-									:key="index"
-								>
-									<v-img
-										:class="{
-											active: image.active,
-										}"
-										:src="image.src"
-										width="80"
-										height="80"
-										contain
-										@click="changeImage(selectedTab, index)"
-									/>
-								</div>
-							</v-card>
-						</v-item-group>
-					</div>
-					<div outlined class="product__main-image">
-						<v-img height="600" contain :src="currentImage" />
-					</div>
-				</v-card>
-				
+				<ProductImage v-if="selectedTab === 0 && this.selectedKeyboard" :images="this.selectedKeyboard" :currentImage="currentImage" @setImage="currentImage = $event" />
+				<ProductImage v-if="selectedTab === 1 && this.selectedSwitch" :images="this.selectedSwitch" :currentImage="currentImage" @setImage="currentImage = $event"/>
+				<ProductImage v-if="selectedTab === 2 && this.selectedKeycap" :images="this.selectedKeycap" :currentImage="currentImage" @setImage="currentImage = $event"/>
 			</v-card>
 			<v-card
 				class="product__detail pa-4"
@@ -181,7 +103,10 @@
 <style src="./style.css"></style>
 
 <script>
+import ProductImage from '@/components/product-image.vue'
+
 export default {
+	components: { ProductImage },
 	data: () => ({
 		images: [
 			{
@@ -197,7 +122,6 @@ export default {
 		selectedKeyboard: "",
 		selectedSwitch: "",
 		selectedKeycap: "",
-		
 	}),
 
 	created() {
@@ -207,41 +131,6 @@ export default {
 	},
 
 	methods: {
-
-		changeImage(currentTab, imageIndex) {
-			switch(currentTab){
-				case 0:
-				this.currentImage = this.selectedKeyboard.detail.product_image[imageIndex]
-				break;
-				case 1:
-				this.currentImage = this.selectedSwitch.detail.product_image[imageIndex]
-				break;
-				case 2:
-				this.currentImage = this.selectedKeycap.detail.product_image[imageIndex]
-				break;
-				default:
-					null
-			}
-			// this.toggleActive(index);
-		},
-
-		toggleActive(index) {
-			let item = this.images[index];
-
-			this.images = this.images.map((item) => {
-				return {
-					src: item.src,
-					active: false,
-				};
-			});
-
-			if (item.active === false) {
-				item.active = !item.active;
-			}
-
-			this.$set(this.images, index, item);
-		},
-
 		// add product
 		increment() {
 			this.quantity += 1;
@@ -265,60 +154,71 @@ export default {
 			// };
 			// console.log(formData);
 		},
-		onChangeCategory(tab) {
-		},
+
+		changeImage(tab){
+			switch(tab){
+				case 0:
+					this.selectedKeyboard ? this.currentImage = this.selectedKeyboard.detail.product_image[0] : null
+				break;
+				case 1:
+					this.selectedSwitch ? this.currentImage = this.selectedSwitch.detail.product_image[0] : null
+				break;
+				case 2:
+					this.selectedKeycap ? this.currentImage = this.selectedKeycap.detail.product_image[0] : null
+				break;
+				default:
+			}
+		}
 	},
 
 	computed: {
 		price() {
 			let price = 0;
-			let keyboardPrice = 0
-			let keycapPrice = 0
-			let switchPrice = 0
+			let keyboardPrice = 0;
+			let keycapPrice = 0;
+			let switchPrice = 0;
 
-			if(this.selectedKeyboard){
-				keyboardPrice = this.selectedKeyboard.detail.productPricePerUnit
+			if (this.selectedKeyboard) {
+				keyboardPrice = this.selectedKeyboard.detail
+					.productPricePerUnit;
 				this.selectedKeyboard.detail.images = this.selectedKeyboard.detail.product_image.map(
 					(product, index) => {
 						return {
 							src: product,
-							active: index === 0 ? true : false
-						}
+							active: index === 0 ? true : false,
+						};
 					}
-				)
-				console.log(this.selectedKeyboard)
-				this.currentImage = this.selectedKeyboard.detail.product_image[0]
-				this.selectedTab = 0
+				);
+				this.currentImage = this.selectedKeyboard.detail.product_image[0];
+				this.selectedTab = 0;
 			}
 
-			if(this.selectedSwitch){
-				switchPrice = this.selectedSwitch.detail.productPricePerUnit
+			if (this.selectedSwitch) {
+				switchPrice = this.selectedSwitch.detail.productPricePerUnit;
 				this.selectedSwitch.detail.images = this.selectedSwitch.detail.product_image.map(
 					(product, index) => {
 						return {
 							src: product,
-							active: index === 0 ? true : false
-						}
+							active: index === 0 ? true : false,
+						};
 					}
-				)
-				console.log(this.selectedSwitch)
-				this.currentImage = this.selectedSwitch.detail.product_image[0]
-				this.selectedTab = 1
+				);
+				this.currentImage = this.selectedSwitch.detail.product_image[0];
+				this.selectedTab = 1;
 			}
-			
-			if(this.selectedKeycap){
-				keycapPrice = this.selectedKeycap.detail.productPricePerUnit
+
+			if (this.selectedKeycap) {
+				keycapPrice = this.selectedKeycap.detail.productPricePerUnit;
 				this.selectedKeycap.detail.images = this.selectedKeycap.detail.product_image.map(
 					(product, index) => {
 						return {
 							src: product,
-							active: index === 0 ? true : false
-						}
+							active: index === 0 ? true : false,
+						};
 					}
-				)
-				console.log(this.selectedKeycap)
-				this.currentImage = this.selectedKeycap.detail.product_image[0]
-				this.selectedTab = 2
+				);
+				this.currentImage = this.selectedKeycap.detail.product_image[0];
+				this.selectedTab = 2;
 			}
 
 			price =
@@ -393,6 +293,7 @@ export default {
 			return keycapList;
 		},
 
+		
 	},
 };
 </script>
