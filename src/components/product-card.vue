@@ -7,7 +7,7 @@
         @click="
           $router.push({
             path: `/shopping/product`,
-            query: { product: product.productID },
+            query: { productID: product.productID },
           })
         "
       >

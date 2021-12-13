@@ -8,7 +8,7 @@
                 <v-card outlined>
                     <div
                         v-for="(image, index) in images
-                            .detail.images"
+                            "
                         :key="index"
                     >
                         <v-img
@@ -46,9 +46,9 @@ export default{
 
     methods: {
         setActiveImage(index) {
-			let item = this.images.detail.images[index];
+			let item = this.images[index];
 
-			this.images.detail.images = this.images.detail.images.map(
+			let newImage = this.images.map(
 				item => {
 					return {
 						src: item.src,
@@ -56,13 +56,15 @@ export default{
 					}
 				}
 			)
+            console.log(newImage)
 
 			if(item.active === false){
 				item.active = !item.active;
 			}
-
-			this.$set(this.images.detail.images, index, item);
-            this.$emit('setImage', this.images.detail.images[index].src)
+            
+			this.$set(newImage, index, item);
+            this.$emit('setImage', this.images[index].src)
+            this.$emit('setImageSet', newImage)
 		}
     }
 

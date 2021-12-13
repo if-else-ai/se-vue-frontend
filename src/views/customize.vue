@@ -8,15 +8,33 @@
 					class="tabs__container"
 					centered
 					fixed-tabs
-					@change="changeImage(selectedTab)"
+					@change="onChangeTab(selectedTab)"
 				>
 					<v-tab v-for="(tab, index) in tabsItem" :key="index">
 						{{ tab }}
 					</v-tab>
 				</v-tabs>
-				<ProductImage v-if="selectedTab === 0 && this.selectedKeyboard" :images="this.selectedKeyboard" :currentImage="currentImage" @setImage="currentImage = $event" />
-				<ProductImage v-if="selectedTab === 1 && this.selectedSwitch" :images="this.selectedSwitch" :currentImage="currentImage" @setImage="currentImage = $event"/>
-				<ProductImage v-if="selectedTab === 2 && this.selectedKeycap" :images="this.selectedKeycap" :currentImage="currentImage" @setImage="currentImage = $event"/>
+				<ProductImage
+					v-if="selectedTab === 0 && selectedKeyboard"
+					:images="selectedKeyboard.detail.images"
+					:currentImage="currentImage"
+					@setImage="currentImage = $event"
+					@setImageSet="selectedKeyboard.detail.images = $event"
+				/>
+				<ProductImage
+					v-if="selectedTab === 1 && selectedSwitch"
+					:images="selectedSwitch.detail.images"
+					:currentImage="currentImage"
+					@setImage="currentImage = $event"
+					@setImageSet="selectedSwitch.detail.images = $event"
+				/>
+				<ProductImage
+					v-if="selectedTab === 2 && selectedKeycap"
+					:images="selectedKeycap.detail.images"
+					:currentImage="currentImage"
+					@setImage="currentImage = $event"
+					@setImageSet="selectedKeycap.detail.images = $event"
+				/>
 			</v-card>
 			<v-card
 				class="product__detail pa-4"
@@ -103,19 +121,19 @@
 <style src="./style.css"></style>
 
 <script>
-import ProductImage from '@/components/product-image.vue'
+import ProductImage from "@/components/product-image.vue";
 
 export default {
 	components: { ProductImage },
 	data: () => ({
-		images: [
-			{
-				src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-				active: true,
-			},
-			{ src: "https://i.imgur.com/YazpFQt.jpg", active: false },
-		],
-		currentImage: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+		// images: [
+		// 	{
+		// 		src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+		// 		active: true,
+		// 	},
+		// 	{ src: "https://i.imgur.com/YazpFQt.jpg", active: false },
+		// ],
+		currentImage: "",
 		tabsItem: ["Model", "Switch", "Keycap"],
 		selectedTab: 0,
 		quantity: 1,
@@ -155,20 +173,26 @@ export default {
 			// console.log(formData);
 		},
 
-		changeImage(tab){
-			switch(tab){
+		onChangeTab(tab) {
+			switch (tab) {
 				case 0:
-					this.selectedKeyboard ? this.currentImage = this.selectedKeyboard.detail.product_image[0] : null
-				break;
+					this.selectedKeyboard
+						? (this.currentImage = this.selectedKeyboard.detail.product_image[0])
+						: null;
+					break;
 				case 1:
-					this.selectedSwitch ? this.currentImage = this.selectedSwitch.detail.product_image[0] : null
-				break;
+					this.selectedSwitch
+						? (this.currentImage = this.selectedSwitch.detail.product_image[0])
+						: null;
+					break;
 				case 2:
-					this.selectedKeycap ? this.currentImage = this.selectedKeycap.detail.product_image[0] : null
-				break;
+					this.selectedKeycap
+						? (this.currentImage = this.selectedKeycap.detail.product_image[0])
+						: null;
+					break;
 				default:
 			}
-		}
+		},
 	},
 
 	computed: {
@@ -292,8 +316,6 @@ export default {
 
 			return keycapList;
 		},
-
-		
 	},
 };
 </script>

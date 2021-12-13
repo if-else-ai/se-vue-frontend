@@ -3,27 +3,14 @@
 		<Tabs />
 		<v-divider class="mb-4"></v-divider>
 		<div class="product-container pt-4">
-			<v-card class="product__images" width="800" height="600" outlined>
-				<v-item-group class="product__sub-image">
-					<v-card outlined>
-						<div v-for="(image, index) in images" :key="index">
-							<v-img
-								:class="{ active: image.active}"
-								:src="image.src"
-								width="80"
-								height="80"
-								contain
-								@click="changeImage(index)"
-							/>
-						</div>
-					</v-card>
-				</v-item-group>
-
-				<v-card outlined class="product__main-image">
-					<v-img height="600" contain :src="currentImage" />
-				</v-card>
+			<v-card width="800">
+				<ProductImage
+					:images="productOption.productImages"
+					:currentImage="currentImage"
+					@setImage="currentImage = $event"
+					@setImageSet="productOption.productImages = $event"
+				/>
 			</v-card>
-
 			<v-card
 				class="product__detail pa-2"
 				width="800"
@@ -95,17 +82,22 @@
 
 <script>
 import Tabs from "@/components/tabs.vue";
+import ProductImage from "@/components/product-image.vue";
 
 export default {
 	components: {
 		Tabs,
+		ProductImage,
 	},
 	data: () => ({
 		images: [
-			{ src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg", active: true },
+			{
+				src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+				active: true,
+			},
 			{ src: "https://i.imgur.com/YazpFQt.jpg", active: false },
 		],
-		currentImage: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+		currentImage: "",
 		productOption: [],
 		tempProduct: null,
 		selectedOption: null,
@@ -149,16 +141,14 @@ export default {
 		toggleActive(index) {
 			let item = this.images[index];
 
-			this.images = this.images.map(
-				item => {
-					return {
-						src: item.src,
-						active: false
-					}
-				}
-			)
+			this.images = this.images.map((item) => {
+				return {
+					src: item.src,
+					active: false,
+				};
+			});
 
-			if(item.active === false){
+			if (item.active === false) {
 				item.active = !item.active;
 			}
 
@@ -207,6 +197,7 @@ export default {
 		product() {
 			// Initialize Product
 			if (this.productOption.length === 0) {
+				console.log('init')
 				let product = this.$store.getters.product;
 				this.tempProduct = this.$store.getters.product;
 				this.productOption = {
@@ -220,7 +211,15 @@ export default {
 							option_price_added: option.option_price_added[0],
 						};
 					}),
+					productImages: product.product_image.map((image, index) => {
+						return {
+							src: image,
+							active: index === 0 ? true : false,
+						};
+					}),
 				};
+				this.currentImage = this.productOption.productImages[0].src
+				// this.currentImage = this.tempProduct.product_image[0]
 			}
 
 			return this.$store.getters.product;
@@ -324,7 +323,6 @@ export default {
 .product__choice button.product__choice-button {
 	height: 32px;
 }
-
 
 .product__images {
 	display: flex;
