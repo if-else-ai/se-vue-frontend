@@ -384,10 +384,10 @@ export default {
 		// add to cart
 		addToCart() {
 			let formData = {
-				productID: this.option.productID,
-				productName: this.option.productName,
-				productPrice: this.option.productPrice,
-				productQuantity: this.quantity,
+				id: this.option.id,
+				name: this.option.name,
+				price: this.option.price,
+				quantity: this.quantity,
 				option: this.option.option,
 				totalPrice: this.computedPrice,
 			};

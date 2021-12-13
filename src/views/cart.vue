@@ -167,7 +167,7 @@ export default {
 				let data = this.$store.getters.carts
 				data = data.map(item => {
 					return {
-						...item,pricePerUnit: item.totalPrice / item.quantity
+						...item,priceAddedPerUnit: item.totalPrice / item.quantity
 					}
 				})
 				console.log(data)

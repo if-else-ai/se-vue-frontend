@@ -36,16 +36,16 @@
 			</v-autocomplete>
 		</div>
 
-		<section class="products__container" v-if="products.length > 0">
+		<section class="products__container" v-if="filteredProduct.length > 0">
 			<Product
-				v-for="product in products"
-				:key="product.productID"
+				v-for="product in filteredProduct"
+				:key="product.id"
 				:product="product"
 			/>
 		</section>
 		<section v-else class="products__container">
 			<v-card
-				class="product__container d-flex justify-content-mid align-center"
+				class="product__container no-product d-flex justify-center align-center flex-grow"
 				width="374"
 				height="367"
 				flat
@@ -58,6 +58,10 @@
 </template>
 
 <style scoped>
+.no-product {
+	flex: 0 0 100%; /* flex-grow, flex-shrink, flex-basis */
+}
+
 .shopping__container {
 	padding-top: 0;
 	padding: 0;
@@ -97,8 +101,6 @@ import Product from "../components/product-card.vue";
 export default {
 	components: { Tabs, Product },
 	data: () => ({
-		categoryImage:
-			"https://cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_x600.jpg?v=1611981271%20600w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_800x.jpg?v=1611981271%20800w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1200x.jpg?v=1611981271%201200w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1400x.jpg?v=1611981271%201400w,%20//cdn.shopify.com/s/files/1/0054/0878/4458/collections/BauerMoDo_3_of_11_1600x.jpg?v=1611981271%201600w",
 		filterItem: [
 			{
 				text: "ราคามาก -> น้อย",
@@ -109,36 +111,37 @@ export default {
 				option: "ascending",
 			},
 		],
-		selectedFilter: "ราคาน้อย -> มาก"
+		selectedFilter: "ราคาน้อย -> มาก",
+		filteredProduct: [],
 	}),
 
+	methods: {},
+
 	computed: {
+		products() {
+			return this.filteredProduct;
+		},
 		categoryQuery() {
 			this.category = this.$route.query.category;
+
+			let filteredProduct = this.$store.getters.products;
+			if (this.category === "ALL") {
+				this.filteredProduct = filteredProduct;
+			} else {
+				filteredProduct = filteredProduct.filter((product) => {
+					return (
+						product.category === this.category ||
+						product.tags.includes(this.category)
+					);
+				});
+				this.filteredProduct = filteredProduct;
+			}
+
 			return this.$route.query.category;
 		},
 		image() {
 			return this.$route.query.src;
 		},
-
-		products() {
-			// filter here
-			let filteredProduct = this.$store.getters.products;
-
-			if (this.category === "ALL") {
-				return this.$store.getters.products;
-			}
-			filteredProduct = filteredProduct.filter((product) => {
-				return (
-					product.category === this.category ||
-					product.tags.includes(this.category)
-				);
-			});
-			console.log(filteredProduct);
-
-			return filteredProduct;
-		},
-
 		productList() {
 			// get product name and id
 			let products = this.$store.getters.products;
