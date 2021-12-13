@@ -8,7 +8,6 @@
     show-arrows-on-hover
   >
     <v-carousel-item v-for="(item, i) in itemdata" :key="i" :src="item.src">
-      <div class="text-h2">customize your keyboard</div>
     </v-carousel-item>
   </v-carousel>
 </template>
