@@ -1,6 +1,25 @@
 <template>
   <div class="home_container">
-    <Carousel />
+    <div class="header-overly">
+      <div class="header-overlay__container">
+        <h1 class="typing">customize keyboard</h1>
+        <v-btn
+          elevation="2"
+          x-large
+          depressed
+          color="white"
+          large
+          @click="
+            $router.push({
+              path: '/customize',
+            })
+          "
+        >
+          CUSTOMIZE
+        </v-btn>
+      </div>
+      <Carousel />
+    </div>
     <div id="popular"></div>
     <a href="#popular">
       <v-btn class="scroll_container" fab dark medium color="dark">
@@ -35,6 +54,60 @@ export default {
 </script>
 
 <style scoped>
+.header-overly {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-overly .header-overlay__container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f8f8f7;
+  font-family: sans-serif;
+  font-size: 50px;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.header-overly .header-overlay__container h1 {
+  margin: 30px 0;
+}
+
+.typing {
+  color: #f8f8f7;
+  overflow: hidden;
+  border-right: 0.15em solid rgb(0, 153, 255);
+  white-space: nowrap;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(30, end) infinite,
+    cursor-blink 0.75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes cursor-blink {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgb(0, 153, 255);
+  }
+}
+
 .home_container {
   padding: 0;
   margin: 0;

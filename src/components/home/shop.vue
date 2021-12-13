@@ -13,7 +13,10 @@
         @click="
           $router.push({
             path: web.src,
-            query: { category: web.query, src:"https://cf.shopee.co.th/file/0c23a97033d06f29c45e94a4637f9ecf" }
+            query: {
+              category: web.query,
+              src: web.palimg,
+            },
           })
         "
       >
