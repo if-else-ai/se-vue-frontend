@@ -28,7 +28,7 @@
           <p>฿{{ product.price }}</p>
         </v-col>
         <v-col cols="auto" class="selled">
-          <p>Sold {{ product.price }}</p>
+          <p>Available {{ product.quantity }}</p>
         </v-col>
       </v-row>
     </v-card>

@@ -26,7 +26,7 @@
             </v-item-group>
         </div>
         <div outlined class="product__main-image">
-            <v-img height="600" contain :src="currentImage ? currentImage : failedImage" />
+            <v-img height="600" contain :src="currentImage" />
         </div>
     </v-card>
 </template>
@@ -57,12 +57,11 @@ export default{
 					}
 				}
 			)
-            console.log(newImage)
-
 			if(item.active === false){
 				item.active = !item.active;
 			}
-            
+
+            console.log(newImage)
 			this.$set(newImage, index, item);
             this.$emit('setImage', this.images[index].src)
             this.$emit('setImageSet', newImage)

@@ -32,6 +32,7 @@ export default {
 		// Initialize App Variable
 		this.$store.dispatch('getProducts');
 		this.$store.dispatch('tryRetrieveCart');
+		this.$store.dispatch("tryAutoLogin");
 	},
 
 	computed: {

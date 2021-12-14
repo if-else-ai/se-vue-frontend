@@ -38,12 +38,6 @@ export default {
     // },
 
     products() {
-      if (this.category === "ALL") {
-        console.log("ALL Object");
-      } else {
-        console.log("Log Filter");
-      }
-
       return this.$store.getters.products.slice(0, 4);
     },
   },

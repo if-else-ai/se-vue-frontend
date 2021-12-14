@@ -92,10 +92,11 @@ export default {
 	},
 	methods: {
 		login() {
-			const { email } = this;
-			this.$router.replace({
-				path: '/home',
-			});
+			const { email, password } = this;
+			// this.$router.replace({
+			// 	path: '/home',
+			// });
+			this.$store.dispatch('login', {email: email, password: password})
 		},
 		register() {
 			if (this.password == this.confirmPassword) {

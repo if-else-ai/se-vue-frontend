@@ -41,11 +41,8 @@ const actions = {
 		
 		let previousCart = localStorage.getItem('cart')
 		if(previousCart){
-			console.log(previousCart)
 			let parseCart = JSON.parse(previousCart)
-			console.log(parseCart)
 			let combine = [...parseCart,item ]
-			console.log(combine)
 			let stringify = JSON.stringify(combine)
 			localStorage.setItem("cart", stringify);
 		} else {
@@ -55,7 +52,7 @@ const actions = {
         
 	},
 
-	removeCart({ commit, state }, index) {
+	removeCart({ commit }, index) {
 		commit('removeCart', index)
         // let expiresIn = 3600;
         // const now = new Date();
@@ -64,7 +61,6 @@ const actions = {
         // );
 		
 		let removedCart = state.carts
-		console.log(removedCart)
 		removedCart = JSON.stringify(removedCart)
 		localStorage.setItem("cart", removedCart);
 	},

@@ -40,7 +40,7 @@
 									<p>
 										{{ `${item.category}: ${item.name}` }}
 									</p>
-									 </div>
+								</div>
 								<div
 									v-for="(option, index) in item.option"
 									:key="index"
@@ -76,9 +76,9 @@
 						</v-card>
 					</v-card>
 				</div>
-				<!-- <v-btn class="align-self-end"
+				<v-btn class="align-self-end" @click="checkOutAll"
 					><v-icon>mdi-cart</v-icon> checkout</v-btn
-				> -->
+				>
 			</v-card>
 			<EmptyCart v-else />
 		</v-card>
@@ -157,7 +157,7 @@ export default {
 			this.cartItem[index].quantity += 1;
 			let quantity = this.cartItem[index].quantity;
 			let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit;
-			console.log(priceAddedPerUnit);
+			// console.log(priceAddedPerUnit);
 			this.cartItem[index].totalPrice = quantity * priceAddedPerUnit;
 		},
 		// decrease product
@@ -169,7 +169,7 @@ export default {
 				this.cartItem[index].totalPrice = quantity * priceAddedPerUnit;
 			} else {
 				this.cartItem.splice(index, 1);
-				this.$store.dispatch('removeCart', index)
+				this.$store.dispatch("removeCart", index);
 			}
 		},
 
@@ -180,7 +180,88 @@ export default {
 		// 	this.$store.dispatch("removeItem",items);
 		// },
 		checkout(index) {
-			console.log(this.cartItem[index]);
+			let userData = this.$store.getters.authorizedUser
+			if(!this.$store.getters.isAuthenticated){
+				alert('กรุณาล๊อกอิน')
+				this.$router.push('login')
+			}
+			else if(userData.name.length === 0 || userData.telNo.length !== 10 || userData.address.length === 0){
+				console.log(userData)
+				alert('กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร')
+				this.$router.push('profile')
+			}
+			// console.log(this.cartItem[index]);
+			let product = this.cartItem[index];
+			let formData = {
+				userId: userData.id,
+				status: "Pending",
+				address: userData.address,
+				trackingNumber: "",
+				detail: {
+					product: [
+						{
+							productId: product.id,
+							name: product.name,
+							price: product.price,
+							quantity: product.quantity,
+							option: product.option,
+						},
+					],
+					totalPrice: Number(product.totalPrice.toFixed(2)),
+				},
+				userDetail: {
+					name: userData.name,
+					email: userData.email,
+					telNo: userData.telNo,
+				},
+			};
+			console.log(formData);
+		},
+		checkOutAll(index) {
+			let userData = this.$store.getters.authorizedUser
+			if(!this.$store.getters.isAuthenticated){
+				alert('กรุณาล๊อกอิน')
+				this.$router.push('login')
+			}
+			else if(userData.name.length === 0 || userData.telNo.length !== 10 || userData.address.length === 0){
+				console.log(userData)
+				alert('กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร')
+				this.$router.push('profile')
+			}
+			// console.log(this.cartItem[index]);
+			let product = this.cartItem[index];
+			let formData = {
+				userId: userData.id,
+				status: "Pending",
+				address: userData.address,
+				trackingNumber: "",
+				detail: {
+					product: this.cartItem.map((item) => {
+						return {
+							productId: item.id,
+							name: item.name,
+							price: item.price,
+							quantity: item.quantity,
+							option: item.option,
+						};
+					}),
+					totalPrice: 0,
+				},
+				userDetail: {
+					name: userData.name,
+					email: userData.email,
+					telNo: userData.telNo,
+				},
+			};
+			let b = this.cartItem.map((item) => {
+				let price = item.totalPrice;
+				return price
+			});
+			formData.detail.totalPrice = Number(b.reduce((a,b) => {
+				return a + b
+			}, 0).toFixed(2))
+			
+			console.log(formData);
 		},
 	},
 	computed: {
@@ -194,7 +275,7 @@ export default {
 					};
 				});
 				this.cartItem = data;
-				console.log(this.cartItem);
+				// console.log(this.cartItem);
 			}
 
 			return this.$store.getters.carts;

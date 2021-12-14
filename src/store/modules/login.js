@@ -1,11 +1,11 @@
-import axios from "../../axios-auth";
+import axios from "../../api/axios-auth.js";
 import router from "../../router/index";
-import userRole from "../../assets/user-role.js"
+import userRole from "../../assets/user-role.js";
 
 const state = {
 	idToken: null,
 	authorizedUser: null,
-	userRole : null
+	userRole: null,
 };
 
 const mutations = {
@@ -25,8 +25,8 @@ const mutations = {
 		// state.userId = null
 	},
 	setUserRole(state, role) {
-		state.userRole = role
-	}
+		state.userRole = role;
+	},
 };
 
 const actions = {
@@ -39,62 +39,65 @@ const actions = {
 	},
 
 	// admin login
-	// login({ commit, dispatch }, authData) {
-	// 	axios
-	// 		.post("/api/login", {
-	// 			email: authData.email,
-	// 			password: authData.password,
-	// 		})
-	// 		// Store Token on local storage for auto login
-	// 		.then((res) => {
-	// 			res.data.expiresIn = 3600;
-	// 			commit("authUser", {
-	// 				token: res.data.token,
-	// 				// userId: res.data.localId
-	// 			});
-	// 			const now = new Date();
-	// 			const expirationDate = new Date(
-	// 				now.getTime() + res.data.expiresIn * 1000
-	// 			);
-	// 			axios
-	// 				.get("api/admin-role", { headers: {
-    //                     'Authorization' : 'Bearer ' + res.data.token
-    //                 }})
-    //                 .then((response) => {
-	// 					let data = response.data
-	// 					let role = userRole[data.role]
-	// 					commit('setUserRole', role)
-	// 					localStorage.setItem("userRole", role);
-    //                 })
-	// 			localStorage.setItem("token", res.data.token);
-	// 			// localStorage.setItem('userId', res.data.localId)
-	// 			localStorage.setItem("expirationDate", expirationDate);
-	// 			dispatch("storeUser", authData);
-	// 			dispatch("setLogoutTimer", res.data.expiresIn);
-	// 			router.replace("/home");
-	// 		})
-	// 		.catch((error) => {
-	// 			alert("เกิดข้อผิดพลาด");
-	// 		});
-		
-	// },
+	login({ commit, dispatch, state }, authData) {
+		axios
+			.post("/login", {
+				email: authData.email,
+				password: authData.password,
+			})
+			// Store Token on local storage for auto login
+			.then((res) => {
+				res.data.expiresIn = 3600;
+				commit("authUser", {
+					token: res.data.id,
+					// userId: res.data.localId
+				});
+				const now = new Date();
+				const expirationDate = new Date(
+					now.getTime() + res.data.expiresIn * 1000
+				);
+				// axios
+				// 	.get("api/admin-role", { headers: {
+				//         'Authorization' : 'Bearer ' + res.data.token
+				//     }})
+				//     .then((response) => {
+				// 		let data = response.data
+				// 		let role = userRole[data.role]
+				// 		commit('setUserRole', role)
+				// 		localStorage.setItem("userRole", role);
+				//     })
 
-    login({ commit, dispatch }, authData) {
-        commit("authUser", {
-            token: "token",
-            // userId: res.data.localId
-        });
-        let expiresIn = 3600;
-        const now = new Date();
-        const expirationDate = new Date(
-            now.getTime() + expiresIn * 1000
-        );
-        localStorage.setItem("token", "token");
-        localStorage.setItem("expirationDate", expirationDate);
-        dispatch("storeUser", authData);
-        dispatch("setLogoutTimer", expiresIn);
-        router.replace("/home");
+				axios.get(`/users/${res.data.id}`).then((res) => {
+					dispatch("storeUser", res.data);
+					console.log(state);
+				});
+
+				localStorage.setItem("token", res.data.id);
+				localStorage.setItem("expirationDate", expirationDate);
+				dispatch("setLogoutTimer", res.data.expiresIn);
+				router.replace("/home");
+			})
+			.catch((error) => {
+				alert("เกิดข้อผิดพลาด");
+			});
 	},
+
+	// login({ commit, dispatch }, authData) {
+	//     commit("authUser", {
+	//         token: "token",
+	//         // userId: res.data.localId
+	//     });
+	//     let expiresIn = 3600;
+	//     const now = new Date();
+	//     const expirationDate = new Date(
+	//         now.getTime() + expiresIn * 1000
+	//     );
+	//     localStorage.setItem("token", "token");
+	//     localStorage.setItem("expirationDate", expirationDate);
+	//     dispatch("storeUser", authData);
+	//     dispatch("setLogoutTimer", expiresIn);
+	//     router.replace("/home");
+	// },
 	// re-login when token is not expired
 	tryAutoLogin({ commit }) {
 		// Check token from localStorage
@@ -109,36 +112,64 @@ const actions = {
 			return;
 		}
 		// Authorize user
-		// const userId = localStorage.getItem('userId')
+		let userData = localStorage.getItem("user");
+		if (userData) {
+			userData = JSON.parse(userData);
+			commit("storeUser", userData);
+		}
+
 		commit("authUser", {
 			token: token,
-			// userId: userId
 		});
-		const userRole = localStorage.getItem("userRole")
-		commit("setUserRole", userRole)
+		// commit("storeUser", {
+
+		// })
 	},
 	// Log user out and Remove token in localStorage
-	logout({ commit }) {
+	logout({ commit, state }) {
 		commit("clearAuthData");
 		localStorage.removeItem("expirationDate");
 		localStorage.removeItem("token");
-		localStorage.removeItem("userRole");
-		// localStorage.removeItem('userId')
+		localStorage.removeItem("user");
+		console.log(state);
 		router.replace("/login");
 	},
 	// Store to backend
 	// Currently unavailable
-	storeUser({ commit, state }, userData) {
-		if (!state.idToken) {
-			return;
-		}
+	storeUser({ commit }, userData) {
+		let json = JSON.stringify(userData);
+		localStorage.setItem("user", json);
+		commit("storeUser", userData);
 		// Store on backend / example below is Firebase
 		// axios.post('/users.json' + '?auth=' + state.idToken, userData)
 		//   .then(res => console.log(res))
 		//   .catch(error => console.log(error))
 	},
 
-	
+	saveUser({ commit }, userData) {
+		axios
+			.put(`/users/${userData.id}`, {
+				name: userData.name,
+				email: userData.email,
+				telNo: userData.telNo,
+				address: userData.address,
+				dateOfBirth: userData.dateOfBirth,
+				gender: userData.gender
+			})
+			.then((res) => {
+				let json = JSON.stringify(userData);
+				localStorage.setItem("user", json);
+				commit("storeUser", userData);
+			})
+			.catch((err) => {
+				alert("fail store user");
+			});
+
+		// Store on backend / example below is Firebase
+		// axios.post('/users.json' + '?auth=' + state.idToken, userData)
+		//   .then(res => console.log(res))
+		//   .catch(error => console.log(error))
+	},
 };
 
 const getters = {
@@ -151,8 +182,8 @@ const getters = {
 		return state.idToken !== null;
 	},
 	userRole(state) {
-		return state.userRole
-	}
+		return state.userRole;
+	},
 };
 
 export default {
