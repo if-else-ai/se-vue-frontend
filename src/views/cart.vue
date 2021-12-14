@@ -1,6 +1,6 @@
 <template>
 	<v-container class="carts__container">
-		<v-card elevation="4" width="1200">
+		<v-card class="carts__box" width="1200">
 			<!-- Proudct-cart Card -->
 			<v-card
 				class="d-flex flex-column pa-6"
@@ -19,7 +19,7 @@
 				>
 					<v-card>
 						<v-card-title>
-							{{ item.productName }}
+							{{ item.name }}
 						</v-card-title>
 						<v-divider></v-divider>
 						<v-card class="cart__content" flat>
@@ -59,7 +59,7 @@
 								<div class="cart__price mx-2">
 									{{ `$ ${item.totalPrice}` }}
 								</div>
-								<v-btn class="align-self-center mx-4"
+								<v-btn class="align-self-center mx-4" @click="checkout(itemIndex)"
 									><v-icon>mdi-cart</v-icon> checkout</v-btn
 								>
 							</div>
@@ -76,6 +76,9 @@
 </template>
 
 <style scoped>
+.carts__box{
+	border: 1px dashed rgb(207, 207, 207);
+}
 .action-button {
 	margin-left: auto;
 }
@@ -140,14 +143,17 @@ export default {
 			
 			this.cartItem[index].quantity += 1;
 			let quantity = this.cartItem[index].quantity;
-			let totalPrice = this.cartItem[index].totalPrice
-			let PricePerUnit = totalPrice / quantity
-			console.log(PricePerUnit)
+			let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit
+			console.log(priceAddedPerUnit)
+			this.cartItem[index].totalPrice = quantity * priceAddedPerUnit
 		},
 		// decrease product
 		decrement(index) {
 			if (this.cartItem[index].quantity > 1) {
 				this.cartItem[index].quantity -= 1;
+				let quantity = this.cartItem[index].quantity;
+				let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit
+				this.cartItem[index].totalPrice = quantity * priceAddedPerUnit
 			}
 		},
 
@@ -157,8 +163,8 @@ export default {
 		// removeItem(items){
 		// 	this.$store.dispatch("removeItem",items);
 		// },
-		checkout() {
-			//	swal ("Good Job!", "Your order is placed successfuly!", "success").then (value => {window.location.href = "/cart";
+		checkout(index) {
+			console.log(this.cartItem[index])
 		},
 	},
 	computed: {
@@ -170,9 +176,10 @@ export default {
 						...item,priceAddedPerUnit: item.totalPrice / item.quantity
 					}
 				})
-				console.log(data)
+				this.cartItem = data
+				console.log(this.cartItem)
 			}
-			this.cartItem = this.$store.getters.carts;
+			
 			return this.$store.getters.carts;
 		},
 

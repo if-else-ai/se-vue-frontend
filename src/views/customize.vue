@@ -35,6 +35,11 @@
           @setImage="currentImage = $event"
           @setImageSet="selectedKeycap.detail.imageList = $event"
         />
+        <v-card class="blank-customize__container" v-if="(!selectedKeyboard && !selectedSwitch && !selectedKeycap)">
+          <v-card>
+          <v-img src="https://i.pinimg.com/originals/8a/70/f6/8a70f68a486e0f125e8ff176757c2194.png"> </v-img>
+          </v-card>
+        </v-card>
       </v-card>
       <v-card
         class="product__detail pa-4"
@@ -55,6 +60,7 @@
             label="Model"
             prepend-icon="mdi-magnify"
             return-object
+            autofocus
             v-model="selectedKeyboard"
           >
           </v-autocomplete>
@@ -316,6 +322,16 @@ export default {
 </script>
 
 <style scoped>
+.blank-customize__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blank-title {
+  margin: auto;
+}
+
 .custom-input__container {
   display: flex;
   flex-direction: row;
