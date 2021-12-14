@@ -1,5 +1,5 @@
 <template>
-  <v-container class="shopping__container d-flex flex-column align-center">
+  <v-container v-if="product" class="shopping__container d-flex flex-column align-center">
     <Tabs />
     <v-divider class="mb-4"></v-divider>
     <div class="product-container pt-4">
@@ -63,13 +63,15 @@
           เพิ่มลงตะกร้า
         </v-btn>
       </v-card>
+      
     </div>
-    <v-card class="product-description__container mt-4" elevation="2">
+    <v-card class="product-description__container mt-4" width="1600" elevation="2">
       <v-card-title>Description</v-card-title>
       <v-card-text>
         {{ product.description }}
       </v-card-text>
     </v-card>
+    
 
     <!-- สินค้าแนะนำ -->
     <v-card-text class="pa-0 pt-4 pb-15" tile outlined>
@@ -227,13 +229,14 @@ export default {
     ProductImage,
   },
   data: () => ({
-    images: [
-      // {
-      // 	src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-      // 	active: true,
-      // },
-      // { src: "https://i.imgur.com/YazpFQt.jpg", active: false },
+    failedImageSet: [
+      {
+      	src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+      	active: true,
+      },
+      { src: "https://i.imgur.com/YazpFQt.jpg", active: false },
     ],
+    failImage : 'https://i.imgur.com/YazpFQt.jpg',
     currentImage: "",
     option: [],
     tempProduct: null,
@@ -243,9 +246,7 @@ export default {
   }),
 
   created() {
-    this.$store.dispatch("getProduct", {
-      productID: this.$route.query.productID,
-    });
+    this.$store.dispatch('getProduct', this.$route.query.productID);
   },
 
   methods: {
@@ -303,20 +304,22 @@ export default {
       let formData = {
         id: this.option.id,
         name: this.option.name,
+        category: this.tempProduct.category,
         price: this.option.price,
         quantity: this.quantity,
         option: this.option.option,
         totalPrice: this.computedPrice,
+        image: this.tempProduct.image
       };
-      console.log(formData);
+      this.$store.dispatch('addCart', formData)
     },
   },
 
   computed: {
     price() {
+      console.log('price')
       let addedPrice = 0;
-      console.log(this.option);
-      this.option.option.map((option) => {
+        this.option.option.map((option) => {
         addedPrice += option.priceAdded;
       });
       // Price = (BasePrice + AddedPrice) * Quantity
@@ -326,15 +329,14 @@ export default {
 
     product() {
       // Initialize Product
-      if (this.option.length === 0) {
-        console.log("init");
-        let product = this.$store.getters.product;
+      let product = this.$store.getters.product;
+      if (product.name) {
         this.tempProduct = this.$store.getters.product;
-        console.log(product);
+        product.image === null ? product.image = [] : product.image
         this.option = {
           id: product.id,
-          name: "Keychron K8",
-          price: product.pricePerUnit,
+          name: product.name,
+          price: product.price,
           option: product.option.map((option) => {
             return {
               name: option.name,

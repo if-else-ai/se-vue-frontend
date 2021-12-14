@@ -137,14 +137,14 @@ export default {
   methods: {
     // to shopping page / change category
     onChangeCategory(tab, src) {
-      this.$router.push({
+      this.$router.replace({
         path: "/shopping",
         query: { category: tab, src: src },
       });
     },
     // to shopping page / change category
     onChangeSubCategory(category, src) {
-      this.$router.push({
+      this.$router.replace({
         path: "/shopping",
         query: { category: category, src: src },
       });

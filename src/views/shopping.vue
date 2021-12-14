@@ -139,7 +139,7 @@ export default {
         filteredProduct = filteredProduct.filter((product) => {
           return (
             product.category === this.category ||
-            product.tags.includes(this.category)
+            product.tag.includes(this.category)
           );
         });
         this.filteredProduct = filteredProduct;

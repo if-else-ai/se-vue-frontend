@@ -1,11 +1,11 @@
-import axios from '../../api/axios.js'
+import axios from "../../api/axios.js";
 
-import products from '../../assets/products.json'
+import products from "../../assets/products.json";
 
 // state data
 const state = {
 	products: [],
-	product: null,
+	product: {},
 };
 
 // mutate state
@@ -16,49 +16,55 @@ const mutations = {
 	setProduct(state, product) {
 		state.product = product;
 	},
-};	
+};
 
 // action -> define app data logic
 const actions = {
-    // get assignemnt => GET
+	// get assignemnt => GET
 	getProducts({ commit }) {
-		commit('setProducts', products.products)
-		// axios.get('/products').then(res => {
-		// 	// store products in State
-		// 	commit('setProducts', res.data)
-		// })
+		// commit('setProducts', products.products)
+
+		// store products in State
+		axios.get("/products").then((res) => {
+			// console.log(res.data)
+			let item = res.data;
+			item = item.map((item) => {
+				return {
+					...item,
+					image:
+						item.image === null
+							? []
+							: item.image,
+				};
+			});
+			commit("setProducts", item);
+		});
 	},
 	getProduct({ commit }, productID) {
-		console.log(productID)
-		let array = products.products.filter(
-			product => {
-				return product.id === productID.productID
-			})
-		commit('setProduct', array[0])
-		// axios.get('/products').then(res => {
-		// 	// store products in State
-		// 	commit('setProducts', res.data)
-		// })
+		// let array = products.products.filter(
+		// 	product => {
+		// 		return product.id === productID.productID
+		// 	})
+		// commit('setProduct', array[0])
+		axios.get(`/product/${productID}`).then((res) => {
+
+			let item = res.data;
+			item.image === null
+				? item.image = []
+				: item.image
+			commit("setProduct", item);
+		});
 	},
-	// add assignment => POST
-	// addProduct({ commit, dispatch }, formData) {
-	// 	axios.post('/add-product', formData )
-	// 		.then(res => {
-	// 			alert('product added')
-	// 			// refetch to update data
-	// 			dispatch('getProducts')
-	// 		})
-	// },
 };
 
 // getters return requested data
 const getters = {
 	// get all assignment
-	products(state){
-		return state.products
+	products(state) {
+		return state.products;
 	},
-	product(state){
-		return state.product
+	product(state) {
+		return state.product;
 	},
 	// get assignment list -> assignment menu
 };

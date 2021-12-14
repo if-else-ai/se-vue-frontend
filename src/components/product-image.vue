@@ -26,7 +26,7 @@
             </v-item-group>
         </div>
         <div outlined class="product__main-image">
-            <v-img height="600" contain :src="currentImage" />
+            <v-img height="600" contain :src="currentImage ? currentImage : failedImage" />
         </div>
     </v-card>
 </template>
@@ -37,7 +37,8 @@ export default{
     props: ['images', 'currentImage'],
 
     data: () => ({
-        
+        failedImage: 'https://cdn.shopify.com/s/files/1/0335/2087/7700/products/gmk_olivia_plusplus_keyboard_no1rev2wkl_ortho_top_vertical.jpg?v=1601032933',
+        failedImage2: 'https://www.oliviaplus.plus/renders/0.jpg'
 	}),
 
     created(){

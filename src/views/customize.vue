@@ -57,7 +57,7 @@
           <div>เลือก Keyboard:</div>
           <v-autocomplete
             :items="keyboardList"
-            label="Model"
+            label="Keyboard"
             prepend-icon="mdi-magnify"
             return-object
             autofocus

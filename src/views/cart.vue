@@ -31,16 +31,24 @@
 								min-height="200px"
 							/>
 							<div>
-							<div
-								v-for="(option, index) in item.option"
-								:key="index"
-							>
-								<p>
-								{{
-									`${option.name}: ${option.select}`
-								}}
-								</p>
-							</div>
+								<div v-if="item.option.length === 0">
+									<p>
+										{{ `${item.category}: ${item.name}` }}
+									</p>
+								</div>
+								<div v-else>
+									<p>
+										{{ `${item.category}: ${item.name}` }}
+									</p>
+									 </div>
+								<div
+									v-for="(option, index) in item.option"
+									:key="index"
+								>
+									<p class="option-description">
+										{{ `${option.name}: ${option.select}` }}
+									</p>
+								</div>
 							</div>
 							<div class="action-button d-flex align-center">
 								<div class="d-flex flex-row">
@@ -59,7 +67,9 @@
 								<div class="cart__price mx-2">
 									{{ `$ ${item.totalPrice}` }}
 								</div>
-								<v-btn class="align-self-center mx-4" @click="checkout(itemIndex)"
+								<v-btn
+									class="align-self-center mx-4"
+									@click="checkout(itemIndex)"
 									><v-icon>mdi-cart</v-icon> checkout</v-btn
 								>
 							</div>
@@ -76,7 +86,10 @@
 </template>
 
 <style scoped>
-.carts__box{
+.option-description {
+	color: rgb(151, 151, 151);
+}
+.carts__box {
 	border: 1px dashed rgb(207, 207, 207);
 }
 .action-button {
@@ -140,20 +153,23 @@ export default {
 			// 	(this.cartItem[index].totalPrice /
 			// 		this.cartItem[index].quantity) *
 			// 	this.cartItem[index].quantity;
-			
+
 			this.cartItem[index].quantity += 1;
 			let quantity = this.cartItem[index].quantity;
-			let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit
-			console.log(priceAddedPerUnit)
-			this.cartItem[index].totalPrice = quantity * priceAddedPerUnit
+			let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit;
+			console.log(priceAddedPerUnit);
+			this.cartItem[index].totalPrice = quantity * priceAddedPerUnit;
 		},
 		// decrease product
 		decrement(index) {
 			if (this.cartItem[index].quantity > 1) {
 				this.cartItem[index].quantity -= 1;
 				let quantity = this.cartItem[index].quantity;
-				let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit
-				this.cartItem[index].totalPrice = quantity * priceAddedPerUnit
+				let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit;
+				this.cartItem[index].totalPrice = quantity * priceAddedPerUnit;
+			} else {
+				this.cartItem.splice(index, 1);
+				this.$store.dispatch('removeCart', index)
 			}
 		},
 
@@ -164,22 +180,23 @@ export default {
 		// 	this.$store.dispatch("removeItem",items);
 		// },
 		checkout(index) {
-			console.log(this.cartItem[index])
+			console.log(this.cartItem[index]);
 		},
 	},
 	computed: {
 		carts() {
-			if(this.cartItem.length === 0){
-				let data = this.$store.getters.carts
-				data = data.map(item => {
+			if (this.cartItem.length === 0) {
+				let data = this.$store.getters.carts;
+				data = data.map((item) => {
 					return {
-						...item,priceAddedPerUnit: item.totalPrice / item.quantity
-					}
-				})
-				this.cartItem = data
-				console.log(this.cartItem)
+						...item,
+						priceAddedPerUnit: item.totalPrice / item.quantity,
+					};
+				});
+				this.cartItem = data;
+				console.log(this.cartItem);
 			}
-			
+
 			return this.$store.getters.carts;
 		},
 

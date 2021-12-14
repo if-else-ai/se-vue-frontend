@@ -4,12 +4,13 @@
 			"id": "ax6asd7s45d6uaxv92asd323698",
 			"name": "Keychron K4",
 			"category": "Keyboard",
-			"pricePerUnit": 6500,
+			"price": 6500,
 			"quantity": 1,
 			"option": [
 				{
 					"name": "Color",
-					"select": "white"
+					"select": "white",
+					"priceAdded": 0
 				}
 			],
 			"totalPrice": 6590,
@@ -19,16 +20,18 @@
 			"id": "ax6asd7s45d6uaxv92asd323698",
 			"name": "Keychron K4",
 			"category": "Keyboard",
-			"pricePerUnit": 6590,
+			"price": 6590,
 			"quantity": 1,
 			"option": [
 				{
 					"name": "Model",
-					"select": "White"
+					"select": "White",
+					"priceAdded": 0
 				},
 				{
 					"name": "Color",
-					"select": "Space Gray"
+					"select": "Space Gray",
+					"priceAdded": 0
 				}
 			],
 			"totalPrice": 6590,
@@ -38,26 +41,23 @@
 			"id": "ax6asd7s45d6uaxv92asd323698",
 			"name": "Keychron K4",
 			"category": "Custom",
-			"pricePerUnit": 6590,
+			"price": 6590,
 			"quantity": 1,
 			"option": [
 				{
 					"name": "Keyboard",
-					"product_id": "ss123123s",
 					"select": "Keychron K4",
-					"price": "Keychron K4 Price"
+					"priceAdded": 0
 				},
 				{
 					"name": "Switch",
-					"product_id": "ss123123s",
 					"select": "Gazzew Boba U4T",
-					"price": "Switch * 80"
+					"priceAdded": 0
 				},
 				{
 					"name": "Keycap",
-					"product_id": "s123213ss",
 					"select": "GMK Tako",
-					"price": "Keycap Price"
+					"priceAdded": 0
 				}
 			],
 			"totalPrice": 6590,

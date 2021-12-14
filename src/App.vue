@@ -30,8 +30,8 @@ export default {
 
 	created() {
 		// Initialize App Variable
-		this.$store.dispatch("getProducts");
-		this.$store.dispatch("getCart");
+		this.$store.dispatch('getProducts');
+		this.$store.dispatch('tryRetrieveCart');
 	},
 
 	computed: {

@@ -12,8 +12,8 @@
         "
       >
         <div class="image-wrapper">
-          <img :src="product.image[0]" class="image" alt="normal" />
-          <img :src="product.image[1]" class="image-hover" alt="hover" />
+          <img :src="product.image[0] ? product.image[0] : failedImage " class="image" alt="normal" />
+          <img :src="product.image[1] ? product.image[1] : failedImage2" class="image-hover" alt="hover" />
         </div>
         <div class="overlay"></div>
       </div>
@@ -25,10 +25,10 @@
       <!-- Product Price / Sold product -->
       <v-row>
         <v-col cols="auto" class="mr-auto price">
-          <p>฿{{ product.pricePerUnit }}</p>
+          <p>฿{{ product.price }}</p>
         </v-col>
         <v-col cols="auto" class="selled">
-          <p>Sold {{ product.pricePerUnit }}</p>
+          <p>Sold {{ product.price }}</p>
         </v-col>
       </v-row>
     </v-card>
@@ -39,6 +39,10 @@
 export default {
   name: "product",
   props: ["product"],
+  data: () => ({
+    failedImage: 'https://cdn.shopify.com/s/files/1/0335/2087/7700/products/gmk_olivia_plusplus_keyboard_no1rev2wkl_ortho_top_vertical.jpg?v=1601032933',
+    failedImage2: 'https://www.oliviaplus.plus/renders/0.jpg'
+  })
 };
 </script>
 
