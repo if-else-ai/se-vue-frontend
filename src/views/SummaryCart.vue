@@ -12,7 +12,7 @@
         <h6>Product</h6>
         <h6>Price</h6>
         <div class="my-3 line w-60"></div>
-        <h6>Rs {{totalPrice + 50}}</h6>
+        <h6>Rs {{totalPrice}}</h6>
     </div>
     </div>
 </template>

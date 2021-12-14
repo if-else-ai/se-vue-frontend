@@ -1,167 +1,200 @@
 <template>
-<v-Container>
-	<div class="d-flex cart-outer-div">
-		<Header/>
-		<div class="cart-body">
-			<div v-if="totalPrice !==0" class="container mb-5">
-				<h4 class="my-4 my-cart">MY CART</h4>
-				<div class="d-flex my-3" style="justify-content: space-between;">
+	<v-container class="carts__container">
+		<v-card class="carts__box" width="1200">
+			<!-- Proudct-cart Card -->
+			<v-card
+				class="d-flex flex-column pa-6"
+				v-if="carts.length !== 0"
+				flat
+			>
+				<h1>Carts</h1>
+				<div class="d-flex my-3">
 					<h4 class="fw-600">SUMMARY</h4>
-					<h4 class="fw-600" style="margin-right: 49%">CART</h4>
 				</div>
-				<div class="d-flex">
-					<SummaryCart v-bind:totalPrice="totalPrice"/>
-					<div class="row" style="width: 50%">
-						<div class="max-width: 70%" style="col-md-12">
-							<ul style="padding: 0">
-								<li v-for="items in cartItems" :key="items.id" style="list-style: none">
-									<div class="cart-items">
-										<img src="items.url" width="50px" height="50px" style="border-radius: 50%"/>
-										<h6 class="mt-15">{{items.name}}</h6>
-										<div class="d-flex mt-10">
-											<button v-on:click="remove(items)" class="removeItems" type="button"></button>
-											<span class="cart-quantity">{{items.quantity}}</span>
-											<button v-on:click="add(items)" class="addItems" type="button"></button>
-										</div>
-										<h6 class="mt-15">{{items.price}}</h6>
-									    </div>
-										<div class="line"></div>
-								</li>
-							</ul>
-						</div>
-					</div>
+				<!-- Cart Item -->
+				<div
+					v-for="(item, itemIndex) in cartItem"
+					:key="itemIndex"
+					class="mb-6"
+				>
+					<v-card>
+						<v-card-title>
+							{{ item.name }}
+						</v-card-title>
+						<v-divider></v-divider>
+						<v-card class="cart__content" flat>
+							<v-img
+								class="cart__image"
+								:src="item.image[0]"
+								contain
+								max-width="300px"
+								min-height="200px"
+							/>
+							<div>
+							<div
+								v-for="(option, index) in item.option"
+								:key="index"
+							>
+								<p>
+								{{
+									`${option.name}: ${option.select}`
+								}}
+								</p>
+							</div>
+							</div>
+							<div class="action-button d-flex align-center">
+								<div class="d-flex flex-row">
+									<v-btn icon @click="decrement(itemIndex)">
+										<v-icon>mdi-minus</v-icon>
+									</v-btn>
+									<input
+										class="item__quantity"
+										type="text"
+										v-model="item.quantity"
+									/>
+									<v-btn icon @click="increment(itemIndex)">
+										<v-icon>mdi-plus</v-icon>
+									</v-btn>
+								</div>
+								<div class="cart__price mx-2">
+									{{ `$ ${item.totalPrice}` }}
+								</div>
+								<v-btn class="align-self-center mx-4" @click="checkout(itemIndex)"
+									><v-icon>mdi-cart</v-icon> checkout</v-btn
+								>
+							</div>
+						</v-card>
+					</v-card>
 				</div>
-				<div class="d-flex justify-content-end" style="width: 80%; margin-top: 2%"></div>
-				<button v-on:click="checkout" class="btn btn-primary" type="button">CHECKOUT</button>
-			</div>
-			<EmptyCart v-else/>
-		</div>
-		<Footer/>
-	</div>
-</v-Container>
+				<!-- <v-btn class="align-self-end"
+					><v-icon>mdi-cart</v-icon> checkout</v-btn
+				> -->
+			</v-card>
+			<EmptyCart v-else />
+		</v-card>
+	</v-container>
 </template>
 
-<style src="./style.css"></style>
+<style scoped>
+.carts__box{
+	border: 1px dashed rgb(207, 207, 207);
+}
+.action-button {
+	margin-left: auto;
+}
+.carts__container {
+	display: flex;
+	width: 1200px;
+}
+
+.cart__image {
+	border: 1px solid rgb(156, 156, 156, 0.6);
+	margin: 12px;
+}
+
+.cart__content {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.item__quantity {
+	width: 40px;
+	border: 2px solid gray;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.cart__price {
+	color: rgb(46, 146, 33);
+}
+</style>
 
 <script>
 import SummaryCart from "./SummaryCart.vue";
 import EmptyCart from "./EmptyCart.vue";
-//import swal from "sweetalert";
 
 export default {
+	name: "Cart",
+	components: {
+		SummaryCart,
+		EmptyCart,
+	},
+
 	data: () => ({
 		menuList: [
 			{ title: "add", icon: "mdi-plus" },
 			{ title: "remove", icon: "mdi-minus" },
 		],
+		cartItem: [],
 	}),
 
-	name: "Cart",
-	components: {
-		SummaryCart,
-		EmptyCart
-	},
-	methods:{
-		addItem(items){
-			this.$store.dispatch("addToCart",items);
+	created() {},
+
+	methods: {
+		// add product
+		increment(index) {
+			// this.cartItem[index].totalPrice =
+			// 	(this.cartItem[index].totalPrice /
+			// 		this.cartItem[index].quantity) *
+			// 	this.cartItem[index].quantity;
+			
+			this.cartItem[index].quantity += 1;
+			let quantity = this.cartItem[index].quantity;
+			let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit
+			console.log(priceAddedPerUnit)
+			this.cartItem[index].totalPrice = quantity * priceAddedPerUnit
 		},
-		removeItem(items){
-			this.$store.dispatch("removeItem",items);
+		// decrease product
+		decrement(index) {
+			if (this.cartItem[index].quantity > 1) {
+				this.cartItem[index].quantity -= 1;
+				let quantity = this.cartItem[index].quantity;
+				let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit
+				this.cartItem[index].totalPrice = quantity * priceAddedPerUnit
+			}
 		},
-		checkout(){
-		//	swal ("Good Job!", "Your order is placed successfuly!", "success").then (value => {window.location.href = "/cart";
-		//	}
-			//);
-		}
+
+		// addItem(items){
+		// 	this.$store.dispatch("addToCart",items);
+		// },
+		// removeItem(items){
+		// 	this.$store.dispatch("removeItem",items);
+		// },
+		checkout(index) {
+			console.log(this.cartItem[index])
+		},
 	},
 	computed: {
-		cartItems(){
-			return this.$store.state.cartItems;
+		carts() {
+			if(this.cartItem.length === 0){
+				let data = this.$store.getters.carts
+				data = data.map(item => {
+					return {
+						...item,priceAddedPerUnit: item.totalPrice / item.quantity
+					}
+				})
+				this.cartItem = data
+				console.log(this.cartItem)
+			}
+			
+			return this.$store.getters.carts;
 		},
-		totalPrice(){
-			let price = 0;
-			this.$store.state.cartItems.map(el => {
-				price += el["price"]
-			})
-		return price;
-		}
-	}
+
+		// price() {
+		// 	let addedPrice = 0;
+		// 	this.productOption.productOption.map((option) => {
+		// 		addedPrice += option.option_price_added;
+		// 	});
+		// 	// Price = (BasePrice + AddedPrice) * Quantity
+		// 	this.computedPrice =
+		// 		(this.productOption.productPrice + addedPrice) * this.quantity;
+		// 	return (
+		// 		(this.productOption.productPrice + addedPrice) * this.quantity
+		// 	);
+		// },
+	},
 };
-
-
 </script>
-<style scoped>
-.cart-outer-div {
-flex-direction: column;
-height: 100vh;
-}
-.cart-body{
-background: white;
-flex: 1;
-overflow-y: auto;
-}
-.cart-quantity{
-display: inline-block;
-padding: 3px 6px;
-width: 40px;
-height: 28px;
-border-radius: 2px;
-background-color: #fff;
-margin: 0 5px;
-text-align: center;
-}
-.cart-item{
-display: flex;
-justify-content: space-between;
-padding: 10px;
-background: white;
-}
-.my-cart{
-color: darkblue;
-font-weight: 600;
-}
-input[type="text"]{
-border: none;
-width: 100%;
-font-size: 14px;
-font-weight: 500;
-vertical-align: middle;
-text-align: center;
-outline: none;
-}
-.fw-600{
-font-weight: 600;
-}
-.line{
-height: 1px;
-border-bottom: 1px solid black;
-}
-.w-120{
-width: 120%;
-}
-.add,
-.remove{
-width: 28px;
-height: 28px;
-background: linear-gradient(#fff , #f9f9f9);
-border: 1px solid #c2c2c2;
-cursor: pointer;
-font-size: 16px;
-border-radius: 7px;
-padding-top: 1px;
-outline: none;
-}
-.mt-10{
-margin-top: 10px;
-}
-.mt-15{
-margin-top: 15px;
-}
-.orange-red{
-	color: orangered;
-}
-.darkblue{
-color: darkblue;
-}
-</style>
-

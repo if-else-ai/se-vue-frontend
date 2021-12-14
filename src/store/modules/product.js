@@ -28,8 +28,13 @@ const actions = {
 		// 	commit('setProducts', res.data)
 		// })
 	},
-	getProduct({ commit }) {
-		commit('setProduct', products.products[0])
+	getProduct({ commit }, productID) {
+		console.log(productID)
+		let array = products.products.filter(
+			product => {
+				return product.id === productID.productID
+			})
+		commit('setProduct', array[0])
 		// axios.get('/products').then(res => {
 		// 	// store products in State
 		// 	commit('setProducts', res.data)

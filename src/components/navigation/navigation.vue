@@ -5,25 +5,25 @@
 			<!-- Path Navigation -->
 			<div class="nav-menu__container">
 				<ul class="nav-menu">
-					<a class="nal-links mr-6" href="/home">
+					<router-link class="nal-links mr-6" to="/home">
 						Home
-					</a>
-					<a class="nal-links mr-6" href="/shopping">
+					</router-link>
+					<router-link class="nal-links mr-6" :to="{ path: '/shopping', query: { category: 'ALL'} }">
 						Shopping
-					</a>
-					<a class="nal-links mr-4" href="/customize">
+					</router-link>
+					<router-link class="nal-links mr-4" to="/customize">
 						Customize
-					</a>
+					</router-link>
 				</ul>
 			</div>
 
 			<!-- Website Logo -->
 			<div class="nav-logo__container">
-				<a href="/home" >
+				<router-link to="/home" >
 					<h1>
 						Kibby
 					</h1>
-				</a>
+				</router-link>
 			</div>
 
 			<!-- Icon  -->
@@ -49,11 +49,15 @@
 					</v-list>
 				</v-menu>
 
-				<v-badge dot color="red" overlap offset-x="18" offset-y="16">
+				<v-badge v-if="carts.length > 0"  dot color="red" overlap offset-x="18" offset-y="16">
 					<v-btn icon color="white" @click="toProductCart">
 						<v-icon>mdi-cart-outline</v-icon>
 					</v-btn>
 				</v-badge>
+
+				<v-btn v-else icon color="white" @click="toProductCart">
+					<v-icon>mdi-cart-outline</v-icon>
+				</v-btn>
 			</div>	
 
 		</v-app-bar>
@@ -83,17 +87,22 @@ export default {
 
 	methods: {
 		toProfile(){
-			this.$router.push('profile')
+			this.$router.push('/profile')
 		},
 		toProductCart(){
-			this.$router.push('cart')
+			this.$router.push('/cart')
 		},
-		
 		onLogout(){
 			this.$store.dispatch('logout')
 		}
 
 	},
+
+	computed: {
+		carts(){
+			return this.$store.getters.carts
+		}
+	}
 
 };
 </script>
