@@ -65,7 +65,6 @@
 									dense
 									outlined
 									v-model="userInfo.gender"
-									
 								></v-select>
 							</v-col>
 						</v-row>
@@ -277,8 +276,6 @@ export default {
 			}
 			return true
 		}
-		
-
 	},
 };
 </script>
