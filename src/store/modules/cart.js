@@ -19,6 +19,9 @@ const mutations = {
 	removeCart(state, index) {
 		state.carts.splice(index, 1)
 	},
+	clearCart(state, index) {
+		state.carts = []
+	},
 	// setProduct(state, product) {
 	// 	state.product = product;
 	// },
@@ -82,6 +85,23 @@ const actions = {
 		let cartItem = JSON.parse(cart)
 		// console.log(b)
 		commit('setCart', cartItem);
+	},
+
+	clearCart({ commit } ) {
+		let emptyCart = []
+		commit('setCart', emptyCart)
+		localStorage.removeItem("cart");
+	},
+
+	updateCart({ commit, dispatch }, index) {
+		if(index === -1){
+			dispatch('clearCart')
+		} else {
+			let currentCart = state.carts
+		currentCart.splice(index, 1);
+		commit('setCart', currentCart)
+		localStorage.setItem("cart", JSON.stringify(currentCart));
+		}
 	}
 };
 

@@ -1,4 +1,5 @@
 import axios from "../../api/axios.js";
+import axiosOrder from "../../api/axios-order.js";
 
 import products from "../../assets/products.json";
 
@@ -6,6 +7,7 @@ import products from "../../assets/products.json";
 const state = {
 	products: [],
 	product: {},
+	payment: null
 };
 
 // mutate state
@@ -16,6 +18,12 @@ const mutations = {
 	setProduct(state, product) {
 		state.product = product;
 	},
+	setPayment(state, data) {
+		state.payment = data;
+	},
+	removePayment(state){
+		state.payment = null
+	}
 };
 
 // action -> define app data logic
@@ -40,6 +48,7 @@ const actions = {
 			commit("setProducts", item);
 		});
 	},
+
 	getProduct({ commit }, productID) {
 		// let array = products.products.filter(
 		// 	product => {
@@ -47,7 +56,6 @@ const actions = {
 		// 	})
 		// commit('setProduct', array[0])
 		axios.get(`/product/${productID}`).then((res) => {
-
 			let item = res.data;
 			item.image === null
 				? item.image = []
@@ -55,6 +63,53 @@ const actions = {
 			commit("setProduct", item);
 		});
 	},
+
+	sendOrder({ commit }, orderData) {
+		console.log(orderData)
+
+		axiosOrder.post('/order', {
+			...orderData
+		}).then((res) => {
+			console.log(res)
+			commit('setPayment', res.data)
+		});
+	},
+
+	removePayment({ commit }) {
+		commit('removePayment')
+	},
+
+	updateOrder({ commit,dispatch }, orderData) {
+		if(orderData.paymentId){
+			axiosOrder.put('/order', {
+			id: orderData.id,
+			status: orderData.status,
+			trackingNumber: orderData.trackingStatus
+		}).then((res) => {
+			dispatch('updateCart', orderData.deletedIndex)
+		});
+		}
+
+		if(!orderData.paymentId){
+			axiosOrder.put('/order', {
+			id: orderData.id,
+			status: orderData.status,
+		}).then((res) => {
+			dispatch('updateCart', orderData.deletedIndex)
+		});
+		}
+		
+	},
+
+	// charge({ commit }, orderData) {
+	// 	axiosOrder.post('/order', {
+	// 		...orderData
+	// 	}).then((res) => {
+	// 		console.log(res)
+	// 		commit('setPayment', res.data)
+	// 	});
+	// },
+
 };
 
 // getters return requested data
@@ -66,6 +121,10 @@ const getters = {
 	product(state) {
 		return state.product;
 	},
+	payment(state) {
+		return state.payment;
+	},
+	
 	// get assignment list -> assignment menu
 };
 

@@ -1,11 +1,12 @@
 import axios from "../../api/axios-auth.js";
 import router from "../../router/index";
-import userRole from "../../assets/user-role.js";
+import axiosOrder from "../../api/axios-order.js";
+
 
 const state = {
 	idToken: null,
 	authorizedUser: null,
-	userRole: null,
+	userOrder: null,
 };
 
 const mutations = {
@@ -24,8 +25,8 @@ const mutations = {
 		state.userRole = null;
 		// state.userId = null
 	},
-	setUserRole(state, role) {
-		state.userRole = role;
+	setOrder(state, orders) {
+		state.userOrder = orders;
 	},
 };
 
@@ -170,6 +171,22 @@ const actions = {
 		//   .then(res => console.log(res))
 		//   .catch(error => console.log(error))
 	},
+	getUserOrder({ commit }, userData) {
+		axiosOrder
+			// .get(`/orders/${userData.id}`,)
+			.get(`/orderByUser/${userData.id}`,)
+			.then((res) => {
+				commit('setOrder', res.data)
+			})
+			.catch((err) => {
+				alert("fail to get order");
+			});
+
+		// Store on backend / example below is Firebase
+		// axios.post('/users.json' + '?auth=' + state.idToken, userData)
+		//   .then(res => console.log(res))
+		//   .catch(error => console.log(error))
+	},
 };
 
 const getters = {
@@ -181,9 +198,9 @@ const getters = {
 	isAuthenticated(state) {
 		return state.idToken !== null;
 	},
-	userRole(state) {
-		return state.userRole;
-	},
+	userOrder(state) {
+		return state.userOrder;
+	}
 };
 
 export default {

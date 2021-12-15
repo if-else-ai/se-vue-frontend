@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: "product",
+  name: "product-card",
   props: ["product"],
   data: () => ({
     failedImage: 'https://cdn.shopify.com/s/files/1/0335/2087/7700/products/gmk_olivia_plusplus_keyboard_no1rev2wkl_ortho_top_vertical.jpg?v=1601032933',

@@ -13,7 +13,7 @@
 				</div>
 				<!-- Cart Item -->
 				<div
-					v-for="(item, itemIndex) in cartItem"
+					v-for="(item, itemIndex) in carts"
 					:key="itemIndex"
 					class="mb-6"
 				>
@@ -82,6 +82,27 @@
 			</v-card>
 			<EmptyCart v-else />
 		</v-card>
+		<div v-if="payment">
+			<v-dialog v-model="dialog" width="500" persistent>
+				<v-card>
+					<v-card-title class="text-h5 blue darken-1 white--text ">
+						Payment
+					</v-card-title>
+					<v-img src="../assets/image/qrcode_test.svg" />
+					<v-divider></v-divider>
+
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn color="error" raised @click="dialog = false; onCancelOrder()">
+							Cancel Order
+						</v-btn>
+						<v-btn color="success"  raised @click="dialog = false; onMarkAsPaid()">
+							Mark As Paid
+						</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-dialog>
+		</div>
 	</v-container>
 </template>
 
@@ -126,13 +147,11 @@
 </style>
 
 <script>
-import SummaryCart from "./SummaryCart.vue";
 import EmptyCart from "./EmptyCart.vue";
 
 export default {
 	name: "Cart",
 	components: {
-		SummaryCart,
 		EmptyCart,
 	},
 
@@ -142,9 +161,14 @@ export default {
 			{ title: "remove", icon: "mdi-minus" },
 		],
 		cartItem: [],
+		dialog: false,
+		paymentSlip: null,
+		deleteCart: 0,
 	}),
 
-	created() {},
+	created() {
+		console.log(this.$store.getters.payment)
+	},
 
 	methods: {
 		// add product
@@ -180,15 +204,18 @@ export default {
 		// 	this.$store.dispatch("removeItem",items);
 		// },
 		checkout(index) {
-			let userData = this.$store.getters.authorizedUser
-			if(!this.$store.getters.isAuthenticated){
-				alert('กรุณาล๊อกอิน')
-				this.$router.push('login')
-			}
-			else if(userData.name.length === 0 || userData.telNo.length !== 10 || userData.address.length === 0){
-				console.log(userData)
-				alert('กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร')
-				this.$router.push('profile')
+			let userData = this.$store.getters.authorizedUser;
+			if (!this.$store.getters.isAuthenticated) {
+				alert("กรุณาล๊อกอิน");
+				this.$router.push("login");
+			} else if (
+				userData.name.length === 0 ||
+				userData.telNo.length !== 10 ||
+				userData.address.length === 0
+			) {
+				console.log(userData);
+				alert("กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร");
+				this.$router.push("profile");
 			}
 			// console.log(this.cartItem[index]);
 			let product = this.cartItem[index];
@@ -215,18 +242,22 @@ export default {
 					telNo: userData.telNo,
 				},
 			};
-			console.log(formData);
+			this.deleteCart = index
+			this.$store.dispatch("sendOrder", formData);
 		},
 		checkOutAll(index) {
-			let userData = this.$store.getters.authorizedUser
-			if(!this.$store.getters.isAuthenticated){
-				alert('กรุณาล๊อกอิน')
-				this.$router.push('login')
-			}
-			else if(userData.name.length === 0 || userData.telNo.length !== 10 || userData.address.length === 0){
-				console.log(userData)
-				alert('กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร')
-				this.$router.push('profile')
+			let userData = this.$store.getters.authorizedUser;
+			if (!this.$store.getters.isAuthenticated) {
+				alert("กรุณาล๊อกอิน");
+				this.$router.push("login");
+			} else if (
+				userData.name.length === 0 ||
+				userData.telNo.length !== 10 ||
+				userData.address.length === 0
+			) {
+				console.log(userData);
+				alert("กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร");
+				this.$router.push("profile");
 			}
 			// console.log(this.cartItem[index]);
 			let product = this.cartItem[index];
@@ -255,14 +286,35 @@ export default {
 			};
 			let b = this.cartItem.map((item) => {
 				let price = item.totalPrice;
-				return price
+				return price;
 			});
-			formData.detail.totalPrice = Number(b.reduce((a,b) => {
-				return a + b
-			}, 0).toFixed(2))
-			
-			console.log(formData);
+			formData.detail.totalPrice = Number(
+				b
+					.reduce((a, b) => {
+						return a + b;
+					}, 0)
+					.toFixed(2)
+			);
+			this.deleteCart = -1
+			this.$store.dispatch("sendOrder", formData);
 		},
+		onMarkAsPaid(){
+			let id = this.paymentSlip.id
+			let status = 'Paid'
+			let paymentId = this.paymentSlip.payment.id
+			console.log(this.deleteCart)
+			this.$store.dispatch('updateOrder', {id: id, status: status, paymentId: paymentId, deletedIndex: this.deleteCart})
+			this.$store.dispatch('removePayment')
+			this.paymentSlip = null
+		},
+		onCancel(){
+			let id = this.paymentSlip.id
+			let status = 'Cancelled'
+			console.log(this.deleteCart)
+			this.$store.dispatch('updateOrder', {id: id, status: status, deletedIndex: this.deleteCart})
+			this.$store.dispatch('removePayment')
+			this.paymentSlip = null
+		}
 	},
 	computed: {
 		carts() {
@@ -279,6 +331,21 @@ export default {
 			}
 
 			return this.$store.getters.carts;
+		},
+
+		payment() {
+			let payment = this.$store.getters.payment
+			if(this.paymentSlip === null && payment){
+				console.log(payment)
+				this.paymentSlip = payment
+				console.log('if', this.paymentSlip)
+				this.dialog = true
+			}
+			if(this.paymentSlip === null){
+				this.dialog = false
+			}
+
+			return this.$store.getters.payment;
 		},
 
 		// price() {

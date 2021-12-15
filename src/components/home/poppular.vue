@@ -3,7 +3,7 @@
     <h2>MOST POPULAR PRODUCTS</h2>
 
     <section class="products__container" v-if="products.length">
-      <Product
+      <ProductCard
         v-for="product in products"
         :key="product.productID"
         :product="product"
@@ -27,10 +27,10 @@
 
 
 <script>
-import Product from "../product-card.vue";
+import ProductCard from "../product-card.vue";
 
 export default {
-  components: { Product },
+  components: { ProductCard },
   data: () => ({}),
   computed: {
     // selectedCategory(){

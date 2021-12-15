@@ -245,6 +245,7 @@
         <v-card class="pl-4" elevation="4" width="1100" height="400">
           <v-card-title class="ml-2"> ประวัติการสั่งซื้อ</v-card-title>
           <v-divider class="mx-4"></v-divider>
+          <OrderCard :order="order" /> 
           <v-card> </v-card>
         </v-card>
       </v-card>
@@ -253,7 +254,12 @@
 </template>
 
 <script>
+import OrderCard from '../components/order-card.vue'
+
 export default {
+  components: {
+    OrderCard
+  },
   data: () => ({
     menuList: [
       { title: "Account", icon: "mdi-account" },
@@ -300,6 +306,7 @@ export default {
 
   created() {
     this.oldUserInfo = this.$store.getters.authorizedUser
+    this.$store.dispatch('getUserOrder', {id: this.oldUserInfo.id})
     // this.oldUserInfo = {
     //   name: "John",
     //   gender: "ชาย",
@@ -347,10 +354,19 @@ export default {
       }
       return true;
     },
+    order(){
+      let order = this.$store.getters.userOrder
+      console.log('inorder', order)
+      order = {
+        
+      }
+      return order
+    },
     // user() {
-    //   console.log(1244,this.$store.getters.authorizedUser)
     //   this.userInfo = this.$store.getters.authorizedUser
     //   console.log(this.userInfo)
+    //   this.$store.dispatch('getUserOrder', {id: this.userInfor.userId})
+
     //   return this.$store.getters.authorizedUser
     // }
     

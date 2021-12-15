@@ -37,7 +37,7 @@
     </div>
 
     <section class="products__container" v-if="filteredProduct.length > 0">
-      <Product
+      <ProductCard
         v-for="product in filteredProduct"
         :key="product.id"
         :product="product"
@@ -104,10 +104,10 @@
 
 <script>
 import Tabs from "@/components/tabs.vue";
-import Product from "../components/product-card.vue";
+import ProductCard from "../components/product-card.vue";
 
 export default {
-  components: { Tabs, Product },
+  components: { Tabs, ProductCard },
   data: () => ({
     filterItem: [
       {
