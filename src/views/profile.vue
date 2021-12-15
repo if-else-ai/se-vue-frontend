@@ -154,12 +154,12 @@
               </v-col>
             </v-row>
 
-            <v-row>
+            <v-row class="pb-5">
               <v-col cols="2"></v-col>
               <v-col class="ml-5" cols="2">
                 <v-btn
                   color="blue"
-                  class="white--text"
+                  class="white--text "
                   :disabled="checkAccount"
                   @click="updateUser"
                 >
@@ -169,7 +169,7 @@
             </v-row>
           </div>
         </v-card>
-        <v-card elevation="8" width="1100" height="400">
+        <v-card elevation="8" width="1100" height="375">
           <v-card-title class="ml-4"> จัดการรหัสผ่าน</v-card-title>
           <v-divider class="mx-4"></v-divider>
 
