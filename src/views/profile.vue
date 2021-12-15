@@ -245,10 +245,10 @@
         <v-card class="pl-4" elevation="4" width="1100" >
           <v-card-title class="ml-2"> ประวัติการสั่งซื้อ</v-card-title>
           <v-divider class="mx-4 mb-4"></v-divider>
-          <div v-if="order">
+          <div v-if="order" class="pb-5">
             <OrderCard v-for="(item, index) in order" :key="index" :order="item"  /> 
           </div>
-          <v-card> </v-card>
+          
         </v-card>
       </v-card>
     </div>
