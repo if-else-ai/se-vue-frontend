@@ -15,14 +15,9 @@
 	z-index: 5;
 }
 
-.nav-bar__items .v-toolbar__content {
+.nav-bar__items div {
 	display: flex;
 	justify-content: space-between !important;
-}
-
-.v-toolbar__content, .v-toolbar__extension {
-	align-items: center;
-	position: relative;
 }
 
 .nav-logo__container {
@@ -39,7 +34,6 @@
 .nav-logo__container a h1:first-letter {
 	font-style: italic;
 }
-
 
 .nav-menu {
 	display: flex;
