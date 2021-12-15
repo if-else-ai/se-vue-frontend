@@ -74,6 +74,9 @@
 						v-model="selectedKeyboard"
 					>
 					</v-autocomplete>
+					<div v-if="selectedKeyboard" class="option__price">
+						{{ `${selectedKeyboard.detail.price} $` }}
+					</div>
 				</div>
 
 				<v-divider class="custom-input__bar"></v-divider>
@@ -88,6 +91,9 @@
 						v-model="selectedSwitch"
 					>
 					</v-autocomplete>
+					<div v-if="selectedSwitch" class="option__price">
+						{{ `${selectedSwitch.detail.price * 80} $` }}
+					</div>
 				</div>
 
 				<div class="custom-input__container">
@@ -100,6 +106,9 @@
 						v-model="selectedKeycap"
 					>
 					</v-autocomplete>
+					<div v-if="selectedKeycap" class="option__price">
+						{{ `${selectedKeycap.detail.price} $` }}
+					</div>
 				</div>
 
 				<div class="product__add mt-3">
@@ -188,35 +197,34 @@ export default {
 			let formData;
 			if (keyboard) {
 				formData = {
-                    id: keyboard.id,
+					id: keyboard.id,
 					name: keyboard.name,
 					category: "Customize",
 					quantity: this.quantity,
 					price: keyboard.price,
 					option: [],
 					totalPrice: this.computedPrice,
-                    image: keyboard.image
+					image: keyboard.image,
 				};
 				if (keycap) {
 					let keycapObject = {
-					  name: keycap.category,
-					  select: keycap.name ,
-					  priceAdded: keycap.price
-					}
-                    formData.option.push(keycapObject)
+						name: keycap.category,
+						select: keycap.name,
+						priceAdded: keycap.price,
+					};
+					formData.option.push(keycapObject);
 				}
-                if(switches) {
-                    let switchObject = {
-					  name: switches.category,
-					  select: switches.name + ' * 80',
-					  priceAdded: switches.price
-					}
-                    formData.option.push(switchObject)
-                }
+				if (switches) {
+					let switchObject = {
+						name: switches.category,
+						select: switches.name + " * 80",
+						priceAdded: switches.price,
+					};
+					formData.option.push(switchObject);
+				}
 			}
 
-            this.$store.dispatch('addCart', formData)
-
+			this.$store.dispatch("addCart", formData);
 		},
 
 		onChangeTab(tab) {
@@ -289,6 +297,7 @@ export default {
 				this.currentImage = this.selectedKeycap.detail.image[0];
 				this.selectedTab = 2;
 			}
+			console.log(this.selectedSwitch);
 
 			price =
 				(keyboardPrice + switchPrice * 80 + keycapPrice) *
@@ -367,6 +376,10 @@ export default {
 </script>
 
 <style scoped>
+.option__price {
+	color: rgb(0, 141, 35);
+}
+
 .blank-customize__container {
 	display: flex;
 	align-items: center;
