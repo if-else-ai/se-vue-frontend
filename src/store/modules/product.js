@@ -50,6 +50,7 @@ const actions = {
 			// 				: item.image,
 			// 	};
 			// });
+			console.log(item)
 			
 			commit("setProducts", item);
 		});
