@@ -53,15 +53,6 @@
 export default {
 	name: "order-card",
 	props: ["order"],
-	data: () => ({
-		failedImage:
-			"https://cdn.shopify.com/s/files/1/0335/2087/7700/products/gmk_olivia_plusplus_keyboard_no1rev2wkl_ortho_top_vertical.jpg?v=1601032933",
-		failedImage2: "https://www.oliviaplus.plus/renders/0.jpg",
-	}),
-	created() {
-		console.log(this.order);
-		console.log(111);
-	},
 };
 </script>
 

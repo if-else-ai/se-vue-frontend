@@ -22,9 +22,6 @@ const mutations = {
 	clearCart(state, index) {
 		state.carts = []
 	},
-	// setProduct(state, product) {
-	// 	state.product = product;
-	// },
 };	
 
 // action -> define app data logic
@@ -36,11 +33,6 @@ const actions = {
 	},
 	addCart({ commit, state }, item) {
 		commit('addCart', item)
-        // let expiresIn = 3600;
-        // const now = new Date();
-        // const expirationDate = new Date(
-        //     now.getTime() + expiresIn * 1000
-        // );
 		
 		let previousCart = localStorage.getItem('cart')
 		if(previousCart){
@@ -51,17 +43,11 @@ const actions = {
 		} else {
         	localStorage.setItem("cart", JSON.stringify([item]));
 		}
-        // localStorage.setItem("cartExpiration", expirationDate);
         
 	},
 
 	removeCart({ commit }, index) {
 		commit('removeCart', index)
-        // let expiresIn = 3600;
-        // const now = new Date();
-        // const expirationDate = new Date(
-        //     now.getTime() + expiresIn * 1000
-        // );
 		
 		let removedCart = state.carts
 		removedCart = JSON.stringify(removedCart)
@@ -74,16 +60,7 @@ const actions = {
 		if (!cart) {
 			return;
 		}
-		// Check if token is expired
-		// const expirationDate = new Date(localStorage.getItem("cartExpiration"));
-		// const now = new Date();
-		// if (now >= expirationDate) {
-		// 	return;
-		// }
-		// Authorize user
-		// const userId = localStorage.getItem('userId')
 		let cartItem = JSON.parse(cart)
-		// console.log(b)
 		commit('setCart', cartItem);
 	},
 

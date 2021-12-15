@@ -2,7 +2,6 @@ import axios from "../../api/axios-auth.js";
 import router from "../../router/index";
 import axiosOrder from "../../api/axios-order.js";
 
-
 const state = {
 	idToken: null,
 	authorizedUser: null,
@@ -39,7 +38,7 @@ const actions = {
 		}, expirationTime * 1000);
 	},
 
-	// admin login
+	// user login
 	login({ commit, dispatch, state }, authData) {
 		axios
 			.post("/login", {
@@ -57,20 +56,8 @@ const actions = {
 				const expirationDate = new Date(
 					now.getTime() + res.data.expiresIn * 1000
 				);
-				// axios
-				// 	.get("api/admin-role", { headers: {
-				//         'Authorization' : 'Bearer ' + res.data.token
-				//     }})
-				//     .then((response) => {
-				// 		let data = response.data
-				// 		let role = userRole[data.role]
-				// 		commit('setUserRole', role)
-				// 		localStorage.setItem("userRole", role);
-				//     })
-
 				axios.get(`/users/${res.data.id}`).then((res) => {
 					dispatch("storeUser", res.data);
-					console.log(state);
 				});
 
 				localStorage.setItem("token", res.data.id);
@@ -83,22 +70,6 @@ const actions = {
 			});
 	},
 
-	// login({ commit, dispatch }, authData) {
-	//     commit("authUser", {
-	//         token: "token",
-	//         // userId: res.data.localId
-	//     });
-	//     let expiresIn = 3600;
-	//     const now = new Date();
-	//     const expirationDate = new Date(
-	//         now.getTime() + expiresIn * 1000
-	//     );
-	//     localStorage.setItem("token", "token");
-	//     localStorage.setItem("expirationDate", expirationDate);
-	//     dispatch("storeUser", authData);
-	//     dispatch("setLogoutTimer", expiresIn);
-	//     router.replace("/home");
-	// },
 	// re-login when token is not expired
 	tryAutoLogin({ commit }) {
 		// Check token from localStorage
@@ -122,9 +93,6 @@ const actions = {
 		commit("authUser", {
 			token: token,
 		});
-		// commit("storeUser", {
-
-		// })
 	},
 	// Log user out and Remove token in localStorage
 	logout({ commit, state }) {
@@ -132,19 +100,20 @@ const actions = {
 		localStorage.removeItem("expirationDate");
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
-		console.log(state);
 		router.replace("/login");
 	},
-	// Store to backend
-	// Currently unavailable
 	storeUser({ commit }, userData) {
 		let json = JSON.stringify(userData);
 		localStorage.setItem("user", json);
 		commit("storeUser", userData);
-		// Store on backend / example below is Firebase
-		// axios.post('/users.json' + '?auth=' + state.idToken, userData)
-		//   .then(res => console.log(res))
-		//   .catch(error => console.log(error))
+	},
+	register({ commit }, userData) {
+		axios
+			.post("/register", {
+				email: userData.email,
+				password: userData.password,
+			})
+			.then((res) => alert("Register Successfully"))
 	},
 
 	saveUser({ commit }, userData) {
@@ -155,7 +124,7 @@ const actions = {
 				telNo: userData.telNo,
 				address: userData.address,
 				dateOfBirth: userData.dateOfBirth,
-				gender: userData.gender
+				gender: userData.gender,
 			})
 			.then((res) => {
 				let json = JSON.stringify(userData);
@@ -166,26 +135,17 @@ const actions = {
 				alert("fail store user");
 			});
 
-		// Store on backend / example below is Firebase
-		// axios.post('/users.json' + '?auth=' + state.idToken, userData)
-		//   .then(res => console.log(res))
-		//   .catch(error => console.log(error))
 	},
 	getUserOrder({ commit }, userData) {
 		axiosOrder
 			// .get(`/orders/${userData.id}`,)
-			.get(`/orderByUser/${userData.id}`,)
+			.get(`/orderByUser/${userData.id}`)
 			.then((res) => {
-				commit('setOrder', res.data)
+				commit("setOrder", res.data);
 			})
 			.catch((err) => {
 				alert("fail to get order");
 			});
-
-		// Store on backend / example below is Firebase
-		// axios.post('/users.json' + '?auth=' + state.idToken, userData)
-		//   .then(res => console.log(res))
-		//   .catch(error => console.log(error))
 	},
 };
 
@@ -200,7 +160,7 @@ const getters = {
 	},
 	userOrder(state) {
 		return state.userOrder;
-	}
+	},
 };
 
 export default {

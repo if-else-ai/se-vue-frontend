@@ -1,7 +1,6 @@
 <template>
 	<v-app>
 		<Navigation
-			v-if="currentRouteName !== 'login'"
 			:navTitle="currentRouteName"
 		/>
 		<v-main>

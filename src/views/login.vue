@@ -9,7 +9,7 @@
 								? stateObj.register.name
 								: stateObj.login.name
 						}}
-						form</v-toolbar-title
+						</v-toolbar-title
 					>
 				</v-toolbar>
 				<v-card-text>
@@ -93,9 +93,6 @@ export default {
 	methods: {
 		login() {
 			const { email, password } = this;
-			// this.$router.replace({
-			// 	path: '/home',
-			// });
 			this.$store.dispatch('login', {email: email, password: password})
 		},
 		register() {
@@ -103,6 +100,7 @@ export default {
 				this.isRegister = false;
 				this.errorMessage = "";
 				this.$refs.form.reset();
+				this.$store.dispatch('register', {email: this.email,password: this.password})
 			} else {
 				this.errorMessage = "password did not match";
 			}

@@ -295,7 +295,6 @@ export default {
 
     changeMenu(title) {
       this.selectedMenu = title;
-      // console.log(this.selectedMenu);
     },
     updateUser(){
       this.userInfo.dateOfBirth = new Date (this.userInfo.dateOfBirth).toISOString()
@@ -309,14 +308,6 @@ export default {
   created() {
     this.oldUserInfo = this.$store.getters.authorizedUser
     this.$store.dispatch('getUserOrder', {id: this.oldUserInfo.id})
-    // this.oldUserInfo = {
-    //   name: "John",
-    //   gender: "ชาย",
-    //   date: "2021-02-03",
-    //   address: "1234",
-    //   email: "john@email.com",
-    //   telNo: "0940420423",
-    // };
     this.userInfo = {
       id: this.oldUserInfo.id,
       name: this.oldUserInfo.name,
@@ -360,14 +351,6 @@ export default {
       let order = this.$store.getters.userOrder
       return order
     },
-    // user() {
-    //   this.userInfo = this.$store.getters.authorizedUser
-    //   console.log(this.userInfo)
-    //   this.$store.dispatch('getUserOrder', {id: this.userInfor.userId})
-
-    //   return this.$store.getters.authorizedUser
-    // }
-    
   },
 };
 </script>

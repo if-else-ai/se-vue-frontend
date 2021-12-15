@@ -184,9 +184,6 @@ export default {
 			let keycap = this.selectedKeycap.detail
 				? this.selectedKeycap.detail
 				: null;
-			console.log(keyboard);
-			console.log(switches);
-			console.log(keycap);
 
 			let formData;
 			if (keyboard) {
@@ -217,7 +214,6 @@ export default {
                     formData.option.push(switchObject)
                 }
 			}
-            console.log(1,formData)
 
             this.$store.dispatch('addCart', formData)
 

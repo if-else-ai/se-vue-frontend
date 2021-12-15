@@ -50,7 +50,7 @@
 										{{ `${option.name}: ${option.select}` }}
 									</p>
 								</div>
-								
+
 							</div>
 							<div class="action-button d-flex align-center">
 								<div class="d-flex flex-row">
@@ -184,7 +184,6 @@ export default {
 	}),
 
 	created() {
-		console.log(this.$store.getters.payment);
 	},
 
 	methods: {
@@ -198,7 +197,6 @@ export default {
 			this.cartItem[index].quantity += 1;
 			let quantity = this.cartItem[index].quantity;
 			let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit;
-			// console.log(priceAddedPerUnit);
 			this.cartItem[index].totalPrice = quantity * priceAddedPerUnit;
 		},
 		// decrease product
@@ -230,11 +228,9 @@ export default {
 				userData.telNo.length !== 10 ||
 				userData.address.length === 0
 			) {
-				console.log(userData);
 				alert("กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร");
 				this.$router.push("profile");
 			}
-			// console.log(this.cartItem[index]);
 			let product = this.cartItem[index];
 			let formData = {
 				userId: userData.id,
@@ -274,11 +270,9 @@ export default {
 				userData.telNo.length !== 10 ||
 				userData.address.length === 0
 			) {
-				console.log(userData);
 				alert("กรุณาใส่ข้อมูล ชื่อ ที่อยู่ เบอร์โทร");
 				this.$router.push("profile");
 			}
-			// console.log(this.cartItem[index]);
 			let product = this.cartItem[index];
 			let formData = {
 				userId: userData.id,
@@ -322,7 +316,6 @@ export default {
 			let id = this.paymentSlip.id;
 			let status = "Paid";
 			let paymentId = this.paymentSlip.payment.id;
-			console.log(this.deleteCart);
 			this.$store.dispatch("updateOrder", {
 				id: id,
 				status: status,
@@ -335,7 +328,6 @@ export default {
 		onCancel() {
 			let id = this.paymentSlip.id;
 			let status = "Cancelled";
-			console.log(this.deleteCart);
 			this.$store.dispatch("updateOrder", {
 				id: id,
 				status: status,
@@ -356,7 +348,6 @@ export default {
 					};
 				});
 				this.cartItem = data;
-				// console.log(this.cartItem);
 			}
 
 			return this.$store.getters.carts;
@@ -365,9 +356,7 @@ export default {
 		payment() {
 			let payment = this.$store.getters.payment;
 			if (this.paymentSlip === null && payment) {
-				console.log(payment);
 				this.paymentSlip = payment;
-				console.log("if", this.paymentSlip);
 				this.dialog = true;
 			}
 			if (this.paymentSlip === null) {

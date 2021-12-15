@@ -187,7 +187,6 @@ export default {
 
     // add to cart
     addToCart() {
-      // console.log(23,this.option.option)
       let formData = {
         id: this.option.id,
         name: this.option.name,
@@ -200,7 +199,6 @@ export default {
           return element.src
         })
       };
-      console.log(formData)
       this.$store.dispatch('addCart', formData)
     },
   },
@@ -214,7 +212,6 @@ export default {
       // Price = (BasePrice + AddedPrice) * Quantity
       this.computedPrice = (this.option.price + addedPrice) * this.quantity;
       }
-      // console.log(this.option)
       return (this.option.price + addedPrice) * this.quantity;
     },
 
