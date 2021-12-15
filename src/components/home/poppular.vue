@@ -58,6 +58,9 @@ export default {
   display: block;
   text-align: center;
   color: rgb(0, 162, 255);
+      font-family: interstate,sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .products__container {
