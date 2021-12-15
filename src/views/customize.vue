@@ -37,7 +37,7 @@
         />
         <v-card
           class="blank-customize__container"
-          v-if="!selectedKeyboard && !selectedSwitch && !selectedKeycap"
+          v-if="!selectedKeyboard || !selectedSwitch || !selectedKeycap"
         >
           <v-img class="empty__image" src="../assets/image/empty-card.jpg">
           </v-img>
