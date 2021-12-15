@@ -142,6 +142,7 @@ const actions = {
 			// .get(`/orders/${userData.id}`,)
 			.get(`/orderByUser/${userData.id}`)
 			.then((res) => {
+				console.log(res.data)
 				commit("setOrder", res.data);
 			})
 			.catch((err) => {

@@ -1,7 +1,7 @@
 <template>
 	<transition appear>
 		<v-card class="product__container my-6" flat outlined>
-			<v-card  flat>
+			<v-card flat>
 				<!-- Main -->
 				<v-card-title class="d-flex flex-row justify-space-between ">
 					<div>Order#{{ order.id }}</div>
@@ -11,7 +11,7 @@
 				<!-- Product -->
 				<v-card
 					class="product-order__containter"
-					v-for="(product, index) in order.detail.product"
+					v-for="(product, index) in priceAddedProduct"
 					:key="index"
 					flat
 				>
@@ -36,14 +36,19 @@
 								{{ `${option.name}: ${option.select}` }}
 							</p>
 							<p>
-								{{ `Price: ${product.price.toFixed(2)} $` }}
+								{{
+									`Price: (${product.price.toFixed(2)} + ${product.priceAdded} AddedPrice ) x ${
+										product.quantity
+									} `
+								}}
 							</p>
-							
 						</div>
 					</div>
 				</v-card>
 
-				<p class="order-total-price">{{`Total Price: ${order.detail.totalPrice.toFixed(2)} $`}}</p>
+				<p class="order-total-price">
+					{{ `Total Price: ${order.detail.totalPrice.toFixed(2)} $` }}
+				</p>
 			</v-card>
 		</v-card>
 	</transition>
@@ -53,6 +58,31 @@
 export default {
 	name: "order-card",
 	props: ["order"],
+	data: () => ({}),
+
+	computed: {
+		priceAddedProduct() {
+			let b = this.order.detail.product.map((order) => {
+				return order;
+			});
+			let priceAdded = 0;
+			let c = b.map((item) => {
+				priceAdded = 0;
+				item.option.forEach((el) => {
+					priceAdded += el.priceAdded;
+				});
+
+				return {
+					...item,
+					priceAdded: priceAdded,
+				};
+			});
+
+			console.log(c)
+			
+			return c
+		},
+	},
 };
 </script>
 
@@ -101,5 +131,4 @@ export default {
 	border-radius: 4px;
 	text-align: center;
 }
-
 </style>
