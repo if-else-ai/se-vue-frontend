@@ -15,10 +15,14 @@
 	z-index: 5;
 }
 
+.nav-bar__items .v-toolbar__content {
+	display: flex;
+	justify-content: space-between !important;
+}
+
 .v-toolbar__content, .v-toolbar__extension {
 	align-items: center;
 	position: relative;
-	justify-content: space-between;
 }
 
 .nav-logo__container {
