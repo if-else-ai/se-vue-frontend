@@ -77,8 +77,6 @@ export default {
 					priceAdded: priceAdded,
 				};
 			});
-
-			console.log(c)
 			
 			return c
 		},
