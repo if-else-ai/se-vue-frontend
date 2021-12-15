@@ -400,7 +400,7 @@ export default {
 }
 
 .blank-customize__container .empty__image {
-  width: 1px;
+  height: 550px;
 }
 
 .blank-title {
