@@ -67,7 +67,7 @@
 									</v-btn>
 								</div>
 								<div class="cart__price mx-2">
-									{{ `$ ${item.totalPrice}` }}
+									{{ `$ ${item.totalPrice.toFixed(2)}` }}
 								</div>
 								<v-btn
 									class="align-self-center mx-4"
