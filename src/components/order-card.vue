@@ -1,30 +1,50 @@
 <template>
 	<transition appear>
-		<v-card class="product__container" width="374" flat outlined>
-			<!-- Image Effect -->
-			<div class="image-wrapper">
-				<v-img
-					src="https://www.oliviaplus.plus/renders/0.jpg"
-					class="image"
-				/>
-			</div>
+		<v-card class="product__container my-6" flat outlined>
+			<v-card  flat>
+				<!-- Main -->
+				<v-card-title class="d-flex flex-row justify-space-between ">
+					<div>Order#{{ order.id }}</div>
+					<div>Status - {{ order.status }}</div>
+				</v-card-title>
+				<v-divider></v-divider>
+				<!-- Product -->
+				<v-card
+					class="product-order__containter"
+					v-for="(product, index) in order.detail.product"
+					:key="index"
+					flat
+				>
+					<v-card-title class="flex-title ">
+						{{ product.name }}
+					</v-card-title>
+					<v-divider />
 
-			<!-- end Image Effect -->
+					<div class="cart__content">
+						<v-img
+							class="order__image"
+							width="300"
+							height="200"
+							:src="product.image[0]"
+						/>
+						<div>
+							<p
+								v-for="(option, index) in product.option"
+								:key="index"
+								class="option-description"
+							>
+								{{ `${option.name}: ${option.select}` }}
+							</p>
+							<p>
+								{{ `Price: ${product.price} $` }}
+							</p>
+							
+						</div>
+					</div>
+				</v-card>
 
-			<!-- Product Name -->
-			<v-card-title class="product__title">{{
-				order.status
-			}}</v-card-title>
-			<v-divider></v-divider>
-			<!-- Product Price / Sold product -->
-			<!-- <v-row>
-        <v-col cols="auto" class="mr-auto price">
-          <p>฿{{ product.price }}</p>
-        </v-col>
-        <v-col cols="auto" class="selled">
-          <p>Available {{ product.quantity }}</p>
-        </v-col>
-      </v-row> -->
+				<p class="order-total-price">{{`Total Price: ${order.detail.totalPrice} $`}}</p>
+			</v-card>
 		</v-card>
 	</transition>
 </template>
@@ -38,101 +58,57 @@ export default {
 			"https://cdn.shopify.com/s/files/1/0335/2087/7700/products/gmk_olivia_plusplus_keyboard_no1rev2wkl_ortho_top_vertical.jpg?v=1601032933",
 		failedImage2: "https://www.oliviaplus.plus/renders/0.jpg",
 	}),
+	created() {
+		console.log(this.order);
+		console.log(111);
+	},
 };
 </script>
 
 <style scoped>
-.v-card__title.product__container {
-	align-items: center;
-	justify-content: center;
+.order-total-price {
+	text-align: right;
+	margin-right: 1rem;
+	color: rgb(46, 146, 33);
+}
+
+.product-order__containter {
+	border: 1px dashed rgb(131, 131, 131);
+	margin: 2rem;
+}
+.cart__content .order__image {
+	flex: none;
+}
+.cart__content {
 	display: flex;
-	flex-wrap: wrap;
-	font-size: 1.25rem;
-	font-weight: 500;
-	letter-spacing: 0.0125em;
-	line-height: 2rem;
-	word-break: break-all;
-	padding: 16px;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
 }
 
-.product__container {
-	margin: 20px;
-}
-.description p {
-	color: rgb(36, 36, 36);
-	height: 60px;
-}
-.price p {
-	color: rgb(0, 162, 255);
-	padding-top: 10px;
-	padding-left: 15px;
-}
-.selled p {
-	color: rgb(206, 206, 206);
-	padding-top: 10px;
-	padding-right: 15px;
+.option-description {
+	color: rgb(151, 151, 151);
 }
 
-/* hover start */
-.hovereffect {
-	height: 250;
-	overflow: hidden;
-	position: relative;
-	cursor: pointer;
-}
-
-.hovereffect .overlay {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	overflow: hidden;
-	/* top: 0;
-  left: 0; */
-	opacity: 0;
-	-webkit-transition: all 0.6s;
-	transition: all 0.6s;
-}
-
-.hovereffect img {
-	-webkit-transition: all 0.5s;
-	transition: all 0.5s;
-	padding: none;
-	margin: auto;
-	display: block;
-}
-
-.hovereffect:hover img {
-	-ms-transform: scale(1.1);
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
-}
-
-.hovereffect:hover .overlay {
-	opacity: 1;
-	/* filter: alpha(opacity=100); */
-}
-
-.image-wrapper img {
-	height: 250px;
-}
-
-/*change image product list*/
-.image-wrapper {
-	position: relative;
-	/* justify-items: auto; */
-	justify-content: center;
-}
-.image-hover {
-	position: absolute;
+.action-button {
 	margin-left: auto;
-	margin-right: auto;
-	top: 0;
-	left: 0;
-	right: 0;
-	opacity: 0;
-	transition: opacity 0.5s ease-out;
 }
-.hovereffect:hover .image-hover {
-	opacity: 1;
+.carts__container {
+	display: flex;
+	width: 1200px;
 }
+
+.order__image {
+	border: 1px solid rgb(156, 156, 156, 0.6);
+	margin: 12px;
+}
+
+.item__quantity {
+	width: 40px;
+	border: 2px solid gray;
+	border-radius: 4px;
+	text-align: center;
+}
+
 </style>

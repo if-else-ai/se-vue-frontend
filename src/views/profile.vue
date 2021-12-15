@@ -242,10 +242,12 @@
         width="1100"
         elevation="0"
       >
-        <v-card class="pl-4" elevation="4" width="1100" height="400">
+        <v-card class="pl-4" elevation="4" width="1100" >
           <v-card-title class="ml-2"> ประวัติการสั่งซื้อ</v-card-title>
-          <v-divider class="mx-4"></v-divider>
-          <OrderCard :order="order" /> 
+          <v-divider class="mx-4 mb-4"></v-divider>
+          <div v-if="order">
+            <OrderCard v-for="(item, index) in order" :key="index" :order="item"  /> 
+          </div>
           <v-card> </v-card>
         </v-card>
       </v-card>
@@ -356,10 +358,6 @@ export default {
     },
     order(){
       let order = this.$store.getters.userOrder
-      console.log('inorder', order)
-      order = {
-        
-      }
       return order
     },
     // user() {

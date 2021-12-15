@@ -8,10 +8,12 @@
 		<div class="product-container pt-4">
 			<v-card width="800">
 				<ProductImage
+          v-if="option.image"
 					:images="option.image"
 					:currentImage="currentImage"
 					@setImage="currentImage = $event"
 					@setImageSet="option.image = $event"
+          :key="option.id"
 				/>
 			</v-card>
 			<v-card
@@ -88,146 +90,14 @@
 		</v-card>
 
 		<!-- สินค้าแนะนำ -->
-		<v-card-text class="pa-0 pt-4 pb-15" tile outlined>
-      <p class="subtitle-1 font-weight-light pt-3 text-center">
-        YOU MIGHT ALSO LIKE
-      </p>
-      <v-divider></v-divider>
-      <div class="row text-center">
-        <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card>
-              <v-img
-                class="white--text align-end"
-                height="200px"
-                src="https://i.imgur.com/YazpFQt.jpg"
-              >
-                <v-card-title> Keyboard 1 </v-card-title>
-              </v-img>
-
-              <v-card-text class="text--primary text-center">
-                <div>line 1 sssssssssssss</div>
-                <div>line 2 dddddddddddd</div>
-              </v-card-text>
-
-              <div class="text-center">
-                <v-btn class="ma-2" outlined color="info"> Explore </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="200px"
-                src="https://i.imgur.com/YazpFQt.jpg"
-              >
-                <v-card-title> Keyboard 2 </v-card-title>
-              </v-img>
-
-              <v-card-text class="text--primary text-center">
-                <div>line 1</div>
-                <div>line 2222</div>
-              </v-card-text>
-
-              <div class="text-center">
-                <v-btn class="ma-2" outlined color="info"> Explore </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="200px"
-                src="https://i.imgur.com/YazpFQt.jpg"
-              >
-                <v-card-title>Keyboard 3 </v-card-title>
-              </v-img>
-
-              <v-card-text class="text--primary text-center">
-                <div>Upto 60% + Extra 10%</div>
-                <div>Jack & Jones, Levis</div>
-              </v-card-text>
-
-              <div class="text-center">
-                <v-btn class="ma-2" outlined color="info"> Explore </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="200px"
-                src="https://i.imgur.com/YazpFQt.jpg"
-              >
-                <v-card-title>Keyboard 4 </v-card-title>
-              </v-img>
-
-              <v-card-text class="text--primary text-center">
-                <div>Upto 60% + Extra 10%</div>
-                <div>Nike, Adidas, Puma</div>
-              </v-card-text>
-
-              <div class="text-center">
-                <v-btn class="ma-2" outlined color="info"> Explore </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="200px"
-                src="https://i.imgur.com/YazpFQt.jpg"
-              >
-                <v-card-title>Keyboard 5</v-card-title>
-              </v-img>
-
-              <v-card-text class="text--primary text-center">
-                <div>Upto 60% + Extra 10%</div>
-                <div>Nike, Adidas, Puma</div>
-              </v-card-text>
-
-              <div class="text-center">
-                <v-btn class="ma-2" outlined color="info"> Explore </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-12 text-center">
-          <v-hover v-slot:default="{ hover }" open-delay="200">
-            <v-card :elevation="hover ? 16 : 2">
-              <v-img
-                class="white--text align-end"
-                height="200px"
-                src="https://i.imgur.com/YazpFQt.jpg"
-              >
-                <v-card-title>Keyboard 6</v-card-title>
-              </v-img>
-
-              <v-card-text class="text--primary text-center">
-                <div>Upto 60% + Extra 10%</div>
-                <div>Nike, Adidas, Puma</div>
-              </v-card-text>
-
-              <div class="text-center">
-                <v-btn class="ma-2" outlined color="info"> Explore </v-btn>
-              </div>
-            </v-card>
-          </v-hover>
-        </div>
-      </div>
-    </v-card-text>
+    <div class="d-flex ">
+		<ProductCard
+        v-for="product in recommend"
+        :key="product.id"
+        :product="product"
+      />
+      
+    </div>
 	</v-container>
 </template>
 
@@ -236,21 +106,23 @@
 <script>
 import Tabs from "@/components/tabs.vue";
 import ProductImage from "@/components/product-image.vue";
+import ProductCard from "@/components/product-card.vue";
 
 export default {
   components: {
     Tabs,
     ProductImage,
+    ProductCard
   },
   data: () => ({
-    failedImageSet: [
-      {
-      	src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-      	active: true,
-      },
-      { src: "https://i.imgur.com/YazpFQt.jpg", active: false },
-    ],
-    failImage : 'https://i.imgur.com/YazpFQt.jpg',
+    // failedImageSet: [
+    //   {
+    //   	src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+    //   	active: true,
+    //   },
+    //   { src: "https://i.imgur.com/YazpFQt.jpg", active: false },
+    // ],
+    // failImage : 'https://i.imgur.com/YazpFQt.jpg',
     currentImage: "",
     option: [],
     tempProduct: null,
@@ -319,13 +191,16 @@ export default {
       let formData = {
         id: this.option.id,
         name: this.option.name,
-        category: this.tempProduct.category,
+        category: this.option.category,
         price: this.option.price,
         quantity: this.quantity,
         option: this.option.option,
         totalPrice: this.computedPrice,
-        image: this.tempProduct.image
+        image: this.option.image.map(element => {
+          return element.src
+        })
       };
+      console.log(formData)
       this.$store.dispatch('addCart', formData)
     },
   },
@@ -343,16 +218,25 @@ export default {
       return (this.option.price + addedPrice) * this.quantity;
     },
 
+    recommend() {
+      return (this.$store.getters.products).slice(0,4)
+    },
+
     product() {
       // Initialize Product
       let product = this.$store.getters.product;
       if (product.name && this.option.length === 0) {
         this.tempProduct = this.$store.getters.product;
-        product.image === null ? product.image = [] : product.image
+        product.image.length === 0 ? product.image = [
+          'https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png','https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png'
+        ] : product.image
+
         this.option = {
           id: product.id,
           name: product.name,
           price: product.price,
+          category: product.category,
+          quantity: this.quantity,
           option: product.option.map((option) => {
             return {
               name: option.name,
@@ -370,6 +254,32 @@ export default {
         this.currentImage = this.option.image[0].src;
       }
 
+     if(this.option.id !== product.id) {
+       product.image.length == 0 ? product.image = [
+          'https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png','https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png'
+        ] : product.image
+        this.option = {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          category: product.category,
+          quantity: this.quantity,
+          option: product.option.map((option) => {
+            return {
+              name: option.name,
+              select: option.list[0],
+              priceAdded: option.priceAdded[0],
+            };
+          }),
+          image: product.image.map((image, index) => {
+            return {
+              src: image,
+              active: index === 0 ? true : false,
+            };
+          }),
+        };
+        this.currentImage = this.option.image[0].src;
+      }
       return this.$store.getters.product;
     },
   },

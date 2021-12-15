@@ -23,6 +23,9 @@ const mutations = {
 	},
 	removePayment(state){
 		state.payment = null
+	},
+	removeProduct(state){
+		state.product = {}
 	}
 };
 
@@ -34,17 +37,20 @@ const actions = {
 
 		// store products in State
 		axios.get("/products").then((res) => {
-			// console.log(res.data)
 			let item = res.data;
-			item = item.map((item) => {
-				return {
-					...item,
-					image:
-						item.image === null
-							? []
-							: item.image,
-				};
-			});
+			item = item.filter( item => {
+				return (item.image !== null && item.image.length >= 2 )
+			})
+			// item = item.map((item) => {
+			// 	return {
+			// 		...item,
+			// 		image:
+			// 			item.image === null
+			// 				? []
+			// 				: item.image,
+			// 	};
+			// });
+			
 			commit("setProducts", item);
 		});
 	},
@@ -65,18 +71,20 @@ const actions = {
 	},
 
 	sendOrder({ commit }, orderData) {
-		console.log(orderData)
 
 		axiosOrder.post('/order', {
 			...orderData
 		}).then((res) => {
-			console.log(res)
 			commit('setPayment', res.data)
 		});
 	},
 
 	removePayment({ commit }) {
 		commit('removePayment')
+	},
+
+	removeProduct({ commit }) {
+		commit('removeProduct')
 	},
 
 	updateOrder({ commit,dispatch }, orderData) {
@@ -100,15 +108,6 @@ const actions = {
 		}
 		
 	},
-
-	// charge({ commit }, orderData) {
-	// 	axiosOrder.post('/order', {
-	// 		...orderData
-	// 	}).then((res) => {
-	// 		console.log(res)
-	// 		commit('setPayment', res.data)
-	// 	});
-	// },
 
 };
 

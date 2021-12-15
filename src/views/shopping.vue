@@ -82,7 +82,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   border-width: 1px;
   border-style: dashed;
   border-color: rgb(218, 218, 218);
@@ -129,6 +129,7 @@ export default {
     products() {
       return this.filteredProduct;
     },
+    
     categoryQuery() {
       this.category = this.$route.query.category;
 
@@ -144,12 +145,13 @@ export default {
         });
         this.filteredProduct = filteredProduct;
       }
-
       return this.$route.query.category;
     },
+
     image() {
       return this.$route.query.src;
     },
+
     productList() {
       // get product name and id
       let products = this.$store.getters.products;

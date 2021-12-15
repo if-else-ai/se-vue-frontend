@@ -13,7 +13,7 @@
 				</div>
 				<!-- Cart Item -->
 				<div
-					v-for="(item, itemIndex) in carts"
+					v-for="(item, itemIndex) in cartItem"
 					:key="itemIndex"
 					class="mb-6"
 				>
@@ -41,6 +41,7 @@
 										{{ `${item.category}: ${item.name}` }}
 									</p>
 								</div>
+
 								<div
 									v-for="(option, index) in item.option"
 									:key="index"
@@ -49,6 +50,7 @@
 										{{ `${option.name}: ${option.select}` }}
 									</p>
 								</div>
+								
 							</div>
 							<div class="action-button d-flex align-center">
 								<div class="d-flex flex-row">
@@ -93,10 +95,24 @@
 
 					<v-card-actions>
 						<v-spacer></v-spacer>
-						<v-btn color="error" raised @click="dialog = false; onCancelOrder()">
+						<v-btn
+							color="error"
+							raised
+							@click="
+								dialog = false;
+								onCancel();
+							"
+						>
 							Cancel Order
 						</v-btn>
-						<v-btn color="success"  raised @click="dialog = false; onMarkAsPaid()">
+						<v-btn
+							color="success"
+							raised
+							@click="
+								dialog = false;
+								onMarkAsPaid();
+							"
+						>
 							Mark As Paid
 						</v-btn>
 					</v-card-actions>
@@ -144,6 +160,7 @@
 .cart__price {
 	color: rgb(46, 146, 33);
 }
+
 </style>
 
 <script>
@@ -167,7 +184,7 @@ export default {
 	}),
 
 	created() {
-		console.log(this.$store.getters.payment)
+		console.log(this.$store.getters.payment);
 	},
 
 	methods: {
@@ -232,8 +249,10 @@ export default {
 							price: product.price,
 							quantity: product.quantity,
 							option: product.option,
+							image: [...product.image],
 						},
 					],
+
 					totalPrice: Number(product.totalPrice.toFixed(2)),
 				},
 				userDetail: {
@@ -242,7 +261,7 @@ export default {
 					telNo: userData.telNo,
 				},
 			};
-			this.deleteCart = index
+			this.deleteCart = index;
 			this.$store.dispatch("sendOrder", formData);
 		},
 		checkOutAll(index) {
@@ -274,6 +293,7 @@ export default {
 							price: item.price,
 							quantity: item.quantity,
 							option: item.option,
+							image: [...item.image]
 						};
 					}),
 					totalPrice: 0,
@@ -295,26 +315,35 @@ export default {
 					}, 0)
 					.toFixed(2)
 			);
-			this.deleteCart = -1
+			this.deleteCart = -1;
 			this.$store.dispatch("sendOrder", formData);
 		},
-		onMarkAsPaid(){
-			let id = this.paymentSlip.id
-			let status = 'Paid'
-			let paymentId = this.paymentSlip.payment.id
-			console.log(this.deleteCart)
-			this.$store.dispatch('updateOrder', {id: id, status: status, paymentId: paymentId, deletedIndex: this.deleteCart})
-			this.$store.dispatch('removePayment')
-			this.paymentSlip = null
+		onMarkAsPaid() {
+			let id = this.paymentSlip.id;
+			let status = "Paid";
+			let paymentId = this.paymentSlip.payment.id;
+			console.log(this.deleteCart);
+			this.$store.dispatch("updateOrder", {
+				id: id,
+				status: status,
+				paymentId: paymentId,
+				deletedIndex: this.deleteCart,
+			});
+			this.$store.dispatch("removePayment");
+			this.paymentSlip = null;
 		},
-		onCancel(){
-			let id = this.paymentSlip.id
-			let status = 'Cancelled'
-			console.log(this.deleteCart)
-			this.$store.dispatch('updateOrder', {id: id, status: status, deletedIndex: this.deleteCart})
-			this.$store.dispatch('removePayment')
-			this.paymentSlip = null
-		}
+		onCancel() {
+			let id = this.paymentSlip.id;
+			let status = "Cancelled";
+			console.log(this.deleteCart);
+			this.$store.dispatch("updateOrder", {
+				id: id,
+				status: status,
+				deletedIndex: this.deleteCart,
+			});
+			this.$store.dispatch("removePayment");
+			this.paymentSlip = null;
+		},
 	},
 	computed: {
 		carts() {
@@ -334,15 +363,15 @@ export default {
 		},
 
 		payment() {
-			let payment = this.$store.getters.payment
-			if(this.paymentSlip === null && payment){
-				console.log(payment)
-				this.paymentSlip = payment
-				console.log('if', this.paymentSlip)
-				this.dialog = true
+			let payment = this.$store.getters.payment;
+			if (this.paymentSlip === null && payment) {
+				console.log(payment);
+				this.paymentSlip = payment;
+				console.log("if", this.paymentSlip);
+				this.dialog = true;
 			}
-			if(this.paymentSlip === null){
-				this.dialog = false
+			if (this.paymentSlip === null) {
+				this.dialog = false;
 			}
 
 			return this.$store.getters.payment;

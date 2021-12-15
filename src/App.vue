@@ -5,7 +5,7 @@
 			:navTitle="currentRouteName"
 		/>
 		<v-main>
-			<router-view></router-view>
+			<router-view :key="$route.fullPath"></router-view>
 			<Footer v-if="currentRouteName !== 'login'" />
 		</v-main>
 	</v-app>

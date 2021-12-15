@@ -2,6 +2,7 @@
     <v-card
         class="product__images"
         flat
+        v-if="images"
     >
         <div class="product__sub-image">
             <v-item-group>
@@ -42,7 +43,7 @@ export default{
 	}),
 
     created(){
-        // this.currentImage = currentImage
+
     },
 
     methods: {
@@ -61,7 +62,6 @@ export default{
 				item.active = !item.active;
 			}
 
-            console.log(newImage)
 			this.$set(newImage, index, item);
             this.$emit('setImage', this.images[index].src)
             this.$emit('setImageSet', newImage)
