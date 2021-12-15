@@ -32,7 +32,8 @@
     "vuetify-loader": "^1.7.0"
   },
   "scripts": {
-    "start": "vue-cli-service serve"
+    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
   "author": "",
   "license": "ISC"
