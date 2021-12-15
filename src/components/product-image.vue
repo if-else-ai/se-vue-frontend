@@ -2,6 +2,7 @@
     <v-card
         class="product__images"
         flat
+        v-if="images"
     >
         <div class="product__sub-image">
             <v-item-group>
@@ -37,11 +38,12 @@ export default{
     props: ['images', 'currentImage'],
 
     data: () => ({
-        
+        failedImage: 'https://cdn.shopify.com/s/files/1/0335/2087/7700/products/gmk_olivia_plusplus_keyboard_no1rev2wkl_ortho_top_vertical.jpg?v=1601032933',
+        failedImage2: 'https://www.oliviaplus.plus/renders/0.jpg'
 	}),
 
     created(){
-        // this.currentImage = currentImage
+
     },
 
     methods: {
@@ -56,12 +58,10 @@ export default{
 					}
 				}
 			)
-            console.log(newImage)
-
 			if(item.active === false){
 				item.active = !item.active;
 			}
-            
+
 			this.$set(newImage, index, item);
             this.$emit('setImage', this.images[index].src)
             this.$emit('setImageSet', newImage)

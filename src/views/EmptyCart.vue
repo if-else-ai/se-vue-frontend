@@ -1,5 +1,6 @@
 <template>
     <div class="container my-5" style="text-align: center">
+        <h1> Cart is empty</h1>
        <img src="https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=170667a&w=0&h=kEh5VLsTHukWc7xf2BvUs8ssqS_d7vkK0-xU3MDpO7s=" width="200px"/> 
        <div class="mt-4">
            <h4 class="orange-red fw-600">Your cart is empty</h4>

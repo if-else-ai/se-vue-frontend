@@ -37,7 +37,7 @@
     </div>
 
     <section class="products__container" v-if="filteredProduct.length > 0">
-      <Product
+      <ProductCard
         v-for="product in filteredProduct"
         :key="product.id"
         :product="product"
@@ -82,7 +82,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   border-width: 1px;
   border-style: dashed;
   border-color: rgb(218, 218, 218);
@@ -104,10 +104,10 @@
 
 <script>
 import Tabs from "@/components/tabs.vue";
-import Product from "../components/product-card.vue";
+import ProductCard from "../components/product-card.vue";
 
 export default {
-  components: { Tabs, Product },
+  components: { Tabs, ProductCard },
   data: () => ({
     filterItem: [
       {
@@ -129,6 +129,7 @@ export default {
     products() {
       return this.filteredProduct;
     },
+    
     categoryQuery() {
       this.category = this.$route.query.category;
 
@@ -139,17 +140,18 @@ export default {
         filteredProduct = filteredProduct.filter((product) => {
           return (
             product.category === this.category ||
-            product.tags.includes(this.category)
+            product.tag.includes(this.category)
           );
         });
         this.filteredProduct = filteredProduct;
       }
-
       return this.$route.query.category;
     },
+
     image() {
       return this.$route.query.src;
     },
+
     productList() {
       // get product name and id
       let products = this.$store.getters.products;

@@ -9,7 +9,7 @@
 								? stateObj.register.name
 								: stateObj.login.name
 						}}
-						form</v-toolbar-title
+						</v-toolbar-title
 					>
 				</v-toolbar>
 				<v-card-text>
@@ -18,11 +18,11 @@
 						@submit.prevent="isRegister ? register() : login()"
 					>
 						<v-text-field
-							v-model="username"
-							name="username"
-							label="Username"
+							v-model="email"
+							name="email"
+							label="Email"
 							type="text"
-							placeholder="username"
+							placeholder="email"
 							required
 						></v-text-field>
 
@@ -73,7 +73,7 @@
 export default {
 	data: () => {
 		return {
-			username: "",
+			email: "",
 			password: "",
 			confirmPassword: "",
 			isRegister: false,
@@ -92,16 +92,15 @@ export default {
 	},
 	methods: {
 		login() {
-			const { username } = this;
-			this.$router.replace({
-				path: '/home',
-			});
+			const { email, password } = this;
+			this.$store.dispatch('login', {email: email, password: password})
 		},
 		register() {
 			if (this.password == this.confirmPassword) {
 				this.isRegister = false;
 				this.errorMessage = "";
 				this.$refs.form.reset();
+				this.$store.dispatch('register', {email: this.email,password: this.password})
 			} else {
 				this.errorMessage = "password did not match";
 			}

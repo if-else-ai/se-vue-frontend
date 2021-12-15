@@ -28,17 +28,12 @@
 
 			<!-- Icon  -->
 			<div class="nav-icon__container">
-				<v-menu transition="slide-y-transition" offset-y bottom open-on-hover>
+				<v-menu v-if="$store.getters.isAuthenticated" transition="slide-y-transition" offset-y bottom open-on-hover>
 					<template v-slot:activator="{ on, attrs }">
 						<v-btn v-bind="attrs" v-on="on" icon color="white">
 							<v-icon>mdi-account</v-icon>
 						</v-btn>
 					</template>
-					<!-- <v-list>
-						<v-list-item v-for="(item, i) in items" :key="i">
-							<v-list-item-title>{{ item.menu }}</v-list-item-title>
-						</v-list-item>
-					</v-list> -->
 					<v-list>
 						<v-list-item class="menu-link mx-4" @click="toProfile">
 							<v-list-item-title  > Profile </v-list-item-title>
@@ -48,6 +43,10 @@
 						</v-list-item>
 					</v-list>
 				</v-menu>
+
+				<v-btn class="mr-4" icon color="white" v-if="!$store.getters.isAuthenticated" @click="toLogin">
+					<v-icon>mdi-account</v-icon>Login
+				</v-btn>
 
 				<v-badge v-if="carts.length > 0"  dot color="red" overlap offset-x="18" offset-y="16">
 					<v-btn icon color="white" @click="toProductCart">
@@ -91,6 +90,9 @@ export default {
 		},
 		toProductCart(){
 			this.$router.push('/cart')
+		},
+		toLogin(){
+			this.$router.push('/login')
 		},
 		onLogout(){
 			this.$store.dispatch('logout')

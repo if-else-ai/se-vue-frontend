@@ -1,11 +1,10 @@
 <template>
 	<v-app>
 		<Navigation
-			v-if="currentRouteName !== 'login'"
 			:navTitle="currentRouteName"
 		/>
 		<v-main>
-			<router-view></router-view>
+			<router-view :key="$route.fullPath"></router-view>
 			<Footer v-if="currentRouteName !== 'login'" />
 		</v-main>
 	</v-app>
@@ -30,8 +29,9 @@ export default {
 
 	created() {
 		// Initialize App Variable
-		this.$store.dispatch("getProducts");
-		this.$store.dispatch("getCart");
+		this.$store.dispatch('getProducts');
+		this.$store.dispatch('tryRetrieveCart');
+		this.$store.dispatch("tryAutoLogin");
 	},
 
 	computed: {

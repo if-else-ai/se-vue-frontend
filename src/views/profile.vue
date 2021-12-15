@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="profile-container pt-4">
+    <div  class="profile-container pt-4">
       <v-card class="profile-menu" width="300" max-height="200" elevation="0">
         <v-list>
           <v-list-item class="py-1">
@@ -84,7 +84,7 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      v-model="userInfo.date"
+                      v-model="userInfo.dateOfBirth"
                       label=""
                       append-icon="mdi-calendar"
                       readonly
@@ -93,7 +93,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="userInfo.date"
+                    v-model="userInfo.dateOfBirth"
                     :active-picker.sync="activePicker"
                     :max="
                       new Date(
@@ -139,6 +139,21 @@
               </v-col>
             </v-row>
 
+            <v-row align="center" class="mt-0">
+              <v-col align="right" cols="2"> Tel </v-col>
+              <v-col class="ml-5" md="4">
+                <form class="email-field">
+                  <input
+                    type="text"
+                    id="tel"
+                    name="tel"
+                    placeholder="Tel Number"
+                    v-model="userInfo.telNo"
+                  />
+                </form>
+              </v-col>
+            </v-row>
+
             <v-row>
               <v-col cols="2"></v-col>
               <v-col class="ml-5" cols="2">
@@ -146,6 +161,7 @@
                   color="blue"
                   class="white--text"
                   :disabled="checkAccount"
+                  @click="updateUser"
                 >
                   บันทึก
                 </v-btn>
@@ -210,6 +226,7 @@
                   color="blue"
                   class="white--text"
                   :disabled="checkPassword"
+                  @click="updatePassword"
                 >
                   บันทึก
                 </v-btn>
@@ -225,9 +242,12 @@
         width="1100"
         elevation="0"
       >
-        <v-card class="pl-4" elevation="4" width="1100" height="400">
+        <v-card class="pl-4" elevation="4" width="1100" >
           <v-card-title class="ml-2"> ประวัติการสั่งซื้อ</v-card-title>
-          <v-divider class="mx-4"></v-divider>
+          <v-divider class="mx-4 mb-4"></v-divider>
+          <div v-if="order">
+            <OrderCard v-for="(item, index) in order" :key="index" :order="item"  /> 
+          </div>
           <v-card> </v-card>
         </v-card>
       </v-card>
@@ -236,13 +256,18 @@
 </template>
 
 <script>
+import OrderCard from '../components/order-card.vue'
+
 export default {
+  components: {
+    OrderCard
+  },
   data: () => ({
     menuList: [
       { title: "Account", icon: "mdi-account" },
       { title: "Order History", icon: "mdi-history" },
     ],
-    items: ["ชาย", "หญิง"],
+    items: ["Male", "Female"],
     activePicker: null,
     selectedMenu: "Account",
     menu: false,
@@ -252,6 +277,7 @@ export default {
       date: null,
       address: "",
       email: "",
+      telNo: ""
     },
     password: "",
     newPassword: "",
@@ -269,25 +295,32 @@ export default {
 
     changeMenu(title) {
       this.selectedMenu = title;
-      console.log(this.selectedMenu);
+    },
+    updateUser(){
+      this.userInfo.dateOfBirth = new Date (this.userInfo.dateOfBirth).toISOString()
+      this.$store.dispatch('saveUser', this.userInfo)
+    },
+    updatePassword(){
+      
     },
   },
 
   created() {
-    this.oldUserInfo = {
-      name: "John",
-      gender: "ชาย",
-      date: "2021-02-03",
-      address: "1234",
-      email: "john@email.com",
-    };
+    this.oldUserInfo = this.$store.getters.authorizedUser
+    this.$store.dispatch('getUserOrder', {id: this.oldUserInfo.id})
     this.userInfo = {
+      id: this.oldUserInfo.id,
       name: this.oldUserInfo.name,
       gender: this.oldUserInfo.gender,
-      date: this.oldUserInfo.date,
+      dateOfBirth: this.oldUserInfo.dateOfBirth.substring(0,10),
       address: this.oldUserInfo.address,
       email: this.oldUserInfo.email,
+      telNo: this.oldUserInfo.telNo,
+      password: this.oldUserInfo.password,
+      passwordSalt: this.oldUserInfo.password,
     };
+
+    
   },
 
   computed: {
@@ -303,15 +336,20 @@ export default {
     },
     checkAccount() {
       if (
-        this.userInfo.name !== this.oldUserInfo.name ||
+        (this.userInfo.name !== this.oldUserInfo.name ||
         this.userInfo.gender !== this.oldUserInfo.gender ||
         this.userInfo.date !== this.oldUserInfo.date ||
         this.userInfo.address !== this.oldUserInfo.address ||
-        this.userInfo.email !== this.oldUserInfo.email
+        this.userInfo.email !== this.oldUserInfo.email ||
+        this.userInfo.telNo !== this.oldUserInfo.telNo ) || (!isNaN(this.userInfo.telNo) && this.userInfo.telNo.length === 10 )
       ) {
         return false;
       }
       return true;
+    },
+    order(){
+      let order = this.$store.getters.userOrder
+      return order
     },
   },
 };
