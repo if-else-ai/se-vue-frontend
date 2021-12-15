@@ -34,6 +34,10 @@
     <Poppular />
     <v-divider></v-divider>
 
+    <!-- Gallery -->
+    <Gallery :image="gallerydata" />
+    <v-divider></v-divider>
+
     <!-- shop -->
     <div class="shop_container d-flex">
       <Shop v-for="(shop, index) in shopdata" :key="index" :web="shop" />
@@ -46,13 +50,16 @@
 <script>
 import Carousel from "@/components/home/carousel.vue";
 import Poppular from "../components/home/poppular.vue";
+import Gallery from "../components/home/gallery.vue"
+import galleryImage from "../assets/image/galleryImage";
 import Shop from "../components/home/shop.vue";
 import shopdata from "../assets/shop";
 
 export default {
-  components: { Carousel, Poppular, Shop },
+  components: { Carousel, Poppular, Gallery, Shop },
   data: () => ({
     shopdata: shopdata,
+    galerrydata:galleryImage,
   }),
 };
 </script>
