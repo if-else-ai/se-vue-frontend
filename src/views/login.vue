@@ -57,7 +57,7 @@
 							}}</v-btn
 						>
 						<div
-							class="grey--text mt-4"
+							class="grey--text mt-4 register-button"
 							v-on:click="isRegister = !isRegister"
 						>
 							{{ toggleMessage }}
@@ -117,6 +117,16 @@ export default {
 </script>
 
 <style scoped>
+.register-button {
+	cursor: pointer ;
+	transition: all 0.3s ease-in;
+}
+
+.register-button:hover {
+	color: blue !important;
+	transition: all 0.3s ease-in;
+}
+
 .signin-form {
 	display: flex;
 	flex-direction: column;

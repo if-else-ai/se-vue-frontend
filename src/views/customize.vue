@@ -60,7 +60,7 @@
 					<h2>Customize</h2></v-card-title
 				>
 				<v-card-subtitle class="product__price">
-					<h2>$ {{ price }}</h2>
+					<h2>$ {{ price.toFixed(2) }}</h2>
 				</v-card-subtitle>
 
 				<div class="custom-input__container">

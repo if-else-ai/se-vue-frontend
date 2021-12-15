@@ -6,7 +6,7 @@
           <v-list-item class="py-1">
             <v-icon class="mr-6">mdi-account</v-icon>
             <v-list-item-title class="">
-              Punnarat Rattanapawan
+              {{ userInfo.name === "" ? 'User' : userInfo.name  }}
             </v-list-item-title>
           </v-list-item>
           <v-divider class="mx-6"></v-divider>

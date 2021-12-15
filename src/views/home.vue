@@ -33,8 +33,6 @@
     <!-- Poppular Product -->
     <Poppular />
     <v-divider></v-divider>
-    <Poppular />
-    <v-divider></v-divider>
 
     <!-- shop -->
     <div class="shop_container d-flex">

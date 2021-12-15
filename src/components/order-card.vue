@@ -36,14 +36,14 @@
 								{{ `${option.name}: ${option.select}` }}
 							</p>
 							<p>
-								{{ `Price: ${product.price} $` }}
+								{{ `Price: ${product.price.toFixed(2)} $` }}
 							</p>
 							
 						</div>
 					</div>
 				</v-card>
 
-				<p class="order-total-price">{{`Total Price: ${order.detail.totalPrice} $`}}</p>
+				<p class="order-total-price">{{`Total Price: ${order.detail.totalPrice.toFixed(2)} $`}}</p>
 			</v-card>
 		</v-card>
 	</transition>

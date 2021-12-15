@@ -66,7 +66,7 @@ const actions = {
 				router.replace("/home");
 			})
 			.catch((error) => {
-				alert("เกิดข้อผิดพลาด");
+				alert("Invalid username or password");
 			});
 	},
 
@@ -130,6 +130,7 @@ const actions = {
 				let json = JSON.stringify(userData);
 				localStorage.setItem("user", json);
 				commit("storeUser", userData);
+				alert("Update Successfully");
 			})
 			.catch((err) => {
 				alert("fail store user");
