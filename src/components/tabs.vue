@@ -1,6 +1,6 @@
 <template>
   <v-container class="category__container">
-    <v-menu open-on-click offset-y>
+    <v-menu open-on-hover offset-y>
       <template v-slot:activator="{ attrs, on }">
         <!-- Main Category -->
         <v-tabs

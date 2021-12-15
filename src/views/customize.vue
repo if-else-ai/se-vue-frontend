@@ -124,6 +124,9 @@
 					<v-btn icon @click="increment">
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
+					<div class="green--text">
+						{{ quantityValidationText }}
+					</div>
 				</div>
 
 				<v-btn
@@ -250,6 +253,26 @@ export default {
 	},
 
 	computed: {
+		quantityValidationText() {
+			if (
+				this.quantity > (this.selectedKeyboard ? this.selectedKeyboard.detail.quantity : 999 ) ||
+				this.quantity > (this.selectedKeycap ? this.selectedKeycap.detail.quantity : 999 ) ||
+				this.quantity > (this.selectedSwitch ? this.selectedSwitch.detail.quantity : 999 )
+			) {
+				this.quantity =
+					Math.min[
+					   (this.selectedKeyboard ? this.selectedKeyboard.detail.quantity : 999,
+						this.selectedKeycap ? this.selectedKeycap.detail.quantity : 999,
+						this.selectedSwitch ? this.selectedSwitch.detail.quantity : 999)
+					];
+					if(!this.quantity){
+						this.quantity = 1
+					}
+					return 'quanity exceeded'
+			}
+			return "";
+		},
+
 		price() {
 			let price = 0;
 			let keyboardPrice = 0;

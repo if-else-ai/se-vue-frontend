@@ -67,6 +67,9 @@
 					<v-btn icon @click="increment">
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
+          <div class="green--text" >
+            {{ quantityCheckText }}
+          </div>
 				</div>
 				<v-btn
 					class="product__button mb-4"
@@ -176,7 +179,13 @@ export default {
 
     // add product
     increment() {
-      this.quantity += 1;
+      console.log(this.tempProduct)
+      if(this.quantity <= this.tempProduct.quantity){
+        this.quantity += 1;
+      }
+      if(this.quantity > this.tempProduct.quantity){
+        this.quantity = this.tempProduct.quantity
+      }
     },
     // decrease product
     decrement() {
@@ -217,6 +226,15 @@ export default {
 
     recommend() {
       return (this.$store.getters.products).slice(0,4)
+    },
+
+    quantityCheckText(){
+      console.log(11)
+      if(this.quantity >= this.tempProduct.quantity){
+        this.quantity = this.tempProduct.quantity
+        return `Available ${this.tempProduct.quantity}` 
+      }
+      return ''
     },
 
     product() {
@@ -276,6 +294,9 @@ export default {
           }),
         };
         this.currentImage = this.option.image[0].src;
+        // if(this.quantity > this.tempProduct.quantity) {
+        //   this.quantity = this.tempProduct.quantity
+        // }
       }
       return this.$store.getters.product;
     },
