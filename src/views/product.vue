@@ -217,6 +217,7 @@ export default {
         quantity: this.quantity,
         option: this.option.option,
         totalPrice: this.computedPrice,
+        available: this.tempProduct.quantity,
         image: this.option.image.map(element => {
           return element.src
         })
