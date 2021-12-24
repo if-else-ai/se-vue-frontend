@@ -27,7 +27,7 @@
 					<h2>{{ product.name }}</h2></v-card-title
 				>
 				<v-card-subtitle class="product__price">
-					<h2>$ {{ price.toFixed(2) }}</h2>
+					<h2>฿ {{ price.toFixed(2) }}</h2>
 				</v-card-subtitle>
 				<v-divider class="mx-6"></v-divider>
 

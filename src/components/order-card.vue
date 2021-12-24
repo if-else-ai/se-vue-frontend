@@ -47,7 +47,7 @@
 				</v-card>
 
 				<p class="order-total-price">
-					{{ `Total Price: ${order.detail.totalPrice.toFixed(2)} $` }}
+					{{ `Total Price: ${order.detail.totalPrice.toFixed(2)} ฿` }}
 				</p>
 			</v-card>
 		</v-card>

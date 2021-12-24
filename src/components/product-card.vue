@@ -25,7 +25,7 @@
       <!-- Product Price / Sold product -->
       <v-row>
         <v-col cols="auto" class="mr-auto price">
-          <p>$ {{ product.price }}</p>
+          <p>฿ {{ product.price }}</p>
         </v-col>
         <v-col cols="auto" class="selled">
           <p>Available {{ product.quantity }}</p>
