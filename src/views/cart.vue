@@ -66,6 +66,9 @@
 										<v-icon>mdi-plus</v-icon>
 									</v-btn>
 								</div>
+								<div v-if="item.available===item.quantity" class=" mx-2">
+									{{ `available ${ item.available}`}} 
+								</div>
 								<div class="cart__price mx-2">
 									{{ `฿ ${item.totalPrice.toFixed(2)}` }}
 								</div>
@@ -84,6 +87,8 @@
 			</v-card>
 			<EmptyCart v-else />
 		</v-card>
+
+
 		<div v-if="payment">
 			<v-dialog v-model="dialog" width="500" persistent>
 				<v-card>
@@ -193,8 +198,9 @@ export default {
 			// 	(this.cartItem[index].totalPrice /
 			// 		this.cartItem[index].quantity) *
 			// 	this.cartItem[index].quantity;
-
-			this.cartItem[index].quantity += 1;
+			if(this.cartItem[index].quantity<this.cartItem[index].available) {
+				this.cartItem[index].quantity += 1;
+			}
 			let quantity = this.cartItem[index].quantity;
 			let priceAddedPerUnit = this.cartItem[index].priceAddedPerUnit;
 			this.cartItem[index].totalPrice = quantity * priceAddedPerUnit;
