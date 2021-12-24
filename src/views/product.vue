@@ -27,7 +27,8 @@
 					<h2>{{ product.name }}</h2></v-card-title
 				>
 				<v-card-subtitle class="product__price">
-					<h2>฿ {{ price.toFixed(2) }}</h2>
+					<h2 v-if="product.quantity > 0">฿ {{ price.toFixed(2) }}</h2>
+					<h2 v-if="product.quantity == 0">฿ {{ product.price}}</h2>
 				</v-card-subtitle>
 				<v-divider class="mx-6"></v-divider>
 
@@ -56,20 +57,26 @@
 
 				<div class="product__add my-4">
 					<v-card class="ml-4 mr-4" flat> Quantity </v-card>
-					<v-btn icon @click="decrement">
-						<v-icon>mdi-minus</v-icon>
-					</v-btn>
-					<input
-						class="quantity-input"
-						type="text"
-						v-model="quantity"
-					/>
-					<v-btn icon @click="increment">
-						<v-icon>mdi-plus</v-icon>
-					</v-btn>
-					<div class="green--text">
-						{{ quantityCheckText }}
-					</div>
+					
+					<!-- <div v-if="product.quantity > 0"> -->
+
+							<v-btn icon @click="decrement">
+								<v-icon>mdi-minus</v-icon>
+							</v-btn>
+							<input
+								class="quantity-input"
+								type="text"
+								v-model="quantity"
+							/>
+							<v-btn icon @click="increment">
+								<v-icon>mdi-plus</v-icon>
+							</v-btn>
+
+						<div class="green--text">
+							{{ quantityCheckText }}
+						</div>
+					<!-- </div> -->
+					
 				</div>
 				<v-btn
 					v-if="product.quantity > 0"
@@ -247,6 +254,9 @@ export default {
 			console.log(11);
 			if (this.quantity >= this.tempProduct.quantity) {
 				this.quantity = this.tempProduct.quantity;
+				if(this.quantity == 0) {
+					return `out of stock`;
+				}
 				return `Available ${this.tempProduct.quantity}`;
 			}
 			return "";
@@ -457,4 +467,6 @@ export default {
 .product__item:hover {
 	color: black;
 }
+
+
 </style>
