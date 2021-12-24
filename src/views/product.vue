@@ -8,12 +8,12 @@
 		<div class="product-container pt-4">
 			<v-card width="800">
 				<ProductImage
-          v-if="option.image"
+					v-if="option.image"
 					:images="option.image"
 					:currentImage="currentImage"
 					@setImage="currentImage = $event"
 					@setImageSet="option.image = $event"
-          :key="option.id"
+					:key="option.id"
 				/>
 			</v-card>
 			<v-card
@@ -67,31 +67,29 @@
 					<v-btn icon @click="increment">
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
-					<div class="green--text" >
+					<div class="green--text">
 						{{ quantityCheckText }}
 					</div>
 				</div>
-				<div v-if="product.quantity > 0">
-					<v-btn
-						class="product__button mb-4"
-						block
-						outlined
-						@click="addToCart"
-					>
-						เพิ่มลงตะกร้า
-					</v-btn>
-				</div>
-				<div v-if="product.quantity <= 0">
-					<v-btn
-						class="product__button mb-4"
-						block
-						outlined
-						disabled
-						@click="addToCart"
-					>
-						เพิ่มลงตะกร้า
-					</v-btn>
-				</div>
+				<v-btn
+					v-if="product.quantity > 0"
+					class="product__button mb-4"
+					block
+					outlined
+					@click="addToCart"
+				>
+					เพิ่มลงตะกร้า
+				</v-btn>
+				<v-btn
+					v-if="product.quantity <= 0"
+					class="product__button mb-4"
+					block
+					outlined
+					disabled
+					@click="addToCart"
+				>
+					เพิ่มลงตะกร้า
+				</v-btn>
 			</v-card>
 		</div>
 		<v-card
@@ -106,14 +104,13 @@
 		</v-card>
 
 		<!-- สินค้าแนะนำ -->
-    <div class="d-flex ">
-		<ProductCard
-        v-for="product in recommend"
-        :key="product.id"
-        :product="product"
-      />
-      
-    </div>
+		<div class="d-flex ">
+			<ProductCard
+				v-for="product in recommend"
+				:key="product.id"
+				:product="product"
+			/>
+		</div>
 	</v-container>
 </template>
 
@@ -125,196 +122,206 @@ import ProductImage from "@/components/product-image.vue";
 import ProductCard from "@/components/product-card.vue";
 
 export default {
-  components: {
-    Tabs,
-    ProductImage,
-    ProductCard
-  },
-  data: () => ({
-    // failedImageSet: [
-    //   {
-    //   	src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
-    //   	active: true,
-    //   },
-    //   { src: "https://i.imgur.com/YazpFQt.jpg", active: false },
-    // ],
-    // failImage : 'https://i.imgur.com/YazpFQt.jpg',
-    currentImage: "",
-    option: [],
-    tempProduct: null,
-    selectedOption: null,
-    quantity: 1,
-    computedPrice: 0,
-  }),
+	components: {
+		Tabs,
+		ProductImage,
+		ProductCard,
+	},
+	data: () => ({
+		// failedImageSet: [
+		//   {
+		//   	src: "https://i.ytimg.com/vi/aQWH0ysGXy8/maxresdefault.jpg",
+		//   	active: true,
+		//   },
+		//   { src: "https://i.imgur.com/YazpFQt.jpg", active: false },
+		// ],
+		// failImage : 'https://i.imgur.com/YazpFQt.jpg',
+		currentImage: "",
+		option: [],
+		tempProduct: null,
+		selectedOption: null,
+		quantity: 1,
+		computedPrice: 0,
+	}),
 
-  created() {
-    this.$store.dispatch('getProduct', this.$route.query.productID);
-  },
+	created() {
+		this.$store.dispatch("getProduct", this.$route.query.productID);
+	},
 
-  methods: {
-    // trigger on pick option
-    getSelectedOption(optionIndex, selectedOptionIndex) {
-      // get SelectedOption => name of selectedOption
-      let selectedOption =
-        this.product.option[optionIndex].list[selectedOptionIndex];
-      // get selected option price
-      let priceAdded =
-        this.product.option[optionIndex].priceAdded[selectedOptionIndex];
+	methods: {
+		// trigger on pick option
+		getSelectedOption(optionIndex, selectedOptionIndex) {
+			// get SelectedOption => name of selectedOption
+			let selectedOption = this.product.option[optionIndex].list[
+				selectedOptionIndex
+			];
+			// get selected option price
+			let priceAdded = this.product.option[optionIndex].priceAdded[
+				selectedOptionIndex
+			];
 
-      // set seleceted option name
-      this.option.option[optionIndex].selected = selectedOption;
+			// set seleceted option name
+			this.option.option[optionIndex].selected = selectedOption;
 
-      // set selected option priceAdded
-      this.option.option[optionIndex].priceAdded = priceAdded;
-    },
+			// set selected option priceAdded
+			this.option.option[optionIndex].priceAdded = priceAdded;
+		},
 
-    changeImage(index) {
-      this.currentImage = this.images[index];
-      this.toggleActive(index);
-    },
+		changeImage(index) {
+			this.currentImage = this.images[index];
+			this.toggleActive(index);
+		},
 
-    toggleActive(index) {
-      let item = this.images[index];
+		toggleActive(index) {
+			let item = this.images[index];
 
-      this.images = this.images.map((item) => {
-        return {
-          src: item.src,
-          active: false,
-        };
-      });
+			this.images = this.images.map((item) => {
+				return {
+					src: item.src,
+					active: false,
+				};
+			});
 
-      if (item.active === false) {
-        item.active = !item.active;
-      }
+			if (item.active === false) {
+				item.active = !item.active;
+			}
 
-      this.$set(this.images, index, item);
-    },
+			this.$set(this.images, index, item);
+		},
 
-    // add product
-    increment() {
-      console.log(this.tempProduct)
-      if(this.quantity <= this.tempProduct.quantity){
-        this.quantity += 1;
-      }
-      if(this.quantity > this.tempProduct.quantity){
-        this.quantity = this.tempProduct.quantity
-      }
-    },
-    // decrease product
-    decrement() {
-      if (this.quantity > 1) {
-        this.quantity -= 1;
-      }
-    },
+		// add product
+		increment() {
+			console.log(this.tempProduct);
+			if (this.quantity <= this.tempProduct.quantity) {
+				this.quantity += 1;
+			}
+			if (this.quantity > this.tempProduct.quantity) {
+				this.quantity = this.tempProduct.quantity;
+			}
+		},
+		// decrease product
+		decrement() {
+			if (this.quantity > 1) {
+				this.quantity -= 1;
+			}
+		},
 
-    // add to cart
-    addToCart() {
-      let formData = {
-        id: this.option.id,
-        name: this.option.name,
-        category: this.option.category,
-        price: this.option.price,
-        quantity: this.quantity,
-        option: this.option.option,
-        totalPrice: this.computedPrice,
-        available: this.tempProduct.quantity,
-        image: this.option.image.map(element => {
-          return element.src
-        })
-      };
-      this.$store.dispatch('addCart', formData)
-    },
-  },
+		// add to cart
+		addToCart() {
+			let formData = {
+				id: this.option.id,
+				name: this.option.name,
+				category: this.option.category,
+				price: this.option.price,
+				quantity: this.quantity,
+				option: this.option.option,
+				totalPrice: this.computedPrice,
+				available: this.tempProduct.quantity,
+				image: this.option.image.map((element) => {
+					return element.src;
+				}),
+			};
+			this.$store.dispatch("addCart", formData);
+		},
+	},
 
-  computed: {
-    price() {
-      let addedPrice = 0;
-      if( this.option.option ){this.option.option.map((option) => {
-        addedPrice += option.priceAdded;
-      });
-      // Price = (BasePrice + AddedPrice) * Quantity
-      this.computedPrice = (this.option.price + addedPrice) * this.quantity;
-      }
-      return (this.option.price + addedPrice) * this.quantity;
-    },
+	computed: {
+		price() {
+			let addedPrice = 0;
+			if (this.option.option) {
+				this.option.option.map((option) => {
+					addedPrice += option.priceAdded;
+				});
+				// Price = (BasePrice + AddedPrice) * Quantity
+				this.computedPrice =
+					(this.option.price + addedPrice) * this.quantity;
+			}
+			return (this.option.price + addedPrice) * this.quantity;
+		},
 
-    recommend() {
-      return (this.$store.getters.products).slice(0,4)
-    },
+		recommend() {
+			return this.$store.getters.products.slice(0, 4);
+		},
 
-    quantityCheckText(){
-      console.log(11)
-      if(this.quantity >= this.tempProduct.quantity){
-        this.quantity = this.tempProduct.quantity
-        return `Available ${this.tempProduct.quantity}` 
-      }
-      return ''
-    },
+		quantityCheckText() {
+			console.log(11);
+			if (this.quantity >= this.tempProduct.quantity) {
+				this.quantity = this.tempProduct.quantity;
+				return `Available ${this.tempProduct.quantity}`;
+			}
+			return "";
+		},
 
-    product() {
-      // Initialize Product
-      let product = this.$store.getters.product;
-      if (product.name && this.option.length === 0) {
-        this.tempProduct = this.$store.getters.product;
-        product.image.length === 0 ? product.image = [
-          'https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png','https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png'
-        ] : product.image
+		product() {
+			// Initialize Product
+			let product = this.$store.getters.product;
+			if (product.name && this.option.length === 0) {
+				this.tempProduct = this.$store.getters.product;
+				product.image.length === 0
+					? (product.image = [
+							"https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png",
+							"https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png",
+					  ])
+					: product.image;
 
-        this.option = {
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          category: product.category,
-          quantity: this.quantity,
-          option: product.option.map((option) => {
-            return {
-              name: option.name,
-              select: option.list[0],
-              priceAdded: option.priceAdded[0],
-            };
-          }),
-          image: product.image.map((image, index) => {
-            return {
-              src: image,
-              active: index === 0 ? true : false,
-            };
-          }),
-        };
-        this.currentImage = this.option.image[0].src;
-      }
+				this.option = {
+					id: product.id,
+					name: product.name,
+					price: product.price,
+					category: product.category,
+					quantity: this.quantity,
+					option: product.option.map((option) => {
+						return {
+							name: option.name,
+							select: option.list[0],
+							priceAdded: option.priceAdded[0],
+						};
+					}),
+					image: product.image.map((image, index) => {
+						return {
+							src: image,
+							active: index === 0 ? true : false,
+						};
+					}),
+				};
+				this.currentImage = this.option.image[0].src;
+			}
 
-     if(this.option.id !== product.id) {
-       product.image.length == 0 ? product.image = [
-          'https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png','https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png'
-        ] : product.image
-        this.option = {
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          category: product.category,
-          quantity: this.quantity,
-          option: product.option.map((option) => {
-            return {
-              name: option.name,
-              select: option.list[0],
-              priceAdded: option.priceAdded[0],
-            };
-          }),
-          image: product.image.map((image, index) => {
-            return {
-              src: image,
-              active: index === 0 ? true : false,
-            };
-          }),
-        };
-        this.currentImage = this.option.image[0].src;
-        // if(this.quantity > this.tempProduct.quantity) {
-        //   this.quantity = this.tempProduct.quantity
-        // }
-      }
-      return this.$store.getters.product;
-    },
-  },
+			if (this.option.id !== product.id) {
+				product.image.length == 0
+					? (product.image = [
+							"https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png",
+							"https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png",
+					  ])
+					: product.image;
+				this.option = {
+					id: product.id,
+					name: product.name,
+					price: product.price,
+					category: product.category,
+					quantity: this.quantity,
+					option: product.option.map((option) => {
+						return {
+							name: option.name,
+							select: option.list[0],
+							priceAdded: option.priceAdded[0],
+						};
+					}),
+					image: product.image.map((image, index) => {
+						return {
+							src: image,
+							active: index === 0 ? true : false,
+						};
+					}),
+				};
+				this.currentImage = this.option.image[0].src;
+				// if(this.quantity > this.tempProduct.quantity) {
+				//   this.quantity = this.tempProduct.quantity
+				// }
+			}
+			return this.$store.getters.product;
+		},
+	},
 };
 </script>
 
