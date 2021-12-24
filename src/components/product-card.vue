@@ -25,10 +25,15 @@
       <!-- Product Price / Sold product -->
       <v-row>
         <v-col cols="auto" class="mr-auto price">
-          <p>฿ {{ product.price }}</p>
+            <p>฿ {{ product.price }}</p>
         </v-col>
         <v-col cols="auto" class="selled">
-          <p>Available {{ product.quantity }}</p>
+          <div v-if=" product.quantity > 0">
+            <p>Available {{ product.quantity }}</p>
+          </div>
+          <div v-if=" product.quantity <= 0">
+            <p>out of stock</p>
+          </div>
         </v-col>
       </v-row>
     </v-card>

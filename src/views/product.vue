@@ -67,18 +67,31 @@
 					<v-btn icon @click="increment">
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
-          <div class="green--text" >
-            {{ quantityCheckText }}
-          </div>
+					<div class="green--text" >
+						{{ quantityCheckText }}
+					</div>
 				</div>
-				<v-btn
-					class="product__button mb-4"
-					block
-					outlined
-					@click="addToCart"
-				>
-					เพิ่มลงตะกร้า
-				</v-btn>
+				<div v-if="product.quantity > 0">
+					<v-btn
+						class="product__button mb-4"
+						block
+						outlined
+						@click="addToCart"
+					>
+						เพิ่มลงตะกร้า
+					</v-btn>
+				</div>
+				<div v-if="product.quantity <= 0">
+					<v-btn
+						class="product__button mb-4"
+						block
+						outlined
+						disabled
+						@click="addToCart"
+					>
+						เพิ่มลงตะกร้า
+					</v-btn>
+				</div>
 			</v-card>
 		</div>
 		<v-card
