@@ -27,8 +27,10 @@
 					<h2>{{ product.name }}</h2></v-card-title
 				>
 				<v-card-subtitle class="product__price">
-					<h2 v-if="product.quantity > 0">฿ {{ price.toFixed(2) }}</h2>
-					<h2 v-if="product.quantity == 0">฿ {{ product.price}}</h2>
+					<h2 v-if="product.quantity > 0">
+						฿ {{ price.toFixed(2) }}
+					</h2>
+					<h2 v-if="product.quantity == 0">฿ {{ product.price }}</h2>
 				</v-card-subtitle>
 				<v-divider class="mx-6"></v-divider>
 
@@ -57,26 +59,25 @@
 
 				<div class="product__add my-4">
 					<v-card class="ml-4 mr-4" flat> Quantity </v-card>
-					
+
 					<!-- <div v-if="product.quantity > 0"> -->
 
-							<v-btn icon @click="decrement">
-								<v-icon>mdi-minus</v-icon>
-							</v-btn>
-							<input
-								class="quantity-input"
-								type="text"
-								v-model="quantity"
-							/>
-							<v-btn icon @click="increment">
-								<v-icon>mdi-plus</v-icon>
-							</v-btn>
+					<v-btn icon @click="decrement">
+						<v-icon>mdi-minus</v-icon>
+					</v-btn>
+					<input
+						class="quantity-input"
+						type="text"
+						v-model="quantity"
+					/>
+					<v-btn icon @click="increment">
+						<v-icon>mdi-plus</v-icon>
+					</v-btn>
 
-						<div class="green--text">
-							{{ quantityCheckText }}
-						</div>
+					<div class="green--text">
+						{{ quantityCheckText }}
+					</div>
 					<!-- </div> -->
-					
 				</div>
 				<v-btn
 					v-if="product.quantity > 0"
@@ -251,10 +252,9 @@ export default {
 		},
 
 		quantityCheckText() {
-			console.log(11);
 			if (this.quantity >= this.tempProduct.quantity) {
 				this.quantity = this.tempProduct.quantity;
-				if(this.quantity == 0) {
+				if (this.tempProduct.quantity == 0) {
 					return `out of stock`;
 				}
 				return `Available ${this.tempProduct.quantity}`;
@@ -297,7 +297,9 @@ export default {
 				this.currentImage = this.option.image[0].src;
 			}
 
+			// Check content
 			if (this.option.id !== product.id) {
+				this.tempProduct = product
 				product.image.length == 0
 					? (product.image = [
 							"https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png",
@@ -325,9 +327,7 @@ export default {
 					}),
 				};
 				this.currentImage = this.option.image[0].src;
-				// if(this.quantity > this.tempProduct.quantity) {
-				//   this.quantity = this.tempProduct.quantity
-				// }
+
 			}
 			return this.$store.getters.product;
 		},
@@ -467,6 +467,4 @@ export default {
 .product__item:hover {
 	color: black;
 }
-
-
 </style>
