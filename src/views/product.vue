@@ -300,6 +300,7 @@ export default {
 			// Check content
 			if (this.option.id !== product.id) {
 				this.tempProduct = product
+				this.quantity = 1
 				product.image.length == 0
 					? (product.image = [
 							"https://gitlab.com/uploads/-/system/project/avatar/3880238/Temp.png",
