@@ -79,6 +79,9 @@ const actions = {
 		});
 	},
 
+
+	
+
 	removePayment({ commit }) {
 		commit('removePayment')
 	},
@@ -87,27 +90,7 @@ const actions = {
 		commit('removeProduct')
 	},
 
-	updateOrder({ commit,dispatch }, orderData) {
-		if(orderData.paymentId){
-			axiosOrder.put('/order', {
-			id: orderData.id,
-			status: orderData.status,
-			trackingNumber: orderData.trackingStatus
-		}).then((res) => {
-			dispatch('updateCart', orderData.deletedIndex)
-		});
-		}
 
-		if(!orderData.paymentId){
-			axiosOrder.put('/order', {
-			id: orderData.id,
-			status: orderData.status,
-		}).then((res) => {
-			dispatch('updateCart', orderData.deletedIndex)
-		});
-		}
-		
-	},
 
 };
 

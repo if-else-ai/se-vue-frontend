@@ -323,7 +323,7 @@ export default {
 
 	created() {
 		this.oldUserInfo = this.$store.getters.authorizedUser;
-		this.$store.dispatch("getUserOrder", { id: this.oldUserInfo.id });
+		this.$store.dispatch("getOrders", { id: this.oldUserInfo.id });
 		this.userInfo = {
 			id: this.oldUserInfo.id,
 			name: this.oldUserInfo.name,
@@ -364,7 +364,7 @@ export default {
 			return true;
 		},
 		order() {
-			let order = this.$store.getters.userOrder;
+			let order = this.$store.getters.orders;
 			return order;
 		},
 	},

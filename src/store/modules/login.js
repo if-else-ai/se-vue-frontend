@@ -5,7 +5,6 @@ import axiosOrder from "../../api/axios-order.js";
 const state = {
 	idToken: null,
 	authorizedUser: null,
-	userOrder: null,
 };
 
 const mutations = {
@@ -23,9 +22,6 @@ const mutations = {
 		state.idToken = null;
 		state.userRole = null;
 		// state.userId = null
-	},
-	setOrder(state, orders) {
-		state.userOrder = orders;
 	},
 };
 
@@ -137,17 +133,7 @@ const actions = {
 			});
 
 	},
-	getUserOrder({ commit }, userData) {
-		axiosOrder
-			// .get(`/orders/${userData.id}`,)
-			.get(`/orderByUser/${userData.id}`)
-			.then((res) => {
-				commit("setOrder", res.data);
-			})
-			.catch((err) => {
-				alert("fail to get order");
-			});
-	},
+
 };
 
 const getters = {
@@ -159,9 +145,7 @@ const getters = {
 	isAuthenticated(state) {
 		return state.idToken !== null;
 	},
-	userOrder(state) {
-		return state.userOrder;
-	},
+
 };
 
 export default {

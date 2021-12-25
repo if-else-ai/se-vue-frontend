@@ -43,7 +43,7 @@ const actions = {
 		} else {
 			localStorage.setItem("cart", JSON.stringify([item]));
 		}
-		console.log(state.carts)
+		console.log(state.carts);
 	},
 
 	removeCart({ commit }, index) {
@@ -80,6 +80,8 @@ const actions = {
 			localStorage.setItem("cart", JSON.stringify(currentCart));
 		}
 	},
+
+	
 };
 
 // getters return requested data

@@ -1,6 +1,11 @@
 <template>
 	<transition appear>
-		<v-card class="product__container my-6" flat outlined>
+		<v-card class="product__container my-6" flat outlined @click="
+          $router.push({
+            path: `/order`,
+            query: { orderID: order.id },
+          })
+        ">
 			<v-card flat>
 				<!-- Main -->
 				<v-card-title class="d-flex flex-row justify-space-between ">
