@@ -1,5 +1,4 @@
 import axios from "../../api/axios.js";
-import axiosOrder from "../../api/axios-order.js";
 
 import products from "../../assets/products.json";
 
@@ -7,7 +6,6 @@ import products from "../../assets/products.json";
 const state = {
 	products: [],
 	product: {},
-	payment: null
 };
 
 // mutate state
@@ -17,12 +15,6 @@ const mutations = {
 	},
 	setProduct(state, product) {
 		state.product = product;
-	},
-	setPayment(state, data) {
-		state.payment = data;
-	},
-	removePayment(state){
-		state.payment = null
 	},
 	removeProduct(state){
 		state.product = {}
@@ -69,29 +61,6 @@ const actions = {
 			commit("setProduct", item);
 		});
 	},
-
-	sendOrder({ commit }, orderData) {
-
-		axiosOrder.post('/order', {
-			...orderData
-		}).then((res) => {
-			commit('setPayment', res.data)
-		});
-	},
-
-
-	
-
-	removePayment({ commit }) {
-		commit('removePayment')
-	},
-
-	removeProduct({ commit }) {
-		commit('removeProduct')
-	},
-
-
-
 };
 
 // getters return requested data
@@ -102,9 +71,6 @@ const getters = {
 	},
 	product(state) {
 		return state.product;
-	},
-	payment(state) {
-		return state.payment;
 	},
 	
 	// get assignment list -> assignment menu

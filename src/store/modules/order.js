@@ -32,6 +32,14 @@ const actions = {
 		});
 	},
 
+    sendOrder({ commit }, orderData) {
+		axios.post('/order', {
+			...orderData
+		}).then((res) => {
+			commit('setPayment', res.data)
+		});
+	},
+
     updateOrder({ commit, dispatch }, orderData) {
 		if (orderData.paymentId) {
 			axios

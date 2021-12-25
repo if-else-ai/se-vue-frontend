@@ -5,6 +5,7 @@ import product from "./modules/product.js";
 import login from "./modules/login.js";
 import cart from "./modules/cart.js";
 import order from "./modules/order.js";
+import payment from "./modules/payment.js";
 
 // State management in vue
 Vue.use(Vuex);
@@ -15,6 +16,7 @@ export default new Vuex.Store({
 		product,
 		login,
 		cart,
-		order
+		order,
+		payment
 	},
 });
