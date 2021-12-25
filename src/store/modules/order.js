@@ -8,7 +8,10 @@ const state = {
 
 const mutations = {
 	setOrders(state, orders) {
-		state.Orders = orders;
+		state.orders = orders;
+	},
+	setOrder(state, order) {
+		state.order = order;
 	},
 };
 
@@ -25,13 +28,17 @@ const actions = {
 			});
 	},
 
-	getOrder({ commit }, orderData) {
-		axios.post('/order', 
+	getOrder({ commit }, orderID) {
+		axios.get(`/orderById/${orderID}`, 
 		).then((res) => {
-			
+			commit("setOrder", res.data);
+			console.log(11,res.data)
 		});
 	},
 
+	// store order to backend
+	// and then get payment data from backend 
+	// and set to state
     sendOrder({ commit }, orderData) {
 		axios.post('/order', {
 			...orderData
@@ -40,18 +47,21 @@ const actions = {
 		});
 	},
 
+	// onPaid / onCancel payment
     updateOrder({ commit, dispatch }, orderData) {
+		// paid Order
 		if (orderData.paymentId) {
 			axios
 				.put("/order", {
 					id: orderData.id,
 					status: orderData.status,
-					trackingNumber: orderData.trackingStatus,
+					trackingNumber: orderData.trackingStatus, // add tracking number ''
 				})
 				.then((res) => {
 					dispatch("updateCart", orderData.deletedIndex);
 				});
 		}
+		// cancel Order
 		if (!orderData.paymentId) {
 			axios
 				.put("/order", {
@@ -69,7 +79,10 @@ const actions = {
 const getters = {
 	// get login'd user
 	orders(state) {
-		return state.Orders;
+		return state.orders;
+	},
+	order(state) {
+		return state.order;
 	},
 };
 

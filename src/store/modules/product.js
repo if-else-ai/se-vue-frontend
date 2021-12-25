@@ -23,36 +23,19 @@ const mutations = {
 
 // action -> define app data logic
 const actions = {
-	// get assignemnt => GET
+	// get Product => GET
 	getProducts({ commit }) {
-		// commit('setProducts', products.products)
-
 		// store products in State
 		axios.get("/products").then((res) => {
 			let item = res.data;
 			item = item.filter( item => {
 				return (item.image !== null && item.image.length >= 2 )
 			})
-			// item = item.map((item) => {
-			// 	return {
-			// 		...item,
-			// 		image:
-			// 			item.image === null
-			// 				? []
-			// 				: item.image,
-			// 	};
-			// });
-			
 			commit("setProducts", item);
 		});
 	},
 
 	getProduct({ commit }, productID) {
-		// let array = products.products.filter(
-		// 	product => {
-		// 		return product.id === productID.productID
-		// 	})
-		// commit('setProduct', array[0])
 		axios.get(`/product/${productID}`).then((res) => {
 			let item = res.data;
 			item.image === null
@@ -61,6 +44,7 @@ const actions = {
 			commit("setProduct", item);
 		});
 	},
+	
 };
 
 // getters return requested data

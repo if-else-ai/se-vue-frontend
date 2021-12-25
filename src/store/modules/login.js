@@ -67,6 +67,7 @@ const actions = {
 	},
 
 	// re-login when token is not expired
+	// expire after 1 hour
 	tryAutoLogin({ commit }) {
 		// Check token from localStorage
 		const token = localStorage.getItem("token");
@@ -76,10 +77,11 @@ const actions = {
 		// Check if token is expired
 		const expirationDate = new Date(localStorage.getItem("expirationDate"));
 		const now = new Date();
+		// if token is expire -> return
 		if (now >= expirationDate) {
 			return;
 		}
-		// Authorize user
+		// Authorize user and set on local storage
 		let userData = localStorage.getItem("user");
 		if (userData) {
 			userData = JSON.parse(userData);
@@ -98,11 +100,15 @@ const actions = {
 		localStorage.removeItem("user");
 		router.replace("/login");
 	},
+
+	// store user on localStorage and state
 	storeUser({ commit }, userData) {
 		let json = JSON.stringify(userData);
 		localStorage.setItem("user", json);
+		// 
 		commit("storeUser", userData);
 	},
+	// send register data to backend
 	register({ commit }, userData) {
 		axios
 			.post("/register", {
@@ -112,6 +118,7 @@ const actions = {
 			.then((res) => alert("Register Successfully"))
 	},
 
+	// saveUser on update data
 	saveUser({ commit }, userData) {
 		axios
 			.put(`/users/${userData.id}`, {

@@ -18,9 +18,6 @@ const actions = {
 	removePayment({ commit }) {
 		commit('removePayment')
 	},
-	removeProduct({ commit }) {
-		commit('removeProduct')
-	},
 };
 
 // getters return requested data

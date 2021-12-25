@@ -26,26 +26,11 @@ const routes = [
 		name: "home",
 		component: () => import("../views/home.vue"),
 	},
-	// {
-	// 	path: "/keyboard",
-	// 	name: "keyboard",
-	// 	component: () => import("../views/keyboard.vue"),
-	// },
 	{
 		path: "/customize",
 		name: "customize",
 		component: () => import("../views/customize.vue"),
 	},
-	// {
-	// 	path: "/accesories",
-	// 	name: "accesories",
-	// 	component: () => import("../views/accesories.vue"),
-	// },
-	// {
-	// 	path: "/tools",
-	// 	name: "tools",
-	// 	component: () => import("../views/tools.vue"),
-	// },
 	{
 		path: "/login",
 		name: "login",

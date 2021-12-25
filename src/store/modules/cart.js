@@ -10,6 +10,7 @@ const state = {
 
 // mutate state
 const mutations = {
+	
 	setCart(state, item) {
 		state.carts = item;
 	},
@@ -26,14 +27,9 @@ const mutations = {
 
 // action -> define app data logic
 const actions = {
-	// get assignemnt => GET
-	getCart({ commit }) {
-		let cart = [];
-		commit("setCart", cart);
-	},
+	// add cart Item
 	addCart({ commit, state }, item) {
 		commit("addCart", item);
-
 		let previousCart = localStorage.getItem("cart");
 		if (previousCart) {
 			let parseCart = JSON.parse(previousCart);
@@ -46,14 +42,15 @@ const actions = {
 		console.log(state.carts);
 	},
 
+	// removeCart from 
 	removeCart({ commit }, index) {
 		commit("removeCart", index);
-
 		let removedCart = state.carts;
 		removedCart = JSON.stringify(removedCart);
 		localStorage.setItem("cart", removedCart);
 	},
 
+	// retrieve data from localstorage
 	tryRetrieveCart({ commit }) {
 		// // Check token from localStorage
 		const cart = localStorage.getItem("cart");
@@ -64,12 +61,14 @@ const actions = {
 		commit("setCart", cartItem);
 	},
 
+	// clear cart at localstorage and state
 	clearCart({ commit }) {
 		let emptyCart = [];
 		commit("setCart", emptyCart);
 		localStorage.removeItem("cart");
 	},
 
+	// update cart / delete at n index or clear cart
 	updateCart({ commit, dispatch }, index) {
 		if (index === -1) {
 			dispatch("clearCart");
