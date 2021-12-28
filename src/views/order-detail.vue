@@ -181,6 +181,7 @@ export default {
 
 		status() {
 			let order = this.$store.getters.order;
+			let orderDetail = order
 			order = order.updateDate.map((text, index) => {
 				switch (index) {
 					case 0:
@@ -207,7 +208,14 @@ export default {
 						return "";
 				}
 			});
+			console.log(orderDetail)
 			this.orderText = order;
+			// If Order Is Completed -> return latest update order
+			if(orderDetail.status === 'Completed'){
+				console.log(orderDetail.status)
+				this.orderText[this.orderText.length - 1] = `จัดส่งสำเร็จ ${this.getDate(orderDetail.updateDate[orderDetail.updateDate.length - 1])}`
+				this.shipStatus = 4
+			}
 			return this.orderText;
 		},
 	},
