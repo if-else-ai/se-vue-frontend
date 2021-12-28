@@ -94,9 +94,8 @@
 					block
 					outlined
 					disabled
-					@click="addToCart"
 				>
-					เพิ่มลงตะกร้า
+					Out Of Stock
 				</v-btn>
 			</v-card>
 		</div>

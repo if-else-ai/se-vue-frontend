@@ -32,7 +32,6 @@ const actions = {
 		axios.get(`/orderById/${orderID}`, 
 		).then((res) => {
 			commit("setOrder", res.data);
-			console.log(11,res.data)
 		});
 	},
 

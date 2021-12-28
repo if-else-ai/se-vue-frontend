@@ -10,7 +10,7 @@
 				<!-- Main -->
 				<v-card-title class="d-flex flex-row justify-space-between ">
 					<div>Order#{{ order.id }}</div>
-					<div>Status - {{ order.status }}</div>
+					<div>Status - {{ `${order.status} ${order.trackingNumber}` }}</div>
 				</v-card-title>
 				<v-divider></v-divider>
 				<!-- Product -->
@@ -103,6 +103,7 @@ export default {
 .cart__content .order__image {
 	flex: none;
 }
+
 .cart__content {
 	display: flex;
 	flex-direction: row;

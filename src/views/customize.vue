@@ -312,7 +312,6 @@ export default {
         this.currentImage = this.selectedKeycap.detail.image[0];
         this.selectedTab = 2;
       }
-      console.log(this.selectedSwitch);
 
       price = (keyboardPrice + switchPrice * 80 + keycapPrice) * this.quantity;
       this.computedPrice = price;

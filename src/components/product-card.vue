@@ -32,7 +32,7 @@
             <p>Available {{ product.quantity }}</p>
           </div>
           <div v-if=" product.quantity <= 0">
-            <p>out of stock</p>
+            <p>Out of stock</p>
           </div>
         </v-col>
       </v-row>

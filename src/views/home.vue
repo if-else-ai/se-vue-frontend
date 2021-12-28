@@ -35,7 +35,7 @@
     <v-divider></v-divider>
 
     <!-- Gallery -->
-    <Gallery :image="gallerydata" />
+    <Gallery :image="gallerrydata" />
     <v-divider></v-divider>
 
     <!-- shop -->
@@ -59,7 +59,7 @@ export default {
   components: { Carousel, Poppular, Gallery, Shop },
   data: () => ({
     shopdata: shopdata,
-    galerrydata:galleryImage,
+    gallerrydata:galleryImage,
   }),
 };
 </script>

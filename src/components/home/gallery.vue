@@ -11,8 +11,8 @@
 			<div class="gallery__image">
 				<v-row>
 					<v-col
-						v-for="n in galleryImage"
-						:key="n"
+						v-for="(n,index) in galleryImage"
+						:key="index"
 						class="d-flex child-flex"
 						cols="3"
 					>
