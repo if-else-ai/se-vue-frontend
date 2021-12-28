@@ -318,7 +318,13 @@ export default {
 			).toISOString();
 			this.$store.dispatch("saveUser", this.userInfo);
 		},
-		updatePassword() {},
+		updatePassword() {
+			let formData = {
+				oldPassword: this.password,
+				newPassword: this.newPassword
+			}
+			this.$store.dispatch("updatePassword", {formData: formData, id: this.oldUserInfo.id})
+		},
 	},
 
 	created() {

@@ -139,6 +139,21 @@ const actions = {
 				alert("fail store user");
 			});
 
+
+	},
+	updatePassword({ commit }, userData) {
+		axios
+			.put(`/users/${userData.id}/password`, {
+				...userData.formData
+			})
+			.then((res) => {
+				alert("Update Password Successfully");
+				console.log(res)
+			})
+			.catch((err) => {
+				alert("Fail to update Password");
+			});
+
 	},
 
 };
