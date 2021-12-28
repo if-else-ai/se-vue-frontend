@@ -208,10 +208,10 @@ export default {
 						return "";
 				}
 			});
-			console.log(orderDetail)
 			this.orderText = order;
+			this.orderText.splice(6, this.orderText.length)
 			// If Order Is Completed -> return latest update order
-			if(orderDetail.status === 'Completed'){
+			if(orderDetail.status === 'Completed' ){
 				console.log(orderDetail.status)
 				this.orderText[this.orderText.length - 1] = `จัดส่งสำเร็จ ${this.getDate(orderDetail.updateDate[orderDetail.updateDate.length - 1])}`
 				this.shipStatus = 4
