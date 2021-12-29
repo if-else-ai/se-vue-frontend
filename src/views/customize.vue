@@ -52,7 +52,7 @@
       >
         <v-card-title class="product__name"> <h2>Customize</h2></v-card-title>
         <v-card-subtitle class="product__price">
-          <h2>$ {{ price.toFixed(2) }}</h2>
+          <h2>฿ {{ price.toFixed(2) }}</h2>
         </v-card-subtitle>
 
         <div class="custom-input__container">
@@ -67,7 +67,7 @@
           >
           </v-autocomplete>
           <div v-if="selectedKeyboard" class="option__price">
-            {{ `${selectedKeyboard.detail.price} $` }}
+            {{ `${selectedKeyboard.detail.price} ฿` }}
           </div>
         </div>
 
@@ -84,7 +84,7 @@
           >
           </v-autocomplete>
           <div v-if="selectedSwitch" class="option__price">
-            {{ `${selectedSwitch.detail.price * 80} $` }}
+            {{ `${selectedSwitch.detail.price * 80} ฿` }}
           </div>
         </div>
 
@@ -99,7 +99,7 @@
           >
           </v-autocomplete>
           <div v-if="selectedKeycap" class="option__price">
-            {{ `${selectedKeycap.detail.price} $` }}
+            {{ `${selectedKeycap.detail.price} ฿` }}
           </div>
         </div>
 
